@@ -1,10 +1,16 @@
+/*
+ * ePilkarzyki - gra w pilkarzyki na kartce poprzez lacze internetowe
+ *
+ * Main.java - stad staruje projekt
+ *
+ */
+
 package tiwjj;
 
-// : c14:List.java
-// <applet code=List width=250 height=375></applet>
-// From 'Thinking in Java, 3rd ed.' (c) Bruce Eckel 2002
-// www.BruceEckel.com. See copyright notice in CopyRight.txt.
-
+/**
+ *
+ * @author yarpo
+ */
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
