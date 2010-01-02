@@ -14,7 +14,7 @@ import java.awt.event.*;
 public class EndGame implements ActionListener  {
     public void actionPerformed(ActionEvent e)
     {
-        javax.swing.JOptionPane.showMessageDialog(null, "alert " + e.getActionCommand() +"\n",
+        javax.swing.JOptionPane.showMessageDialog(null, "Koniec gry",
               "Komunikat", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
 }
