@@ -29,10 +29,14 @@ public class Playground extends Canvas {
     public static class Size {
         final static public int WIDTH   = 225;
         final static public int HEIGHT  = 300;
-        final static public int PointX  = 5;
-        final static public int PointY  = 5;
-        final static public int VerticalGap   = 14;
+        final static public int PointX  = 4;
+        final static public int PointY  = 4;
+        final static public int StartXGrass      = 2;
+        final static public int StartYGrass      = 10;
+        final static public int VerticalGap   = 20;
         final static public int HorizontalGap = 20;
+        final static public int PlaygroundWidth  = VerticalGap*11;
+        final static public int PlaygroundHeight = HorizontalGap*13;
         final static public int GoalWidth  = 45;
         final static public int GoalHeight = 5;
         final static public int HoverAreaX = 29;
@@ -133,10 +137,16 @@ public class Playground extends Canvas {
     private void drawPoints(Graphics g)
     {
         g.setColor(Colors.Points);
-        for (int i = 0; i < Size.WIDTH; i += Size.HorizontalGap)
+        int x_start = Size.StartXGrass - (int)Size.PointX/2,
+            y_start = Size.StartYGrass - (int)Size.PointY/2,
+            x_stop  = Size.PlaygroundWidth + x_start,
+            y_stop  = Size.PlaygroundHeight + y_start;
+
+        for (int i = x_start; i <= x_stop; i+= Size.VerticalGap)
         {
-            for (int j = 0; j < Size.HEIGHT; j += Size.VerticalGap)
+            for (int j = y_start; j <= y_stop; j+= Size.HorizontalGap)
             {
+                
                 if (this.isFocused(new Point(i, j)))
                 {
                     g.setColor(Colors.HoverPoints);
@@ -162,8 +172,7 @@ public class Playground extends Canvas {
     private void drawGrass(Graphics g)
     {
         g.setColor(this.bgColor);
-        g.fillRect(0, 0, Size.WIDTH, Size.HEIGHT);
-        //g.setBackground();
+        g.fillRect(Size.StartXGrass, Size.StartYGrass, Size.PlaygroundWidth, Size.PlaygroundHeight);
     }
 
     private void drawMove(Graphics g, Move m)
