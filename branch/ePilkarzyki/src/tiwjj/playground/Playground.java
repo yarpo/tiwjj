@@ -9,14 +9,10 @@ package tiwjj.playground;
  *
  * @author yarpo
  */
-import java.awt.Canvas;
-import java.awt.*;//CanvasPane;
-import javax.swing.*;//CanvasPane;
+import java.awt.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Image;
-//import java.util.*;
 import java.util.Vector;
 import java.util.Iterator;
 
@@ -24,23 +20,24 @@ public class Playground extends Canvas {
 
     private Point hoverPoint;   // punkt nad ktorym aktualnie jest kursor
     private Vector<Move> moves; // ruchy jakie wykonali gracze
- //   private Image image;        // obrazek tla
 
     public static class Size {
-        final static public int WIDTH   = 225;
-        final static public int HEIGHT  = 300;
         final static public int PointX  = 4;
         final static public int PointY  = 4;
+        final static public int PointsX = 10;
+        final static public int PointsY = 12;
         final static public int StartXGrass      = 2;
         final static public int StartYGrass      = 10;
         final static public int VerticalGap   = 20;
         final static public int HorizontalGap = 20;
-        final static public int PlaygroundWidth  = VerticalGap*11;
-        final static public int PlaygroundHeight = HorizontalGap*13;
+        final static public int PlaygroundWidth  = VerticalGap*PointsX;
+        final static public int PlaygroundHeight = HorizontalGap*PointsY;
+        final static public int WIDTH   = PlaygroundWidth+StartXGrass*2;
+        final static public int HEIGHT  = PlaygroundHeight+StartYGrass*2;
         final static public int GoalWidth  = 45;
         final static public int GoalHeight = 5;
-        final static public int HoverAreaX = 29;
-        final static public int HoverAreaY = 20;
+        final static public int HoverAreaX = 30;
+        final static public int HoverAreaY = 30;
     }
 
     public static class Colors {
@@ -54,12 +51,15 @@ public class Playground extends Canvas {
     }
 
     private Color bgColor = Colors.Normal;
+    private int xCenter = (int)(Size.PlaygroundWidth/2) +  Size.StartXGrass;
+    private int yCenter = (int)(Size.PlaygroundHeight/2) + Size.StartYGrass;
 
     public Playground()
     {
         this.hoverPoint = new Point(Size.WIDTH/2, Size.HEIGHT/2);
         this.moves = new Vector<Move>();
-        this.moves.add(new Move(new Point(120, 120), new Point(120, 120), 0));
+        this.moves.add(new Move(new Point(this.xCenter, this.yCenter),
+                                new Point(this.xCenter, this.yCenter), 0));
     }
 
     public void mouseOver()
@@ -83,19 +83,9 @@ public class Playground extends Canvas {
     private void drawLines(Graphics g)
     {
         g.setColor(Colors.Lines);
-        // pole karne 1
-        g.drawLine(80, 0, 80, 40);
-        g.drawLine(80, 40, 160, 40);
-        g.drawLine(160, 40, 160, 0);
-        // pole karne 2
-        g.drawLine(80, 300, 80, 260);
-        g.drawLine(80, 260, 160, 260);
-        g.drawLine(160, 300, 160, 260);
+        g.drawLine(Size.StartXGrass, this.yCenter, Size.PlaygroundWidth,
+                                                            this.yCenter);
 
-        // liia srodkowa
-        g.drawLine(0, 150, 240, 150);
-        // kolko na srodku
-        g.drawOval(95, 125, 50, 50);
     }
 
     private boolean isFocused(Point p)
@@ -146,7 +136,6 @@ public class Playground extends Canvas {
         {
             for (int j = y_start; j <= y_stop; j+= Size.HorizontalGap)
             {
-                
                 if (this.isFocused(new Point(i, j)))
                 {
                     g.setColor(Colors.HoverPoints);
@@ -157,7 +146,6 @@ public class Playground extends Canvas {
                     g.drawRect(i, j, Size.PointX, Size.PointY);
                 }
                 g.setColor(Colors.Points);
-              //  g.drawRect(i, j, Size.PointX, Size.PointY);
             }
         }
     }
@@ -202,14 +190,6 @@ public class Playground extends Canvas {
 
     public void update()
     {
-      /*  CanvasPane canvas = new CanvasPane();
-        Image canvasImage = canvas.createImage(size.width, size.height);
-
-        Graphics g = this.getGraphics();
-        try {
-            Image image1 = Image.createImage("/cartoon.png");
-        } catch(Exception e) {}
-        */
         Graphics g = this.getGraphics();
 
         drawGrass(g);

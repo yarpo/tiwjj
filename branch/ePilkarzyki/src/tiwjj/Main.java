@@ -22,8 +22,8 @@ import tiwjj.playground.*;
 
 public class Main extends JApplet {
 
-    private static final int DEFAULT_WIDTH = 300;
-    private static final int DEFAULT_HEIGHT = 400;
+    private static final int DEFAULT_WIDTH = 270;
+    private static final int DEFAULT_HEIGHT = 350;
 
     private void createMenuBar()
     {
@@ -100,11 +100,11 @@ public class Main extends JApplet {
         setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
         createCanvas();
     }
-    
+    /*
     public static void main(String[] args) {
         run(new Main(), 300, 400);
     }
-
+*/
     private static void createFrame(JApplet applet, int w, int h)
     {
         JFrame frame = new JFrame("e-Piłkarzyki");
