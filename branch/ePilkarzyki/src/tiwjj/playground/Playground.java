@@ -26,8 +26,8 @@ public class Playground extends Canvas {
         final static public int PointY  = 4;
         final static public int PointsX = 10;
         final static public int PointsY = 12;
-        final static public int StartXGrass      = 2;
-        final static public int StartYGrass      = 10;
+        final static public int StartXGrass   = 2;
+        final static public int StartYGrass   = 10;
         final static public int VerticalGap   = 20;
         final static public int HorizontalGap = 20;
         final static public int PlaygroundWidth  = VerticalGap*PointsX;
@@ -47,6 +47,7 @@ public class Playground extends Canvas {
         public static final Color Points = new Color(100, 100, 100);
         public static final Color HoveredPoint = Color.blue;
         public static final Color FocusedPoint = Color.black;
+        public static final Color CurrentPoint = Color.red;
         public static final Color Goals = new Color(255, 255, 255);
         public static final Color [] Teams = {Color.black, Color.white};
     }
@@ -176,18 +177,124 @@ public class Playground extends Canvas {
     private void drawMoves(Graphics g)
     {
         Iterator move = this.moves.iterator();
+        Move m = null;
         while(move.hasNext())
         {
-            drawMove(g, (Move)move.next());
+            m = (Move)move.next();
+            drawMove(g, m);
+        }
+
+        if (null != m)
+        {
+            Point current = m.getEnd();
+            g.setColor(Colors.CurrentPoint);
+            g.fillRect(current.x-2, current.y-2, Size.PointX, Size.PointY);
         }
     }
 
+    private int round(int x, int m)
+    {
+        int tmp = x%m;
+        if (tmp >= (int)(m/2))
+        {
+            x += (m - tmp);
+        }
+        else
+        {
+            x -= tmp;
+        }
+        return x;
+    }
+
+    private Point calculateNextMove(Point p)
+    {
+        p.x = round(p.x - this.xStart, Size.HorizontalGap) + this.xStart + 2;
+        p.y = round(p.y - this.yStart, Size.VerticalGap) + this.yStart + 2;
+
+        return p;
+    }
+
+    private int a = 0;
+
+    private boolean isEmpty(Point s, Point e)
+    {
+        System.out.println("isEmpty");
+        Iterator move = this.moves.iterator();
+        int i = 0;
+        while(move.hasNext())
+        {
+            System.out.println("i = " + i++);
+            Move m = (Move)move.next();
+            Point c = m.getStart();
+            Point b = m.getEnd();
+            System.out.println("c " + c);
+            System.out.println("b " + b);
+            System.out.println("s " + s);
+            System.out.println("e " + e);
+
+            if ((s.x == c.x && s.y == c.y && e.x == b.x && e.y == b.y)
+                    ||
+                (s.x == b.x && s.y == b.y && e.x == c.x && e.x == c.y))
+            {
+                System.out.println("Zajety");
+                return false;
+            }
+            else
+            {
+                System.out.println("Nie zajety");
+            }
+            //return true;
+        }
+        return true;
+    }
+
+    private boolean possibleMove(Point s, Point e)
+    {
+        int x_point = Size.PointX/2;
+        int y_point = Size.PointY/2;
+
+        // nie jest na polu
+        if ((s.x > Size.PlaygroundWidth + x_point || s.x < Size.StartXGrass - x_point)
+            ||
+            (s.y > Size.PlaygroundHeight + y_point || s.y < Size.StartYGrass - y_point))
+        {
+            System.out.println("poza polem!");
+            return false;
+        }
+
+        // jest zbyt daleko od aktualnego punktu
+        int a = Math.abs(s.x-e.x);
+            a = a*a;
+        int b = Math.abs(s.y-e.y);
+            b = b*b;
+        double t = a+b;
+        double c = Math.sqrt(t);
+        double max = Math.sqrt(Size.VerticalGap*Size.VerticalGap + Size.HorizontalGap*Size.HorizontalGap);
+        if (c > max)
+        {
+            System.out.println("Zbyt duzy skok");
+            return false;
+        }
+
+        return this.isEmpty(s, e);
+    }
+
+
     public void addMove(Point p)
     {
+        p = this.calculateNextMove(p);
         Move m = this.moves.lastElement();
         Point s = m.getEnd();
-        this.moves.add(new Move(s, p, 0));
-        update();
+        if (possibleMove(p, s))
+        {
+            this.moves.add(new Move(s, p, (this.a = (this.a+1)%2)));
+            update();
+        }
+        else
+        {
+            System.out.println("Nie mozesz!");
+        }
+        
     }
 
     public void update()
