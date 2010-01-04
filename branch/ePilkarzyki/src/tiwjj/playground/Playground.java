@@ -45,7 +45,8 @@ public class Playground extends Canvas {
         public static final Color Hover  = new Color(100, 150, 50);
         public static final Color Lines  = new Color(140, 240, 180);
         public static final Color Points = new Color(100, 100, 100);
-        public static final Color HoverPoints = new Color(50, 50, 50);
+        public static final Color HoveredPoint = Color.blue;
+        public static final Color FocusedPoint = Color.black;
         public static final Color Goals = new Color(255, 255, 255);
         public static final Color [] Teams = {Color.black, Color.white};
     }
@@ -53,6 +54,10 @@ public class Playground extends Canvas {
     private Color bgColor = Colors.Normal;
     private int xCenter = (int)(Size.PlaygroundWidth/2) +  Size.StartXGrass;
     private int yCenter = (int)(Size.PlaygroundHeight/2) + Size.StartYGrass;
+    private int xStart = Size.StartXGrass - (int)Size.PointX/2;
+    private int yStart = Size.StartYGrass - (int)Size.PointY/2;
+    private int xStop  = Size.PlaygroundWidth + this.xStart;
+    private int yStop  = Size.PlaygroundHeight + this.yStart;
 
     public Playground()
     {
@@ -80,25 +85,17 @@ public class Playground extends Canvas {
         this.update();
     }
 
-    private void drawLines(Graphics g)
+    private boolean isHovered(int x, int y)
     {
-        g.setColor(Colors.Lines);
-        g.drawLine(Size.StartXGrass, this.yCenter, Size.PlaygroundWidth,
-                                                            this.yCenter);
 
-    }
-
-    private boolean isFocused(Point p)
-    {
-        Point e =  this.moves.lastElement().getEnd();
-
-        if ((e.x <= p.x + Size.HoverAreaX)
+        if (    (x <= hoverPoint.x + Size.HorizontalGap/2 - 1)
                 &&
-            (e.x >= p.x - Size.HoverAreaX)
-            &&
-            (e.y >= p.y - Size.HoverAreaY)
+                (x >= hoverPoint.x - Size.HorizontalGap/2)
                 &&
-            (e.y <= p.y + Size.HoverAreaY))
+                (y >= hoverPoint.y - Size.VerticalGap/2)
+                &&
+                (y <= hoverPoint.y + Size.VerticalGap/2 - 1)
+           )
         {
             return true;
         }
@@ -106,17 +103,17 @@ public class Playground extends Canvas {
         return false;
     }
 
-    private boolean isHovered(int x, int y)
+    private boolean isFocused(int x, int y)
     {
+        Point e =  this.moves.lastElement().getEnd();
 
-        if (    (x <= hoverPoint.x + Size.HoverAreaX)
+        if ((e.x <= x + Size.HoverAreaX)
                 &&
-                (x >= hoverPoint.x - Size.HoverAreaX)
+            (e.x >= x - Size.HoverAreaX)
             &&
-                (y >= hoverPoint.y - Size.HoverAreaY)
+            (e.y >= y - Size.HoverAreaY)
                 &&
-                (y <= hoverPoint.y + Size.HoverAreaY)
-           )
+            (e.y <= y + Size.HoverAreaY))
         {
             return true;
         }
@@ -127,25 +124,23 @@ public class Playground extends Canvas {
     private void drawPoints(Graphics g)
     {
         g.setColor(Colors.Points);
-        int x_start = Size.StartXGrass - (int)Size.PointX/2,
-            y_start = Size.StartYGrass - (int)Size.PointY/2,
-            x_stop  = Size.PlaygroundWidth + x_start,
-            y_stop  = Size.PlaygroundHeight + y_start;
-
-        for (int i = x_start; i <= x_stop; i+= Size.VerticalGap)
+         for (int i = this.xStart; i <= this.xStop; i+= Size.VerticalGap)
         {
-            for (int j = y_start; j <= y_stop; j+= Size.HorizontalGap)
+            for (int j = this.yStart; j <= this.yStop; j+= Size.HorizontalGap)
             {
-                if (this.isFocused(new Point(i, j)))
+                boolean is_focused = this.isFocused(i, j);
+                boolean is_hovered = this.isHovered(i, j);
+
+                if (is_focused)
                 {
-                    g.setColor(Colors.HoverPoints);
+                    g.setColor(is_hovered ? Colors.HoveredPoint : Colors.FocusedPoint);
                     g.fillRect(i, j, Size.PointX, Size.PointY);
+                    g.setColor(Colors.Points);
                 }
                 else
                 {
                     g.drawRect(i, j, Size.PointX, Size.PointY);
                 }
-                g.setColor(Colors.Points);
             }
         }
     }
@@ -153,14 +148,20 @@ public class Playground extends Canvas {
     private void drawGoals(Graphics g)
     {
         g.setColor(Colors.Goals);
-        g.fillRect(100, 0, Size.GoalWidth, Size.GoalHeight);
-        g.fillRect(100, Size.HEIGHT - Size.GoalHeight, Size.GoalWidth, Size.GoalHeight);
+
+        int x_start = (int)(Size.PointsX/2 - 1)*Size.HorizontalGap+Size.StartXGrass;
+
+        g.fillRect(x_start, Size.StartYGrass-Size.GoalHeight, Size.GoalWidth, Size.GoalHeight);
+        g.fillRect(x_start, Size.PlaygroundHeight + Size.StartYGrass, Size.GoalWidth, Size.GoalHeight);
     }
 
     private void drawGrass(Graphics g)
     {
         g.setColor(this.bgColor);
         g.fillRect(Size.StartXGrass, Size.StartYGrass, Size.PlaygroundWidth, Size.PlaygroundHeight);
+        g.setColor(Colors.Lines);
+        g.drawLine(Size.StartXGrass, this.yCenter, Size.PlaygroundWidth,
+                                                            this.yCenter);
     }
 
     private void drawMove(Graphics g, Move m)
@@ -193,9 +194,8 @@ public class Playground extends Canvas {
         Graphics g = this.getGraphics();
 
         drawGrass(g);
-        drawLines(g);
-        drawPoints(g);
         drawGoals(g);
+        drawPoints(g);
         drawMoves(g);
     }
 
