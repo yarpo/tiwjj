@@ -218,32 +218,21 @@ public class Playground extends Canvas {
 
     private boolean isEmpty(Point s, Point e)
     {
-        System.out.println("isEmpty");
         Iterator move = this.moves.iterator();
         int i = 0;
         while(move.hasNext())
         {
-            System.out.println("i = " + i++);
             Move m = (Move)move.next();
             Point c = m.getStart();
             Point b = m.getEnd();
-            System.out.println("c " + c);
-            System.out.println("b " + b);
-            System.out.println("s " + s);
-            System.out.println("e " + e);
 
             if ((s.x == c.x && s.y == c.y && e.x == b.x && e.y == b.y)
                     ||
                 (s.x == b.x && s.y == b.y && e.x == c.x && e.y == c.y))
             {
-                System.out.println("Zajety");
+              
                 return false;
             }
-            else
-            {
-                System.out.println("Nie zajety");
-            }
-            //return true;
         }
         return true;
     }
@@ -256,9 +245,10 @@ public class Playground extends Canvas {
         // nie jest na polu
         if ((s.x > Size.PlaygroundWidth + x_point || s.x < Size.StartXGrass - x_point)
             ||
-            (s.y > Size.PlaygroundHeight + y_point || s.y < Size.StartYGrass - y_point))
+            (s.y > Size.PlaygroundHeight + y_point || s.y < Size.StartYGrass - y_point)
+            ||
+            (s.x == e.x && s.y == e.y))
         {
-            System.out.println("poza polem!");
             return false;
         }
 
@@ -272,7 +262,6 @@ public class Playground extends Canvas {
         double max = Math.sqrt(Size.VerticalGap*Size.VerticalGap + Size.HorizontalGap*Size.HorizontalGap);
         if (c > max)
         {
-            System.out.println("Zbyt duzy skok");
             return false;
         }
 
