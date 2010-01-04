@@ -10,7 +10,6 @@ package tiwjj.playground;
  * @author yarpo
  */
 import java.awt.event.*;
-import javax.swing.JOptionPane;
 
 public class PlaygroundMouseAdapter extends MouseAdapter {
 
