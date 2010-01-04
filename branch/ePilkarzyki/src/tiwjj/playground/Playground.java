@@ -124,9 +124,10 @@ public class Playground extends Canvas {
     private void drawPoints(Graphics g)
     {
         g.setColor(Colors.Points);
-         for (int i = this.xStart; i <= this.xStop; i+= Size.VerticalGap)
+
+        for (int i = this.xStop; i >= this.xStart;  i -= Size.VerticalGap)
         {
-            for (int j = this.yStart; j <= this.yStop; j+= Size.HorizontalGap)
+            for (int j = this.yStop; j >=  this.yStart; j -= Size.HorizontalGap)
             {
                 boolean is_focused = this.isFocused(i, j);
                 boolean is_hovered = this.isHovered(i, j);
