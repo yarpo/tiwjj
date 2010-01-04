@@ -234,7 +234,7 @@ public class Playground extends Canvas {
 
             if ((s.x == c.x && s.y == c.y && e.x == b.x && e.y == b.y)
                     ||
-                (s.x == b.x && s.y == b.y && e.x == c.x && e.x == c.y))
+                (s.x == b.x && s.y == b.y && e.x == c.x && e.y == c.y))
             {
                 System.out.println("Zajety");
                 return false;
