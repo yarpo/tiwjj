@@ -21,25 +21,6 @@ public class Playground extends Canvas {
     private Point hoverPoint;   // punkt nad ktorym aktualnie jest kursor
     private Vector<Move> moves; // ruchy jakie wykonali gracze
 
-    public static class Size {
-        final static public int PointX  = 4;
-        final static public int PointY  = 4;
-        final static public int PointsX = 10;
-        final static public int PointsY = 12;
-        final static public int StartXGrass   = 2;
-        final static public int StartYGrass   = 10;
-        final static public int VerticalGap   = 20;
-        final static public int HorizontalGap = 20;
-        final static public int PlaygroundWidth  = VerticalGap*PointsX;
-        final static public int PlaygroundHeight = HorizontalGap*PointsY;
-        final static public int WIDTH   = PlaygroundWidth+StartXGrass*2;
-        final static public int HEIGHT  = PlaygroundHeight+StartYGrass*2;
-        final static public int GoalWidth  = 45;
-        final static public int GoalHeight = 5;
-        final static public int HoverAreaX = 30;
-        final static public int HoverAreaY = 30;
-    }
-
     public static class Colors {
         public static final Color Normal = new Color(50, 150, 0);
         public static final Color Hover  = new Color(100, 150, 50);
@@ -83,12 +64,26 @@ public class Playground extends Canvas {
     public void hover(Point p)
     {
         this.hoverPoint = p;
-        this.update();
+        if (this.isAccessible(p))
+        {
+            this.update();
+        }
+    }
+
+    private boolean isAccessible(Point p)
+    {
+        double distance = this.getDistance(p, this.getLastPoint());
+
+        return (distance <= Size.MaxDistance);
+    }
+
+    private Point getLastPoint()
+    {
+        return (Point)this.moves.lastElement().getEnd();
     }
 
     private boolean isHovered(int x, int y)
     {
-
         if (    (x <= hoverPoint.x + Size.HorizontalGap/2 - 1)
                 &&
                 (x >= hoverPoint.x - Size.HorizontalGap/2)
@@ -106,7 +101,7 @@ public class Playground extends Canvas {
 
     private boolean isFocused(int x, int y)
     {
-        Point e =  this.moves.lastElement().getEnd();
+        Point e =  this.getLastPoint();
 
         if ((e.x <= x + Size.HoverAreaX)
                 &&
@@ -120,6 +115,18 @@ public class Playground extends Canvas {
         }
 
         return false;
+    }
+
+    private void drawHoveredPoint(Graphics g)
+    {
+        g.setColor(Colors.HoveredPoint);
+        
+    }
+
+    private void drawFocusedPoints(Graphics g)
+    {
+        g.setColor(Colors.FocusedPoint);
+        
     }
 
     private void drawPoints(Graphics g)
@@ -251,16 +258,9 @@ public class Playground extends Canvas {
         {
             return false;
         }
+        double distance = this.getDistance(s, e);
 
-        // jest zbyt daleko od aktualnego punktu
-        int a = Math.abs(s.x-e.x);
-            a = a*a;
-        int b = Math.abs(s.y-e.y);
-            b = b*b;
-        double t = a+b;
-        double c = Math.sqrt(t);
-        double max = Math.sqrt(Size.VerticalGap*Size.VerticalGap + Size.HorizontalGap*Size.HorizontalGap);
-        if (c > max)
+        if (distance > Size.MaxDistance)
         {
             return false;
         }
@@ -268,6 +268,16 @@ public class Playground extends Canvas {
         return this.isEmpty(s, e);
     }
 
+    private double getDistance(Point s, Point e)
+    {
+        // jest zbyt daleko od aktualnego punktu
+        int a = Math.abs(s.x-e.x);
+            a = a*a;
+        int b = Math.abs(s.y-e.y);
+            b = b*b;
+        double c = Math.sqrt((double)(a+b));
+        return c;
+    }
 
     public void addMove(Point p)
     {

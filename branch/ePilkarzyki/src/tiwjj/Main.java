@@ -77,7 +77,7 @@ public class Main extends JApplet {
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(canvas1, GroupLayout.PREFERRED_SIZE, Playground.Size.WIDTH, GroupLayout.PREFERRED_SIZE)
+                .addComponent(canvas1, GroupLayout.PREFERRED_SIZE, Size.WIDTH, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE)
             )
         );
@@ -85,7 +85,7 @@ public class Main extends JApplet {
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
-                .addComponent(canvas1, GroupLayout.PREFERRED_SIZE, Playground.Size.HEIGHT, GroupLayout.PREFERRED_SIZE)
+                .addComponent(canvas1, GroupLayout.PREFERRED_SIZE, Size.HEIGHT, GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
             )
         );
