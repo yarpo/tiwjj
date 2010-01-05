@@ -13,7 +13,16 @@ import java.awt.Point;
 
 public class Spot extends Point {
 
+    /**
+     * statyczne pole zawierajace obiekt punktu nad ktorym aktualnie znajduje
+     * sie kursor
+     */
     static public Spot hoveredSpot;
+
+    /**
+     * statycze pole zawierajace obiekt punktu stanowiacego koniec sciezki
+     * kolejnych ruchow
+     */
     static public Spot lastSpot;
 
     public Spot(int x, int y)
