@@ -23,20 +23,20 @@ public class PlaygroundMouseAdapter extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent evt)
     {
-        this.canvas.addMove(evt.getPoint());
+        this.canvas.addMove(new Spot(evt.getPoint()));
     }
 
     @Override
     public void mouseEntered(MouseEvent evt)
     {
-        this.canvas.hover(evt.getPoint());
+        this.canvas.hover(new Spot(evt.getPoint()));
         this.canvas.mouseOver();
     }
 
     @Override
     public void mouseMoved(MouseEvent evt)
     {
-        this.canvas.hover(evt.getPoint());
+        this.canvas.hover(new Spot(evt.getPoint()));
     }
 
     @Override

@@ -10,28 +10,26 @@ package tiwjj.playground;
  * @author yarpo
  */
 
-import java.awt.Point;
-
 public class Move {
 
-    private Point start;
-    private Point end;
+    private Spot start;
+    private Spot end;
     private int team;
     // TODO: private int player;
 
-    public Move(Point s, Point e, int t)
+    public Move(Spot s, Spot e, int t)
     {
         this.start = s;
         this.end = e;
         this.team = t;
     }
 
-    public Point getStart()
+    public Spot getStart()
     {
         return this.start;
     }
 
-    public Point getEnd()
+    public Spot getEnd()
     {
         return this.end;
     }

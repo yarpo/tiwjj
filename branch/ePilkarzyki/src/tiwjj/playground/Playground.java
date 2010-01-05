@@ -12,13 +12,12 @@ package tiwjj.playground;
 import java.awt.*;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.Vector;
 import java.util.Iterator;
 
 public class Playground extends Canvas {
 
-    private Point hoverPoint;   // punkt nad ktorym aktualnie jest kursor
+    private Spot hoverPoint;   // punkt nad ktorym aktualnie jest kursor
     private Vector<Move> moves; // ruchy jakie wykonali gracze
 
     public static class Colors {
@@ -43,10 +42,10 @@ public class Playground extends Canvas {
 
     public Playground()
     {
-        this.hoverPoint = new Point(Size.WIDTH/2, Size.HEIGHT/2);
+        this.hoverPoint = new Spot(Size.WIDTH/2, Size.HEIGHT/2);
         this.moves = new Vector<Move>();
-        this.moves.add(new Move(new Point(this.xCenter, this.yCenter),
-                                new Point(this.xCenter, this.yCenter), 0));
+        this.moves.add(new Move(new Spot(this.xCenter, this.yCenter),
+                                new Spot(this.xCenter, this.yCenter), 0));
     }
 
     public void mouseOver()
@@ -61,7 +60,7 @@ public class Playground extends Canvas {
         this.update();
     }
 
-    public void hover(Point p)
+    public void hover(Spot p)
     {
         this.hoverPoint = p;
         if (this.isAccessible(p))
@@ -70,16 +69,16 @@ public class Playground extends Canvas {
         }
     }
 
-    private boolean isAccessible(Point p)
+    private boolean isAccessible(Spot p)
     {
         double distance = this.getDistance(p, this.getLastPoint());
 
         return (distance <= Size.MaxDistance);
     }
 
-    private Point getLastPoint()
+    private Spot getLastPoint()
     {
-        return (Point)this.moves.lastElement().getEnd();
+        return (Spot)this.moves.lastElement().getEnd();
     }
 
     private boolean isHovered(int x, int y)
@@ -101,7 +100,7 @@ public class Playground extends Canvas {
 
     private boolean isFocused(int x, int y)
     {
-        Point e =  this.getLastPoint();
+        Spot e =  this.getLastPoint();
 
         if ((e.x <= x + Size.HoverAreaX)
                 &&
@@ -193,7 +192,7 @@ public class Playground extends Canvas {
 
         if (null != m)
         {
-            Point current = m.getEnd();
+            Spot current = m.getEnd();
             g.setColor(Colors.CurrentPoint);
             g.fillRect(current.x-2, current.y-2, Size.PointX, Size.PointY);
         }
@@ -213,7 +212,7 @@ public class Playground extends Canvas {
         return x;
     }
 
-    private Point calculateNextMove(Point p)
+    private Spot calculateNextMove(Spot p)
     {
         p.x = round(p.x - this.xStart, Size.HorizontalGap) + this.xStart + 2;
         p.y = round(p.y - this.yStart, Size.VerticalGap) + this.yStart + 2;
@@ -223,15 +222,15 @@ public class Playground extends Canvas {
 
     private int a = 0;
 
-    private boolean isEmpty(Point s, Point e)
+    private boolean isEmpty(Spot s, Spot e)
     {
         Iterator move = this.moves.iterator();
         int i = 0;
         while(move.hasNext())
         {
             Move m = (Move)move.next();
-            Point c = m.getStart();
-            Point b = m.getEnd();
+            Spot c = m.getStart();
+            Spot b = m.getEnd();
 
             if ((s.x == c.x && s.y == c.y && e.x == b.x && e.y == b.y)
                     ||
@@ -244,7 +243,7 @@ public class Playground extends Canvas {
         return true;
     }
 
-    private boolean possibleMove(Point s, Point e)
+    private boolean possibleMove(Spot s, Spot e)
     {
         int x_point = Size.PointX/2;
         int y_point = Size.PointY/2;
@@ -268,7 +267,7 @@ public class Playground extends Canvas {
         return this.isEmpty(s, e);
     }
 
-    private double getDistance(Point s, Point e)
+    private double getDistance(Spot s, Spot e)
     {
         // jest zbyt daleko od aktualnego punktu
         int a = Math.abs(s.x-e.x);
@@ -279,11 +278,11 @@ public class Playground extends Canvas {
         return c;
     }
 
-    public void addMove(Point p)
+    public void addMove(Spot p)
     {
         p = this.calculateNextMove(p);
         Move m = this.moves.lastElement();
-        Point s = m.getEnd();
+        Spot s = m.getEnd();
         if (possibleMove(p, s))
         {
             this.moves.add(new Move(s, p, (this.a = (this.a+1)%2)));
