@@ -17,7 +17,7 @@ import java.util.Iterator;
 
 public class Playground extends Canvas {
 
-    private Spot hoverPoint;   // punkt nad ktorym aktualnie jest kursor
+    //private Spot hoverPoint;   // punkt nad ktorym aktualnie jest kursor
     private Vector<Move> moves; // ruchy jakie wykonali gracze
 
     public static class Colors {
@@ -42,7 +42,7 @@ public class Playground extends Canvas {
 
     public Playground()
     {
-        this.hoverPoint = new Spot(Size.WIDTH/2, Size.HEIGHT/2);
+        Spot.hoveredSpot = new Spot(this.xCenter, this.yCenter);
         this.moves = new Vector<Move>();
         this.moves.add(new Move(new Spot(this.xCenter, this.yCenter),
                                 new Spot(this.xCenter, this.yCenter), 0));
@@ -62,7 +62,7 @@ public class Playground extends Canvas {
 
     public void hover(Spot p)
     {
-        this.hoverPoint = p;
+        Spot.hoveredSpot = p;
         if (this.isAccessible(p))
         {
             this.update();
@@ -83,13 +83,13 @@ public class Playground extends Canvas {
 
     private boolean isHovered(int x, int y)
     {
-        if (    (x <= hoverPoint.x + Size.HorizontalGap/2 - 1)
+        if (    (x <= Spot.hoveredSpot.x + Size.HorizontalGap/2 - 1)
                 &&
-                (x >= hoverPoint.x - Size.HorizontalGap/2)
+                (x >= Spot.hoveredSpot.x - Size.HorizontalGap/2)
                 &&
-                (y >= hoverPoint.y - Size.VerticalGap/2)
+                (y >= Spot.hoveredSpot.y - Size.VerticalGap/2)
                 &&
-                (y <= hoverPoint.y + Size.VerticalGap/2 - 1)
+                (y <= Spot.hoveredSpot.y + Size.VerticalGap/2 - 1)
            )
         {
             return true;
