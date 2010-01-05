@@ -14,6 +14,7 @@ import java.awt.Point;
 public class Spot extends Point {
 
     static public Spot hoveredSpot;
+    static public Spot lastSpot;
 
     public Spot(int x, int y)
     {
@@ -35,39 +36,23 @@ public class Spot extends Point {
         return Math.sqrt((double)(a+b));
     }
 
-    /*
-    private boolean isFocused(int x, int y)
+    /**
+     Sprawdza czy podany jako parametr punkt powinien byc podswietlony
+     */
+    public boolean isHovered(Spot p)
     {
-        Spot e =  this.getLastPoint();
-
-        if ((e.x <= x + Size.HoverAreaX)
-                &&
-            (e.x >= x - Size.HoverAreaX)
-            &&
-            (e.y >= y - Size.HoverAreaY)
-                &&
-            (e.y <= y + Size.HoverAreaY))
-        {
-            return true;
-        }
-
-        return false;
-    }*/
+        return this.isHovered(p.x ,p.y);
+    }
 
     public boolean isHovered(int x, int y)
     {
-        return this.isHovered(new Spot(x ,y));
-    }
-
-    public boolean isHovered(Spot p)
-    {
-        if (    (x <= p.x + Size.HorizontalGap/2 - 1)
+        if (    (this.x <= x + Size.HorizontalGap/2 - 1)
                 &&
-                (x >= p.x - Size.HorizontalGap/2)
+                (this.x >= x - Size.HorizontalGap/2)
                 &&
-                (y >= p.y - Size.VerticalGap/2)
+                (this.y >= y - Size.VerticalGap/2)
                 &&
-                (y <= p.y + Size.VerticalGap/2 - 1)
+                (this.y <= y + Size.VerticalGap/2 - 1)
            )
         {
             return true;
@@ -76,8 +61,22 @@ public class Spot extends Point {
         return false;
     }
 
+    /**
+     Sprawdza czy podany jako parametr
+     */
     public boolean isFocused()
     {
+        if ((Spot.lastSpot.x <= this.x + Size.HoverAreaX)
+                &&
+            (Spot.lastSpot.x >= this.x - Size.HoverAreaX)
+            &&
+            (Spot.lastSpot.y >= this.y - Size.HoverAreaY)
+                &&
+            (Spot.lastSpot.y <= this.y + Size.HoverAreaY))
+        {
+            return true;
+        }
+
         return false;
     }
 

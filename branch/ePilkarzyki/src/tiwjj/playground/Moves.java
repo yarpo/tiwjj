@@ -39,4 +39,9 @@ public class Moves {
     {
         return this.moves.size();
     }
+
+    public static boolean possible(Spot s, Spot e)
+    {
+        return false;
+    }
 }

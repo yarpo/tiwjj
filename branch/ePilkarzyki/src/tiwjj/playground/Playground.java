@@ -43,9 +43,11 @@ public class Playground extends Canvas {
     public Playground()
     {
         Spot.hoveredSpot = new Spot(this.xCenter, this.yCenter);
+        Spot.lastSpot = Spot.hoveredSpot;
         this.moves = new Vector<Move>();
         this.moves.add(new Move(new Spot(this.xCenter, this.yCenter),
                                 new Spot(this.xCenter, this.yCenter), 0));
+
     }
 
     public void mouseOver()
@@ -81,41 +83,6 @@ public class Playground extends Canvas {
         return (Spot)this.moves.lastElement().getEnd();
     }
 
-    private boolean isHovered(int x, int y)
-    {
-        if (    (x <= Spot.hoveredSpot.x + Size.HorizontalGap/2 - 1)
-                &&
-                (x >= Spot.hoveredSpot.x - Size.HorizontalGap/2)
-                &&
-                (y >= Spot.hoveredSpot.y - Size.VerticalGap/2)
-                &&
-                (y <= Spot.hoveredSpot.y + Size.VerticalGap/2 - 1)
-           )
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isFocused(int x, int y)
-    {
-        Spot e =  this.getLastPoint();
-
-        if ((e.x <= x + Size.HoverAreaX)
-                &&
-            (e.x >= x - Size.HoverAreaX)
-            &&
-            (e.y >= y - Size.HoverAreaY)
-                &&
-            (e.y <= y + Size.HoverAreaY))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
     private void drawHoveredPoint(Graphics g)
     {
         g.setColor(Colors.HoveredPoint);
@@ -136,8 +103,9 @@ public class Playground extends Canvas {
         {
             for (int j = this.yStop; j >=  this.yStart; j -= Size.HorizontalGap)
             {
-                boolean is_focused = this.isFocused(i, j);
-                boolean is_hovered = this.isHovered(i, j);
+                Spot s = new Spot(i, j);
+                boolean is_focused = s.isFocused();
+                boolean is_hovered = Spot.hoveredSpot.isHovered(i, j);
 
                 if (is_focused)
                 {
@@ -286,6 +254,7 @@ public class Playground extends Canvas {
         if (possibleMove(p, s))
         {
             this.moves.add(new Move(s, p, (this.a = (this.a+1)%2)));
+            Spot.lastSpot = p;
             update();
         }
         else
