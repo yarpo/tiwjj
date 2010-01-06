@@ -87,21 +87,14 @@ public class Playground extends Canvas {
     private void drawSpecialPoints()
     {
         g.setColor(Colors.FocusedPoint);
-        FocusedPointDimension p = new FocusedPointDimension(Spot.lastSpot);
 
         Vector v = Spot.lastSpot.getNeighbours();
 
-        g.fillRect(p.xLeft, p.yTop, Size.PointX, Size.PointY);
-        g.fillRect(p.xLeft, p.yCenter, Size.PointX, Size.PointY);
-        g.fillRect(p.xLeft, p.yBottom, Size.PointX, Size.PointY);
-        g.fillRect(p.xCenter, p.yTop, Size.PointX, Size.PointY);
-        g.fillRect(p.xCenter, p.yBottom, Size.PointX, Size.PointY);
-        g.fillRect(p.xRight, p.yTop, Size.PointX, Size.PointY);
-        g.fillRect(p.xRight, p.yCenter, Size.PointX, Size.PointY);
-        g.fillRect(p.xRight, p.yBottom, Size.PointX, Size.PointY);
-        
-        g.setColor(Colors.CurrentPoint);
-        g.fillRect(p.xCenter, p.yCenter, Size.PointX, Size.PointY);
+        for(int i = v.size()- 1; i >= 0; i--)
+        {
+            Spot p = (Spot)v.elementAt(i);
+            g.fillRect(p.getXx(), p.getYy(), Size.PointX, Size.PointY);
+        }
     }
 
     private void drawPoints()
@@ -112,7 +105,7 @@ public class Playground extends Canvas {
         {
             for (int j = this.yStop; j >=  this.yStart; j -= Size.HorizontalGap)
             {
-                    g.drawRect(i, j, Size.PointX, Size.PointY);
+                g.drawRect(i, j, Size.PointX, Size.PointY);
             }
         }
     }
@@ -150,7 +143,7 @@ public class Playground extends Canvas {
         }
 
         g.setColor(Colors.CurrentPoint);
-        g.fillRect(Spot.lastSpot.x-2, Spot.lastSpot.y-2, Size.PointX, Size.PointY);
+        g.fillRect(Spot.lastSpot.getXx(), Spot.lastSpot.getYy(), Size.PointX, Size.PointY);
     }
 // TODO: przeniesc do ktorejs z klas
     private int round(int x, int m)
