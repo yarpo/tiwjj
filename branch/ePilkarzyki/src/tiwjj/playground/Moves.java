@@ -58,15 +58,16 @@ public class Moves {
 
     public boolean possible(Spot e)
     {
-        int x_point = Size.PointX/2;
-        int y_point = Size.PointY/2;
-
         // nie jest na polu
-        if ((e.x > Size.PlaygroundWidth + x_point || e.x < Size.StartXGrass - x_point)
-            ||
-            (e.y > Size.PlaygroundHeight + y_point || e.y < Size.StartYGrass - y_point)
-            ||
-            (e.x == Spot.lastSpot.x && e.y == Spot.lastSpot.y))
+        if ((e.x > Size.PlaygroundWidth + Size.OffsetX
+                ||
+             e.x < Size.StartXGrass - Size.OffsetX)
+           ||
+            (e.y > Size.PlaygroundHeight+Size.OffsetY+Size.StartYGrass 
+                ||
+             e.y < Size.StartYGrass - Size.OffsetY)
+           ||
+            Spot.lastSpot.theSameField(e))
         {
             return false;
         }
