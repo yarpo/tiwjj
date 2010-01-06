@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package tiwjj.playground;
 
 /**
- *
- * @author yarpo
+ * Klasa Playground dziedziczaca po Canvas
+ * Pozwala na wyswieltanie gry w aplecie
+ * @author  Patryk yarpo Jar
+ * @date    6 - 01 - 2009
  */
 import java.awt.*;
 import java.awt.Color;
@@ -15,24 +12,19 @@ import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.Vector;
 
-// TODO: dodac komentarze do metod i atrybutow
 
 public class Playground extends Canvas {
 
-    private Graphics g;   // punkt nad ktorym aktualnie jest kursor
-    private Moves moves;
+    /**
+     * Obiekt pozwalajacy wyrysowywac wyniki na ekran
+     */
+    private Graphics g;
 
-    public static class Colors {
-        public static final Color Normal = new Color(50, 150, 0);
-        public static final Color Hover  = new Color(100, 150, 50);
-        public static final Color Lines  = new Color(140, 240, 180);
-        public static final Color Points = new Color(100, 100, 100);
-        public static final Color HoveredPoint = Color.blue;
-        public static final Color FocusedPoint = Color.black;
-        public static final Color CurrentPoint = Color.red;
-        public static final Color Goals = new Color(255, 255, 255);
-        public static final Color [] Teams = {Color.black, Color.white};
-    }
+
+    /**
+     * Obiekt pozwalajacy na obsluge ruchow graczy
+     */
+    private Moves moves;
 
     private Color bgColor = Colors.Normal;
     private int xCenter = (int)(Size.PlaygroundWidth/2) +  Size.StartXGrass;
