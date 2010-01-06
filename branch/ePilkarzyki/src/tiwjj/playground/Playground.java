@@ -14,10 +14,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
+// TODO: dodac komentarze do metod i atrybutow
+
 public class Playground extends Canvas {
 
     private Graphics g;   // punkt nad ktorym aktualnie jest kursor
-    //private Vector<Move> moves; // ruchy jakie wykonali gracze
     private Moves moves;
 
     public static class Colors {
@@ -45,12 +46,8 @@ public class Playground extends Canvas {
         Spot f = new Spot(this.xCenter, this.yCenter);
         Spot.hoveredSpot = f;
         Spot.lastSpot = Spot.hoveredSpot;
-        //this.moves = new Vector<Move>();
         Move first = new Move(f, f, 0);
         this.moves = new Moves(first);
-        //this.moves.add(new Move(new Spot(this.xCenter, this.yCenter),
-        //                        new Spot(this.xCenter, this.yCenter), 0));
-
     }
 
     public void mouseOver()
@@ -81,7 +78,8 @@ public class Playground extends Canvas {
         g.setColor(Colors.HoveredPoint);
         if (Spot.lastSpot.isAccessible(s))
         {
-            g.fillRect(s.x, s.y, Size.PointX, Size.PointY);
+// TODO: do size dodac stala wyliczana wg PointX/2 PointY/2
+            g.fillRect(s.x-2, s.y-2, Size.PointX, Size.PointY);
         }
     }
 
@@ -90,15 +88,15 @@ public class Playground extends Canvas {
         g.setColor(Colors.FocusedPoint);
         int x = Spot.lastSpot.x;
         int y = Spot.lastSpot.y;
-
-        g.fillRect(x - Size.HorizontalGap, y, Size.PointX, Size.PointY);
-        g.fillRect(x + Size.HorizontalGap, y, Size.PointX, Size.PointY);
-        g.fillRect(x, y - Size.VerticalGap, Size.PointX, Size.PointY);
-        g.fillRect(x, y + Size.VerticalGap, Size.PointX, Size.PointY);
-        g.fillRect(x - Size.HorizontalGap, y - Size.VerticalGap, Size.PointX, Size.PointY);
-        g.fillRect(x - Size.HorizontalGap, y + Size.VerticalGap, Size.PointX, Size.PointY);
-        g.fillRect(x + Size.HorizontalGap, y - Size.VerticalGap, Size.PointX, Size.PointY);
-        g.fillRect(x + Size.HorizontalGap, y + Size.VerticalGap, Size.PointX, Size.PointY);
+// TODO: zrobic zmienne, a nie za kazdym razem to samo liczyc
+        g.fillRect(x - Size.HorizontalGap-2, y-2, Size.PointX, Size.PointY);
+        g.fillRect(x + Size.HorizontalGap-2, y-2, Size.PointX, Size.PointY);
+        g.fillRect(x-2, y - Size.VerticalGap-2, Size.PointX, Size.PointY);
+        g.fillRect(x-2, y + Size.VerticalGap-2, Size.PointX, Size.PointY);
+        g.fillRect(x - Size.HorizontalGap-2, y - Size.VerticalGap-2, Size.PointX, Size.PointY);
+        g.fillRect(x - Size.HorizontalGap-2, y + Size.VerticalGap-2, Size.PointX, Size.PointY);
+        g.fillRect(x + Size.HorizontalGap-2, y - Size.VerticalGap-2, Size.PointX, Size.PointY);
+        g.fillRect(x + Size.HorizontalGap-2, y + Size.VerticalGap-2, Size.PointX, Size.PointY);
     }
 
     private void drawPoints()
@@ -117,9 +115,9 @@ public class Playground extends Canvas {
     private void drawGoals()
     {
         g.setColor(Colors.Goals);
-
+// TODO: usucac ten - 1
         int x_start = (int)(Size.PointsX/2 - 1)*Size.HorizontalGap+Size.StartXGrass;
-
+// TODO: usunac z kodu ten -2
         g.fillRect(x_start-2, Size.StartYGrass-Size.GoalHeight, Size.GoalWidth, Size.GoalHeight);
         g.fillRect(x_start-2, Size.PlaygroundHeight + Size.StartYGrass, Size.GoalWidth, Size.GoalHeight);
     }
@@ -142,21 +140,15 @@ public class Playground extends Canvas {
     private void drawMoves()
     {
         Iterator move = this.moves.getIterator();
-        Move m = null;
         while(move.hasNext())
         {
-            m = (Move)move.next();
-            drawMove(m);
+            drawMove((Move)move.next());
         }
 
-        if (null != m)
-        {
-            Spot current = m.getEnd();
-            g.setColor(Colors.CurrentPoint);
-            g.fillRect(current.x-2, current.y-2, Size.PointX, Size.PointY);
-        }
+        g.setColor(Colors.CurrentPoint);
+        g.fillRect(Spot.lastSpot.x-2, Spot.lastSpot.y-2, Size.PointX, Size.PointY);
     }
-
+// TODO: przeniesc do ktorejs z klas
     private int round(int x, int m)
     {
         int tmp = x%m;
@@ -170,7 +162,7 @@ public class Playground extends Canvas {
         }
         return x;
     }
-
+// TODO przeniesc
     private Spot calculateNextMove(Spot p)
     {
         p.x = round(p.x - this.xStart, Size.HorizontalGap) + this.xStart + 2;
@@ -179,71 +171,16 @@ public class Playground extends Canvas {
         return p;
     }
 
-    private boolean isEmpty(Spot s, Spot e)
-    {
-        Iterator move = this.moves.getIterator();
-        int i = 0;
-        while(move.hasNext())
-        {
-            Move m = (Move)move.next();
-            Spot c = m.getStart();
-            Spot b = m.getEnd();
-
-            if ((s.x == c.x && s.y == c.y && e.x == b.x && e.y == b.y)
-                    ||
-                (s.x == b.x && s.y == b.y && e.x == c.x && e.y == c.y))
-            {
-              
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean possibleMove(Spot s, Spot e)
-    {
-        int x_point = Size.PointX/2;
-        int y_point = Size.PointY/2;
-
-        // nie jest na polu
-        if ((s.x > Size.PlaygroundWidth + x_point || s.x < Size.StartXGrass - x_point)
-            ||
-            (s.y > Size.PlaygroundHeight + y_point || s.y < Size.StartYGrass - y_point)
-            ||
-            (s.x == e.x && s.y == e.y))
-        {
-            return false;
-        }
-        double distance = this.getDistance(s, e);
-
-        if (distance > Size.MaxDistance)
-        {
-            return false;
-        }
-
-        return this.isEmpty(s, e);
-    }
-
-    private double getDistance(Spot s, Spot e)
-    {
-        // jest zbyt daleko od aktualnego punktu
-        int a = Math.abs(s.x-e.x);
-            a = a*a;
-        int b = Math.abs(s.y-e.y);
-            b = b*b;
-        double c = Math.sqrt((double)(a+b));
-        return c;
-    }
-
     private int teamTurn = 0;
 
+    // TODO: uproscic
     public void addMove(Spot p)
     {
         p = this.calculateNextMove(p);
-        if (possibleMove(p, Spot.lastSpot))
+
+        if (this.moves.possible(p))
         {
             this.moves.add(new Move(Spot.lastSpot, p, (this.teamTurn = (this.teamTurn+1)%2)));
-            Spot.lastSpot = p;
             update();
         }
         else
