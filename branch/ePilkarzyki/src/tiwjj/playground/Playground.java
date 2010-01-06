@@ -17,7 +17,7 @@ import java.util.Iterator;
 
 public class Playground extends Canvas {
 
-    //private Spot hoverPoint;   // punkt nad ktorym aktualnie jest kursor
+    private Graphics g;   // punkt nad ktorym aktualnie jest kursor
     private Vector<Move> moves; // ruchy jakie wykonali gracze
 
     public static class Colors {
@@ -67,13 +67,12 @@ public class Playground extends Canvas {
         Spot.hoveredSpot = p;
         if (p.isAccessible(Spot.lastSpot))
         {
-            Graphics g = this.getGraphics();
-            drawFocusedPoints(g);
-            drawHoveredPoint(g);
+            drawFocusedPoints();
+            drawHoveredPoint();
         }
     }
 
-    private void drawHoveredPoint(Graphics g)
+    private void drawHoveredPoint()
     {
         Spot s = this.calculateNextMove(Spot.hoveredSpot);
         g.setColor(Colors.HoveredPoint);
@@ -83,7 +82,7 @@ public class Playground extends Canvas {
         }
     }
 
-    private void drawFocusedPoints(Graphics g)
+    private void drawFocusedPoints()
     {
         g.setColor(Colors.FocusedPoint);
         int x = Spot.lastSpot.x;
@@ -99,7 +98,7 @@ public class Playground extends Canvas {
         g.fillRect(x + Size.HorizontalGap, y + Size.VerticalGap, Size.PointX, Size.PointY);
     }
 
-    private void drawPoints(Graphics g)
+    private void drawPoints()
     {
         g.setColor(Colors.Points);
 
@@ -112,7 +111,7 @@ public class Playground extends Canvas {
         }
     }
 
-    private void drawGoals(Graphics g)
+    private void drawGoals()
     {
         g.setColor(Colors.Goals);
 
@@ -122,7 +121,7 @@ public class Playground extends Canvas {
         g.fillRect(x_start-2, Size.PlaygroundHeight + Size.StartYGrass, Size.GoalWidth, Size.GoalHeight);
     }
 
-    private void drawGrass(Graphics g)
+    private void drawGrass()
     {
         g.setColor(this.bgColor);
         g.fillRect(Size.StartXGrass, Size.StartYGrass, Size.PlaygroundWidth, Size.PlaygroundHeight);
@@ -131,20 +130,20 @@ public class Playground extends Canvas {
                                                             this.yCenter);
     }
 
-    private void drawMove(Graphics g, Move m)
+    private void drawMove( Move m)
     {
         g.setColor(Colors.Teams[m.getTeam()]);
         g.drawLine(m.getStart().x, m.getStart().y, m.getEnd().x, m.getEnd().y);
     }
 
-    private void drawMoves(Graphics g)
+    private void drawMoves()
     {
         Iterator move = this.moves.iterator();
         Move m = null;
         while(move.hasNext())
         {
             m = (Move)move.next();
-            drawMove(g, m);
+            drawMove(m);
         }
 
         if (null != m)
@@ -255,12 +254,15 @@ public class Playground extends Canvas {
 
     public void update()
     {
-        Graphics g = this.getGraphics();
+        if (null == this.g)
+        {
+            this.g = this.getGraphics();
+        }
 
-        drawGrass(g);
-        drawGoals(g);
-        drawPoints(g);
-        drawMoves(g);
+        drawGrass();
+        drawGoals();
+        drawPoints();
+        drawMoves();
     }
 
    /*
