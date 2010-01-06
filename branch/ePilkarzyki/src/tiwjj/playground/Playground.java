@@ -79,24 +79,25 @@ public class Playground extends Canvas {
         if (Spot.lastSpot.isAccessible(s))
         {
 // TODO: do size dodac stala wyliczana wg PointX/2 PointY/2
-            g.fillRect(s.x-2, s.y-2, Size.PointX, Size.PointY);
+            g.fillRect(s.x-Size.OffsetX, s.y-Size.OffsetY, Size.PointX, Size.PointY);
         }
     }
+
+    
 
     private void drawFocusedPoints()
     {
         g.setColor(Colors.FocusedPoint);
-        int x = Spot.lastSpot.x;
-        int y = Spot.lastSpot.y;
-// TODO: zrobic zmienne, a nie za kazdym razem to samo liczyc
-        g.fillRect(x - Size.HorizontalGap-2, y-2, Size.PointX, Size.PointY);
-        g.fillRect(x + Size.HorizontalGap-2, y-2, Size.PointX, Size.PointY);
-        g.fillRect(x-2, y - Size.VerticalGap-2, Size.PointX, Size.PointY);
-        g.fillRect(x-2, y + Size.VerticalGap-2, Size.PointX, Size.PointY);
-        g.fillRect(x - Size.HorizontalGap-2, y - Size.VerticalGap-2, Size.PointX, Size.PointY);
-        g.fillRect(x - Size.HorizontalGap-2, y + Size.VerticalGap-2, Size.PointX, Size.PointY);
-        g.fillRect(x + Size.HorizontalGap-2, y - Size.VerticalGap-2, Size.PointX, Size.PointY);
-        g.fillRect(x + Size.HorizontalGap-2, y + Size.VerticalGap-2, Size.PointX, Size.PointY);
+        FocusedPointDimension p = new FocusedPointDimension(Spot.lastSpot);
+
+        g.fillRect(p.xLeft, p.yTop, Size.PointX, Size.PointY);
+        g.fillRect(p.xLeft, p.yCenter, Size.PointX, Size.PointY);
+        g.fillRect(p.xLeft, p.yBottom, Size.PointX, Size.PointY);
+        g.fillRect(p.xCenter, p.yTop, Size.PointX, Size.PointY);
+        g.fillRect(p.xCenter, p.yBottom, Size.PointX, Size.PointY);
+        g.fillRect(p.xRight, p.yTop, Size.PointX, Size.PointY);
+        g.fillRect(p.xRight, p.yCenter, Size.PointX, Size.PointY);
+        g.fillRect(p.xRight, p.yBottom, Size.PointX, Size.PointY);
     }
 
     private void drawPoints()
@@ -115,15 +116,14 @@ public class Playground extends Canvas {
     private void drawGoals()
     {
         g.setColor(Colors.Goals);
-// TODO: usucac ten - 1
         int x_start = (int)(Size.PointsX/2 - 1)*Size.HorizontalGap+Size.StartXGrass;
-// TODO: usunac z kodu ten -2
-        g.fillRect(x_start-2, Size.StartYGrass-Size.GoalHeight, Size.GoalWidth, Size.GoalHeight);
-        g.fillRect(x_start-2, Size.PlaygroundHeight + Size.StartYGrass, Size.GoalWidth, Size.GoalHeight);
+        g.fillRect(x_start-Size.OffsetX, Size.StartYGrass - Size.GoalHeight, Size.GoalWidth, Size.GoalHeight);
+        g.fillRect(x_start-Size.OffsetY, Size.PlaygroundHeight + Size.StartYGrass, Size.GoalWidth, Size.GoalHeight);
     }
 
     private void drawGrass()
     {
+        g.clearRect(0, 0, Size.WIDTH, Size.HEIGHT);
         g.setColor(this.bgColor);
         g.fillRect(Size.StartXGrass, Size.StartYGrass, Size.PlaygroundWidth, Size.PlaygroundHeight);
         g.setColor(Colors.Lines);

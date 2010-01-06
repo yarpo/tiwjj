@@ -55,13 +55,13 @@ public class Spot extends Point {
 
     public boolean isHovered(int x, int y)
     {
-        if (    (this.x <= x + Size.HorizontalGap/2 - 1)
+       if (    (this.x <= x + Size.HorizontalGap/2)
                 &&
                 (this.x >= x - Size.HorizontalGap/2)
                 &&
                 (this.y >= y - Size.VerticalGap/2)
                 &&
-                (this.y <= y + Size.VerticalGap/2 - 1)
+                (this.y <= y + Size.VerticalGap/2)
            )
         {
             return true;

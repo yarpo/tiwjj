@@ -12,6 +12,8 @@ package tiwjj.playground;
 public class Size {
     final static public int PointX  = 4;
     final static public int PointY  = 4;
+    final static public int OffsetX = (int)(PointX/2);
+    final static public int OffsetY = (int)(PointY/2);
     final static public int PointsX = 10;
     final static public int PointsY = 12;
     final static public int StartXGrass   = 2;
