@@ -12,13 +12,13 @@ package tiwjj.playground;
 import java.awt.*;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Vector;
 import java.util.Iterator;
 
 public class Playground extends Canvas {
 
     private Graphics g;   // punkt nad ktorym aktualnie jest kursor
-    private Vector<Move> moves; // ruchy jakie wykonali gracze
+    //private Vector<Move> moves; // ruchy jakie wykonali gracze
+    private Moves moves;
 
     public static class Colors {
         public static final Color Normal = new Color(50, 150, 0);
@@ -42,11 +42,14 @@ public class Playground extends Canvas {
 
     public Playground()
     {
-        Spot.hoveredSpot = new Spot(this.xCenter, this.yCenter);
+        Spot f = new Spot(this.xCenter, this.yCenter);
+        Spot.hoveredSpot = f;
         Spot.lastSpot = Spot.hoveredSpot;
-        this.moves = new Vector<Move>();
-        this.moves.add(new Move(new Spot(this.xCenter, this.yCenter),
-                                new Spot(this.xCenter, this.yCenter), 0));
+        //this.moves = new Vector<Move>();
+        Move first = new Move(f, f, 0);
+        this.moves = new Moves(first);
+        //this.moves.add(new Move(new Spot(this.xCenter, this.yCenter),
+        //                        new Spot(this.xCenter, this.yCenter), 0));
 
     }
 
@@ -138,7 +141,7 @@ public class Playground extends Canvas {
 
     private void drawMoves()
     {
-        Iterator move = this.moves.iterator();
+        Iterator move = this.moves.getIterator();
         Move m = null;
         while(move.hasNext())
         {
@@ -176,11 +179,9 @@ public class Playground extends Canvas {
         return p;
     }
 
-    private int a = 0;
-
     private boolean isEmpty(Spot s, Spot e)
     {
-        Iterator move = this.moves.iterator();
+        Iterator move = this.moves.getIterator();
         int i = 0;
         while(move.hasNext())
         {
@@ -234,14 +235,14 @@ public class Playground extends Canvas {
         return c;
     }
 
+    private int teamTurn = 0;
+
     public void addMove(Spot p)
     {
         p = this.calculateNextMove(p);
-        Move m = this.moves.lastElement();
-        Spot s = m.getEnd();
-        if (possibleMove(p, s))
+        if (possibleMove(p, Spot.lastSpot))
         {
-            this.moves.add(new Move(s, p, (this.a = (this.a+1)%2)));
+            this.moves.add(new Move(Spot.lastSpot, p, (this.teamTurn = (this.teamTurn+1)%2)));
             Spot.lastSpot = p;
             update();
         }

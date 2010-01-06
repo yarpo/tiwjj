@@ -30,6 +30,16 @@ public class Moves {
         this(new Move(s, e, team));
     }
 
+    public void add(Move m)
+    {
+        this.moves.add(m);
+    }
+
+    public Iterator getIterator()
+    {
+        return this.moves.iterator();
+    }
+
     public Spot getLastPoint()
     {
         return this.moves.lastElement().getEnd();
