@@ -67,7 +67,7 @@ public class Playground extends Canvas {
         Spot.hoveredSpot = p;
         if (p.isAccessible(Spot.lastSpot))
         {
-            drawFocusedPoints();
+            drawSpecialPoints();
             drawHoveredPoint();
         }
     }
@@ -76,16 +76,14 @@ public class Playground extends Canvas {
     {
         Spot s = this.calculateNextMove(Spot.hoveredSpot);
         g.setColor(Colors.HoveredPoint);
-        if (Spot.lastSpot.isAccessible(s))
+        if (Spot.lastSpot.isAccessible(s) && s.distance(Spot.lastSpot) != 0)
         {
 // TODO: do size dodac stala wyliczana wg PointX/2 PointY/2
             g.fillRect(s.x-Size.OffsetX, s.y-Size.OffsetY, Size.PointX, Size.PointY);
         }
     }
 
-    
-
-    private void drawFocusedPoints()
+    private void drawSpecialPoints()
     {
         g.setColor(Colors.FocusedPoint);
         FocusedPointDimension p = new FocusedPointDimension(Spot.lastSpot);
@@ -98,6 +96,9 @@ public class Playground extends Canvas {
         g.fillRect(p.xRight, p.yTop, Size.PointX, Size.PointY);
         g.fillRect(p.xRight, p.yCenter, Size.PointX, Size.PointY);
         g.fillRect(p.xRight, p.yBottom, Size.PointX, Size.PointY);
+        
+        g.setColor(Colors.CurrentPoint);
+        g.fillRect(p.xCenter, p.yCenter, Size.PointX, Size.PointY);
     }
 
     private void drawPoints()
