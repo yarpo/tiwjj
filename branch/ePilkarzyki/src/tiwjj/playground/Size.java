@@ -20,8 +20,8 @@ public class Size {
     final static public int StartYGrass   = 10;
     final static public int VerticalGap   = 20;
     final static public int HorizontalGap = 20;
-    final static public int PlaygroundWidth  = VerticalGap*PointsX;
-    final static public int PlaygroundHeight = HorizontalGap*PointsY;
+    final static public int PlaygroundWidth  = HorizontalGap*PointsX;
+    final static public int PlaygroundHeight = VerticalGap*PointsY;
     final static public int WIDTH   = PlaygroundWidth+StartXGrass*2;
     final static public int HEIGHT  = PlaygroundHeight+StartYGrass*2;
     final static public int GoalWidth  = 45;
