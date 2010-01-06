@@ -26,19 +26,66 @@ public class Playground extends Canvas {
      */
     private Moves moves;
 
-    private Color bgColor = Colors.Normal;
-    private int xCenter = (int)(Size.PlaygroundWidth/2) +  Size.StartXGrass;
-    private int yCenter = (int)(Size.PlaygroundHeight/2) + Size.StartYGrass;
-    private int xStart = Size.StartXGrass - (int)Size.PointX/2;
-    private int yStart = Size.StartYGrass - (int)Size.PointY/2;
-    private int xStop  = Size.PlaygroundWidth + this.xStart;
-    private int yStop  = Size.PlaygroundHeight + this.yStart;
 
+    /**
+     * kolor tla
+     */
+    private Color bgColor = Colors.Normal;
+
+
+    /**
+     * srodek boiska w poziomie
+     */
+    private int xCenter = (int)(Size.PlaygroundWidth/2) +  Size.StartXGrass;
+
+
+    /**
+     * srodek boiska w pionie
+     */
+    private int yCenter = (int)(Size.PlaygroundHeight/2) + Size.StartYGrass;
+
+
+    /** 
+     * poczatek na osi x wyrysowywania punktow.
+     * _Nie_ musi pokrywac sie z poczatekiem boiska
+     */
+    public final static int xStart = Size.StartXGrass - Size.OffsetX;
+
+    /**
+     * poczatek na osi y wyrysowywania punktow.
+     * _Nie_ musi pokrywac sie z poczatekiem boiska
+     */
+    public final static int yStart = Size.StartYGrass - Size.OffsetX;
+
+    /**
+     * graniczy punkt dla wyrysowywania punktow na boisku w osi x
+     */
+    public final static int xStop  = Size.PlaygroundWidth + Playground.xStart;
+
+    /**
+     * graniczy punkt dla wyrysowywania punktow na boisku w osi y
+     */
+    public final static int yStop  = Size.PlaygroundHeight + Playground.yStart;
+
+    
+    /** 
+     * Konstruktor
+     *
+     * tworzy pierwszy ruch
+     */
     public Playground()
+    {
+        this.createFirstMove();
+    }
+
+    /**
+     * Tworzy pierwszy (pusty) ruch
+     * WYMAGANE przy starcie gry
+     */
+    private void createFirstMove()
     {
         Spot f = new Spot(this.xCenter, this.yCenter);
         Spot.hoveredSpot = f;
-        Spot.lastSpot = Spot.hoveredSpot;
         Move first = new Move(f, f, 0);
         this.moves = new Moves(first);
     }
@@ -52,6 +99,7 @@ public class Playground extends Canvas {
     public void mouseOut()
     {
         this.bgColor = Colors.Normal;
+        Spot.hoveredSpot = null;
         this.update();
     }
 
@@ -67,11 +115,10 @@ public class Playground extends Canvas {
 
     private void drawHoveredPoint()
     {
-        Spot s = this.calculateNextMove(Spot.hoveredSpot);
+        Spot s = Spot.normalize(Spot.hoveredSpot);
         g.setColor(Colors.HoveredPoint);
         if (Spot.lastSpot.isAccessible(s) && s.distance(Spot.lastSpot) != 0)
         {
-// TODO: do size dodac stala wyliczana wg PointX/2 PointY/2
             g.fillRect(s.x-Size.OffsetX, s.y-Size.OffsetY, Size.PointX, Size.PointY);
         }
     }
@@ -93,9 +140,9 @@ public class Playground extends Canvas {
     {
         g.setColor(Colors.Points);
 
-        for (int i = this.xStop; i >= this.xStart;  i -= Size.VerticalGap)
+        for (int i = Playground.xStop; i >= Playground.xStart;  i -= Size.VerticalGap)
         {
-            for (int j = this.yStop; j >=  this.yStart; j -= Size.HorizontalGap)
+            for (int j = Playground.yStop; j >=  Playground.yStart; j -= Size.HorizontalGap)
             {
                 g.drawRect(i, j, Size.PointX, Size.PointY);
             }
@@ -137,35 +184,13 @@ public class Playground extends Canvas {
         g.setColor(Colors.CurrentPoint);
         g.fillRect(Spot.lastSpot.getXx(), Spot.lastSpot.getYy(), Size.PointX, Size.PointY);
     }
-// TODO: przeniesc do ktorejs z klas
-    private int round(int x, int m)
-    {
-        int tmp = x%m;
-        if (tmp >= (int)(m/2))
-        {
-            x += (m - tmp);
-        }
-        else
-        {
-            x -= tmp;
-        }
-        return x;
-    }
-// TODO przeniesc
-    private Spot calculateNextMove(Spot p)
-    {
-        p.x = round(p.x - this.xStart, Size.HorizontalGap) + this.xStart + 2;
-        p.y = round(p.y - this.yStart, Size.VerticalGap) + this.yStart + 2;
-
-        return p;
-    }
 
     private int teamTurn = 0;
 
     // TODO: uproscic
     public void addMove(Spot p)
     {
-        p = this.calculateNextMove(p);
+        p = Spot.normalize(p); 
 
         if (this.moves.possible(p))
         {
@@ -213,10 +238,10 @@ public class Playground extends Canvas {
      */
     public static boolean isSpotable(int x, int y)
     {
-        if (y >= Size.StartYGrass - Size.PointY &&
-            y <= Size.PlaygroundHeight - Size.PointY &&
-            x <= Size.PlaygroundWidth + Size.PointX &&
-            x >= Size.StartYGrass - Size.PointX)
+        if (y >= Playground.yStart &&
+            y <= Playground.yStop &&
+            x <= Playground.xStop &&
+            x >= Playground.xStart)
         {
             return true;
         }

@@ -40,6 +40,10 @@ public class Spot extends Point {
     public Spot(int x, int y)
     {
         super(x, y);
+        if (null == Spot.lastSpot)
+        {
+            Spot.lastSpot = this;
+        }
     }
 
     
@@ -195,5 +199,73 @@ public class Spot extends Point {
         }
 
         return this.createNeighboursVector();
+    }
+
+    /**
+     * Pseudo podloga i sufit
+     * z ta roznica, ze zaokragla nie do calosci, a do liczby podanej jako
+     * drugi parametr
+     *
+     * @param int x - liczba 'zaokraglana'
+     * @param int m - liczba do ktorej wielokrotnosci sie zaokragla
+     *
+     * @returns int
+     */
+    private static int round(int x, int m)
+    {
+        int tmp = x%m;
+        if (tmp >= (int)(m/2))
+        {
+            x += (m - tmp);
+        }
+        else
+        {
+            x -= tmp;
+        }
+        return x;
+    }
+
+
+    /**
+     * Normalizuje wspolrzedne podanego punktu do wpolrzednych
+     * najblizszego punktu na boisku
+     *
+     * @param Point p
+     *
+     * @returns Spot
+     */
+    public static Spot normalize(Point p)
+    {
+        return Spot.normalize(new Spot(p));
+    }
+
+
+    /**
+     * Normalizuje podane wspolrzedne do wspolrzednych
+     * najblizszego punktu na boisku i zwraca obiekt z takimi wspolrzednymi
+     *
+     * @param Point p
+     *
+     * @returns Spot
+     */
+    public static Spot normalize(int x, int y)
+    {
+       return Spot.normalize(new Spot(x, y));
+    }
+
+    /**
+     * Normalizuje podane wspolrzedne do wspolrzednych
+     * najblizszego punktu na boisku
+     *
+     * @param Spot p
+     *
+     * @returns Spot
+     */
+    public static Spot normalize(Spot p)
+    {
+        p.x = round(p.x - Playground.xStart, Size.HorizontalGap) + Playground.xStart + Size.OffsetX;
+        p.y = round(p.y - Playground.yStart, Size.VerticalGap) + Playground.yStart + Size.OffsetX;
+
+        return p;
     }
 }
