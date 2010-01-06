@@ -26,6 +26,8 @@ public class Spot extends Point {
      */
     static public Spot lastSpot;
 
+    protected Vector <Spot> neighbours = null;
+
     public Spot(int x, int y)
     {
         super(x, y);
@@ -80,21 +82,12 @@ public class Spot extends Point {
         return (this.distance(p) <= Size.MaxDistance);
     }
 
-    public Vector<Spot> getNeighbours()
+    private Vector<Spot> createNeighboursVector()
     {
-        Vector v = new Vector<Spot>();
+        this.neighbours = new Vector<Spot>();
 
-        int [] xs =  {
-                            this.x,                        // wspolrz x wyswietlana
-                            this.x - Size.HorizontalGap,   // na lewo
-                            this.x + Size.HorizontalGap    // na prawo
-                        };
-
-        int [] ys =  {
-                            this.y,    // wspolrzedna y wyswieltana
-                            this.y - Size.VerticalGap,   // do gory
-                            this.y + Size.VerticalGap    // na dol
-                        };
+        int [] xs = { this.x, this.x - Size.HorizontalGap, this.x + Size.HorizontalGap };
+        int [] ys = { this.y, this.y - Size.VerticalGap, this.y + Size.VerticalGap };
 
         for(int i = 2; i >= 0; i--)
         {
@@ -103,11 +96,20 @@ public class Spot extends Point {
                 if (Playground.isSpotable(xs[i], ys[j]) &&
                     !this.theSameField(xs[i], ys[j]))
                 {
-                    v.add(new Spot(xs[i], ys[j]));
+                    this.neighbours.add(new Spot(xs[i], ys[j]));
                 }
             }
         }
+        return this.neighbours;
+    }
 
-        return v;
+    public Vector<Spot> getNeighbours()
+    {
+        if (null != this.neighbours)
+        {
+            return this.neighbours;
+        }
+
+        return this.createNeighboursVector();
     }
 }
