@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package tiwjj.playground;
 
 /**
- *
- * @author yarpo
+ * Klasa Spot dziedziczaca po Point
+ * Pozwala na obsluge punktow na Playground
+ * @author  Patryk yarpo Jar
+ * @date    6 - 01 - 2009
  */
 import java.awt.Point;
 import java.util.Vector;
@@ -20,53 +17,111 @@ public class Spot extends Point {
      */
     static public Spot hoveredSpot;
 
+    
     /**
      * statycze pole zawierajace obiekt punktu stanowiacego koniec sciezki
      * kolejnych ruchow
      */
     static public Spot lastSpot;
 
+
+    /**
+     * lista sasiadow danego punktu - tworzona tylko w przypadku wywolania
+     * Spot.getNeighbours
+     */
     protected Vector <Spot> neighbours = null;
 
+
+    /**
+     * Konstruktor 1 - ze wspolrzednych
+     * @param int x - wspolrzedna x
+     * @param int y - wspolrzedna y
+     */
     public Spot(int x, int y)
     {
         super(x, y);
     }
 
+    
+    /**
+     * Konstruktor 2 - rozszerzajacy obiekt Point
+     * @param int x - wspolrzedna x
+     * @param int y - wspolrzedna y
+     */
     public Spot(Point p)
     {
         this(p.x, p.y);
     }
 
+    
+    /**
+     * Zwraca wspolrzedna x gotowa do zastosowania w wyswietlaniu na canvasie
+     * 
+     * @uses Size.OffsetX
+     *
+     * @returns int
+     */
     public int getXx()
     {
         return this.x - Size.OffsetX;
     }
 
+    
+     /**
+     * Zwraca wspolrzedna y gotowa do zastosowania w wyswietlaniu na canvasie
+     *
+     * @uses Size.OffsetY
+     *
+     * @returns int
+     */
     public int getYy()
     {
         return this.y - Size.OffsetY;
     }
 
+
+    /**
+     * Sprawdza czy aktualny punkt nie ma takich samym wspolrzednych z innym
+     *
+     * @param int x - wspolrzedna x
+     * @param int y - wspolrzedna y
+     *
+     * @returns boolean
+     */
     public boolean theSameField(int x, int y)
     {
         return (0 == this.distance(x, y));
     }
 
+
+     /**
+     * Sprawdza czy aktualny punkt nie ma takich samym wspolrzednych z innym
+     *
+     * @param Point p - obiekt klasy Point
+     *
+     * @returns boolean
+     */
     public boolean theSameField(Point p)
     {
         return (0 == this.distance(p));
     }
 
+    
     /**
-     Sprawdza czy podany jako parametr
+     * Sprawdza czy ten punkt powinien byc podswietlony
+     *
+     * @uses Spot.lastSpot
+     * @uses Size.HoverAreaX
+     * @uses Size.HoverAreaY
+     *
+     * @returns boolean
      */
     public boolean isFocused()
     {
         if ((Spot.lastSpot.x <= this.x + Size.HoverAreaX)
                 &&
             (Spot.lastSpot.x >= this.x - Size.HoverAreaX)
-            &&
+                &&
             (Spot.lastSpot.y >= this.y - Size.HoverAreaY)
                 &&
             (Spot.lastSpot.y <= this.y + Size.HoverAreaY))
@@ -77,11 +132,33 @@ public class Spot extends Point {
         return false;
     }
 
-    public boolean isAccessible(Spot p)
+
+    /** 
+     * Sprawdza czy podany jako parametr punkt jest w zasiegu aktualnego
+     * Wykorzystywane przy tworzeniu nowych ruchow
+     *
+     * @param Point p - punkt do ktorego chcielibysmy przejsc
+     *
+     * @uses Size.MaxDistance
+     *
+     * @returns boolean
+     */
+    public boolean isAccessible(Point p)
     {
         return (this.distance(p) <= Size.MaxDistance);
     }
 
+
+    /** 
+     * Tworzy wektor sasiednich punktow (tych, ktore  znajduja sie na planszy)
+     * _Nie_ sprawdza czy mozna do nich pojsc
+     *
+     * @uses Playground.isSpotable
+     * @uses Size.HorizontalGap
+     * @uses Size.VerticalGap
+     *
+     * @returns Vector<Spot>
+     */
     private Vector<Spot> createNeighboursVector()
     {
         this.neighbours = new Vector<Spot>();
@@ -103,6 +180,13 @@ public class Spot extends Point {
         return this.neighbours;
     }
 
+
+    /**
+     * Zwraca wektor sasiednich punktow
+     * Jesli taki istnieje lub wpierw nakazuje go stworzyc i potem zwraca
+     *
+     * @returns Vector<Spot> 
+     */
     public Vector<Spot> getNeighbours()
     {
         if (null != this.neighbours)
