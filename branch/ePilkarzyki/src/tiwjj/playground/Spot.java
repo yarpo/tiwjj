@@ -26,14 +26,9 @@ public class Spot extends Point {
      */
     static public Spot lastSpot;
 
-    private int xX;
-    private int yY;
-
     public Spot(int x, int y)
     {
         super(x, y);
-        this.xX = x - Size.OffsetX;
-        this.yY = y - Size.OffsetY;
     }
 
     public Spot(Point p)
@@ -41,14 +36,14 @@ public class Spot extends Point {
         this(p.x, p.y);
     }
 
-    public double getXx()
+    public int getXx()
     {
-        return xX;
+        return this.x - Size.OffsetX;
     }
 
-    public double getYy()
+    public int getYy()
     {
-        return yY;
+        return this.y - Size.OffsetY;
     }
 
     public boolean theSameField(int x, int y)
