@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
+import java.util.Vector;
 
 // TODO: dodac komentarze do metod i atrybutow
 
@@ -87,6 +88,8 @@ public class Playground extends Canvas {
     {
         g.setColor(Colors.FocusedPoint);
         FocusedPointDimension p = new FocusedPointDimension(Spot.lastSpot);
+
+        Vector v = Spot.lastSpot.getNeighbours();
 
         g.fillRect(p.xLeft, p.yTop, Size.PointX, Size.PointY);
         g.fillRect(p.xLeft, p.yCenter, Size.PointX, Size.PointY);
@@ -218,5 +221,21 @@ public class Playground extends Canvas {
     {
         update();
 
+    }
+
+        /**
+     * czy w punkcie o takich wspolrzednym moze zostac postawiony punkt
+     */
+    public static boolean isSpotable(int x, int y)
+    {
+        if (y >= Size.StartYGrass - Size.PointY &&
+            y <= Size.PlaygroundHeight - Size.PointY &&
+            x <= Size.PlaygroundWidth + Size.PointX &&
+            x >= Size.StartYGrass - Size.PointX)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
