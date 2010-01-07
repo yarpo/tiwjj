@@ -59,7 +59,7 @@ public class Moves {
         Spot.lastSpot = m.getEnd();
     }
 
-// TODO: czy iterator jest szybszy od petli?
+
     /**
      * Zwraca iterator
      * Dzieki temu mozna przechodzic po wszystkich ruchach
@@ -101,7 +101,6 @@ public class Moves {
         return true; // w kazym innym wypadku mozliwy
     }
 
-// TODO: przerobic na statyczna
     /**
      * Sprawdza czy ten ruch nie byl juz wykonany
      */
@@ -115,9 +114,9 @@ public class Moves {
             Spot a = m.getStart();
             Spot b = m.getEnd();
 
-            if ((Spot.lastSpot.x == a.x && Spot.lastSpot.y == a.y && e.x == b.x && e.y == b.y)
+            if ((Spot.lastSpot.theSameField(a) && e.theSameField(b))
                     ||
-                (Spot.lastSpot.x == b.x && Spot.lastSpot.y == b.y && e.x == a.x && e.y == a.y))
+                (Spot.lastSpot.theSameField(b) && e.theSameField(a)))
             {
 
                 return false;
