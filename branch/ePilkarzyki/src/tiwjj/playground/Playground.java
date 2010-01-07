@@ -291,6 +291,7 @@ public class Playground extends Canvas {
 
     }
 
+
     /**
      * Sprawdza, czy dany punkt jest osiagalny - czy moze byc tam punkt
      *
@@ -310,5 +311,17 @@ public class Playground extends Canvas {
         }
 
         return false;
+    }
+
+    /**
+     * Sprawdza, czy dany punkt jest osiagalny - czy moze byc tam punkt
+     *
+     * @param Point p
+     * 
+     * @returns boolean
+     */
+    public static boolean isSpotable(Point p)
+    {
+        return isSpotable(p.x, p.y);
     }
 }
