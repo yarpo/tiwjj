@@ -55,7 +55,7 @@ public class Playground extends Canvas {
      * poczatek na osi y wyrysowywania punktow.
      * _Nie_ musi pokrywac sie z poczatekiem boiska
      */
-    public final static int yStart = Size.StartYGrass - Size.OffsetX;
+    public final static int yStart = Size.StartYGrass - Size.OffsetY;
 
     /**
      * graniczy punkt dla wyrysowywania punktow na boisku w osi x
@@ -76,13 +76,6 @@ public class Playground extends Canvas {
     public Playground()
     {
         this.createFirstMove();
-    }
-
-    @Override
-    public void finalize()
-    {
-        Spot.hoveredSpot = Spot.lastSpot = null;
-        //TODO: znalezc pozostale statyczne wartosci i je tu zrestartowac
     }
 
     /**
@@ -237,7 +230,7 @@ public class Playground extends Canvas {
         g.fillRect(Spot.lastSpot.getXx(), Spot.lastSpot.getYy(), Size.PointX, Size.PointY);
     }
 
-// TODO: usunac po wprowadzeniu serwera
+    // TODO: usunac po wprowadzeniu serwera
     private int teamTurn = 0;
 
     /**
@@ -288,7 +281,7 @@ public class Playground extends Canvas {
     }
 
     /**
-     * Napisana metoda wyrysowujaca na nowo na canvasie.
+     * Nadpisana metoda wyrysowujaca na nowo na canvasie.
      * U mnie przekierowuje na mojego update
      */
     @Override
@@ -310,8 +303,8 @@ public class Playground extends Canvas {
     public static boolean isSpotable(int x, int y)
     {
         if (y >= Playground.yStart &&
-            y <= Playground.yStop &&
-            x <= Playground.xStop &&
+            y <= Playground.yStop + Size.OffsetY &&
+            x <= Playground.xStop + Size.OffsetX &&
             x >= Playground.xStart)
         {
             return true;
