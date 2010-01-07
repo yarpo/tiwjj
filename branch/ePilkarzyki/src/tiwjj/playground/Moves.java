@@ -21,7 +21,6 @@ public class Moves {
 
     /**
      * Konstruktor Moves 1
-     *
      * Tworzy pierwszy ruch
      *
      * @param Move m
@@ -35,7 +34,6 @@ public class Moves {
 
     /**
      * Konstruktor Moves 2
-     *
      * Tworzy pierwszy ruch
      *
      * @param Spot s
@@ -71,6 +69,7 @@ public class Moves {
         return this.moves.iterator();
     }
 
+
     /**
      * Zwraca liczbe ruchow
      *
@@ -81,8 +80,13 @@ public class Moves {
         return this.moves.size();
     }
 
+
     /**
      * Sprawdza, czy mozna przejsc na wskazane pole
+     *
+     * @param Spot e
+     *
+     * @returns boolean
      */
     public boolean possible(Spot e)
     {
@@ -101,8 +105,13 @@ public class Moves {
         return true; // w kazym innym wypadku mozliwy
     }
 
+    
     /**
      * Sprawdza czy ten ruch nie byl juz wykonany
+     *
+     * @param Spot e
+     *
+     * returns boolean
      */
     private boolean isEmpty(Spot e)
     {
@@ -111,17 +120,12 @@ public class Moves {
         while(move.hasNext())
         {
             Move m = (Move)move.next();
-            Spot a = m.getStart();
-            Spot b = m.getEnd();
-
-            if ((Spot.lastSpot.theSameField(a) && e.theSameField(b))
-                    ||
-                (Spot.lastSpot.theSameField(b) && e.theSameField(a)))
+            if (Move.theSameMove(m, new Move(Spot.lastSpot, e, 0)))
             {
-
                 return false;
             }
         }
+
         return true;
     }
 }
