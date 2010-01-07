@@ -78,6 +78,13 @@ public class Playground extends Canvas {
         this.createFirstMove();
     }
 
+    @Override
+    public void finalize()
+    {
+        Spot.hoveredSpot = Spot.lastSpot = null;
+        //TODO: znalezc pozostale statyczne wartosci i je tu zrestartowac
+    }
+
     /**
      * Tworzy pierwszy (pusty) ruch
      * WYMAGANE przy starcie gry
