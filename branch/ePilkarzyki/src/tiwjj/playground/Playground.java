@@ -85,17 +85,25 @@ public class Playground extends Canvas {
     private void createFirstMove()
     {
         Spot f = new Spot(this.xCenter, this.yCenter);
-        Spot.hoveredSpot = f;
-        Move first = new Move(f, f, 0);
-        this.moves = new Moves(first);
+        this.moves = new Moves(new Move(f, f, 0));
     }
 
+
+    /** 
+     * Obsluga zdarzenia wjechania mysza nad obszar canvasu
+     * Zmienia kolor tla + wyrysowuje wszystko od nowa
+     */
     public void mouseOver()
     {
         this.bgColor = Colors.Hover;
         this.update();
     }
 
+
+    /**
+     * Obsluga zdarzenia wyjechania mysza znad obszaru canvasu
+     * Zmienia kolor tla + wyrysowuje wszystko od nowa
+     */
     public void mouseOut()
     {
         this.bgColor = Colors.Normal;
@@ -103,26 +111,44 @@ public class Playground extends Canvas {
         this.update();
     }
 
+
+    /**
+     * Obsluga sytuacji, w ktorej kursor jest nad powierzchnia boiska
+     * Moze sie poruszac.
+     *
+     * Wyrysowuje podswietlone punkty (aktualny, mozliwe do osiganiecia z aktualnego)
+     * oraz - w odpowiednich sytucjach - podswietla znormalizowany punkt do przejscia
+     *
+     * @param Spot p
+     */
     public void hover(Spot p)
     {
         Spot.hoveredSpot = p;
+        drawSpecialPoints();
         if (p.isAccessible(Spot.lastSpot))
         {
-            drawSpecialPoints();
             drawHoveredPoint();
         }
     }
 
+
+    /**
+     * Wyrysowywanie podswietlonego punktow
+     */
     private void drawHoveredPoint()
     {
         Spot s = Spot.normalize(Spot.hoveredSpot);
         g.setColor(Colors.HoveredPoint);
-        if (Spot.lastSpot.isAccessible(s) && s.distance(Spot.lastSpot) != 0)
+        if (Spot.lastSpot.isAccessible(s) && !s.theSameField(Spot.lastSpot))
         {
             g.fillRect(s.x-Size.OffsetX, s.y-Size.OffsetY, Size.PointX, Size.PointY);
         }
     }
 
+
+    /**
+     * Wyrysuj specjalne punkty - otaczajace aktualny punkt
+     */
     private void drawSpecialPoints()
     {
         g.setColor(Colors.FocusedPoint);
@@ -136,6 +162,9 @@ public class Playground extends Canvas {
         }
     }
 
+    /**
+     * Wyrysowuje punkty niekatywne
+     */
     private void drawPoints()
     {
         g.setColor(Colors.Points);
@@ -149,6 +178,9 @@ public class Playground extends Canvas {
         }
     }
 
+    /**
+     * Rysuje bramki
+     */
     private void drawGoals()
     {
         g.setColor(Colors.Goals);
@@ -157,6 +189,9 @@ public class Playground extends Canvas {
         g.fillRect(x_start-Size.OffsetY, Size.PlaygroundHeight + Size.StartYGrass, Size.GoalWidth, Size.GoalHeight);
     }
 
+    /**
+     * Rysuje trawe i srodkowa linie
+     */
     private void drawGrass()
     {
         g.clearRect(0, 0, Size.WIDTH, Size.HEIGHT);
@@ -167,12 +202,22 @@ public class Playground extends Canvas {
                                                             this.yCenter);
     }
 
+
+    /**
+     * Rysuje pojedynczy ruch
+     *
+     * @param Move m
+     */
     private void drawMove( Move m)
     {
         g.setColor(Colors.Teams[m.getTeam()]);
         g.drawLine(m.getStart().x, m.getStart().y, m.getEnd().x, m.getEnd().y);
     }
 
+
+    /**
+     * Rysuje wszystkie ruchy
+     */
     private void drawMoves()
     {
         Iterator move = this.moves.getIterator();
@@ -185,25 +230,34 @@ public class Playground extends Canvas {
         g.fillRect(Spot.lastSpot.getXx(), Spot.lastSpot.getYy(), Size.PointX, Size.PointY);
     }
 
+// TODO: usunac po wprowadzeniu serwera
     private int teamTurn = 0;
 
-    // TODO: uproscic
-    public void addMove(Spot p)
+    /**
+     * Dodaje nowy ruch jesli jest to mozliwe
+     */
+    public boolean addMove(Spot p)
     {
         p = Spot.normalize(p); 
 
         if (this.moves.possible(p))
         {
-            this.moves.add(new Move(Spot.lastSpot, p, (this.teamTurn = (this.teamTurn+1)%2)));
+            this.teamTurn = (this.teamTurn+1)%2;
+            this.moves.add(new Move(Spot.lastSpot, p, this.teamTurn));
             update();
+            return true;
         }
         else
         {
             System.out.println("Nie mozesz!");
         }
-        
+
+        return false;
     }
 
+    /**
+     * Wyrysowauje wszystko od nowa na canvasie
+     */
     public void update()
     {
         if (null == this.g)
@@ -217,8 +271,8 @@ public class Playground extends Canvas {
         drawMoves();
     }
 
-   /*
-    * Paint when the AWT tells us to...
+   /**
+    * Rysowanie na canvasie
     */
     @Override
     public void paint(Graphics g)
@@ -226,6 +280,10 @@ public class Playground extends Canvas {
         update();
     }
 
+    /**
+     * Napisana metoda wyrysowujaca na nowo na canvasie.
+     * U mnie przekierowuje na mojego update
+     */
     @Override
     public void update(Graphics g)
     {
@@ -233,8 +291,13 @@ public class Playground extends Canvas {
 
     }
 
-        /**
-     * czy w punkcie o takich wspolrzednym moze zostac postawiony punkt
+    /**
+     * Sprawdza, czy dany punkt jest osiagalny - czy moze byc tam punkt
+     *
+     * @param int x
+     * @param int y
+     *
+     * @returns boolean
      */
     public static boolean isSpotable(int x, int y)
     {
