@@ -15,6 +15,10 @@ import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import tiwjj.playground.*;
 
+/**
+ *
+ * @author yarpo
+ */
 public class Main extends JApplet {
 
     private static final int DEFAULT_WIDTH = 270;
@@ -113,11 +117,21 @@ public class Main extends JApplet {
         frame.setVisible(true);
     }
 
+    /**
+     *
+     * @param applet
+     * @param width
+     * @param height
+     */
     public static void run(JApplet applet, int width, int height)
     {
         createFrame(applet, width, height);
     }
 
+    /**
+     *
+     * @param applet
+     */
     public static void run(JApplet applet)
     {
         createFrame(applet, Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
