@@ -1,15 +1,10 @@
-/*
- * ePilkarzyki - gra w pilkarzyki na kartce poprzez lacze internetowe
- *
- * Main.java - stad staruje projekt
- *
- */
-
 package tiwjj;
 
 /**
- *
- * @author yarpo
+ * Klasa Main dziedziczaca po JApplet
+ * Pozwala na stworzenie apletu i umieszczenie w nim gry
+ * @author  Patryk yarpo Jar
+ * @date    6 - 01 - 2009
  */
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -100,11 +95,13 @@ public class Main extends JApplet {
         setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
         createCanvas();
     }
+
+    // TODO: Pozniej odkomentowac [moze byc zarowno aplikacja okienkowa jak i appletem
     /*
     public static void main(String[] args) {
         run(new Main(), 300, 400);
     }
-*/
+    */
     private static void createFrame(JApplet applet, int w, int h)
     {
         JFrame frame = new JFrame("e-Piłkarzyki");
