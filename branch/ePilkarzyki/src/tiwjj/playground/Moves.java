@@ -81,32 +81,24 @@ public class Moves {
         return this.moves.size();
     }
 
-// TODO: uzyc Playground.isSpotable
     /**
      * Sprawdza, czy mozna przejsc na wskazane pole
      */
     public boolean possible(Spot e)
     {
-        // nie jest na polu
-        if ((e.x > Size.PlaygroundWidth + Size.OffsetX
+        // ruch jest niemozliwy, gdy:
+        if (!Playground.isSpotable(e) // nowego punktu nie ma na boisku
                 ||
-             e.x < Size.StartXGrass - Size.OffsetX)
-           ||
-            (e.y > Size.PlaygroundHeight+Size.OffsetY+Size.StartYGrass 
+            Spot.lastSpot.theSameField(e) // to ten sam punkit, co aktualny
                 ||
-             e.y < Size.StartYGrass - Size.OffsetY)
-           ||
-            Spot.lastSpot.theSameField(e))
+            !Spot.lastSpot.isAccessible(e) // z aktualnego nie mozna tam pojsc
+                ||
+            !this.isEmpty(e)) // juz istnieje polaczenie
         {
-            return false;
-        }
-      
-        if (Spot.lastSpot.distance(e) > Size.MaxDistance)
-        {
-            return false;
+            return false; // niemozliwy ruch
         }
 
-        return this.isEmpty(e);
+        return true; // w kazym innym wypadku mozliwy
     }
 
 // TODO: przerobic na statyczna
