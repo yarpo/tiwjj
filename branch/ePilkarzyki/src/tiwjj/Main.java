@@ -10,7 +10,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
-import java.awt.event.*;
 import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
@@ -41,10 +40,9 @@ public class Main extends JApplet {
      */
     private static SecureClient client = new SecureClient();
 
-    public static enum TEAM {
-        WHITE,
-        BLACK
-    }
+    public static int WHITE_TEAM = 0;
+    public static int BLACK_TEAM = 1;
+        
 
 
     /**
@@ -61,7 +59,6 @@ public class Main extends JApplet {
 
         //Build the first menu.
         menu = new JMenu("Gra");
-        menu.setMnemonic(KeyEvent.VK_A);
         menuBar.add(menu);
 
         //a submenu
@@ -71,28 +68,22 @@ public class Main extends JApplet {
 
         rbMenuItem = new JRadioButtonMenuItem("Biali");
         rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client,
-                                                                TEAM.WHITE));
+                                                             WHITE_TEAM));
         group.add(rbMenuItem);
         submenu.add(rbMenuItem);
 
         rbMenuItem = new JRadioButtonMenuItem("Czarni");
         rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client,
-                                                                TEAM.BLACK));
+                                                              BLACK_TEAM));
         group.add(rbMenuItem);
         submenu.add(rbMenuItem);
         menu.add(submenu);
         menu.addSeparator();
         menuItem = new JMenuItem("Zakończ grę");
+        rbMenuItem.addActionListener(new tiwjj.actions.EndGame());
         menu.add(menuItem);
 
         return menuBar;
-    }
-    /**
-     * Stworzenie menu
-     */
-    private void addMenuBar()
-    {
-        setJMenuBar(createMenuBar());
     }
 
     /**
@@ -138,7 +129,7 @@ public class Main extends JApplet {
     @Override
     public void init()
     {
-        addMenuBar();
+        setJMenuBar(createMenuBar());
         setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
         createCanvas();
     }

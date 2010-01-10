@@ -5,7 +5,6 @@
 
 package tiwjj.actions;
 
-import tiwjj.*;
 import tiwjj.communication.client.SecureClient;
 /**
  *
@@ -15,10 +14,10 @@ import java.awt.event.*;
 
 public class JoinGame implements ActionListener  {
 
-    private Main.TEAM team;
+    private int team;
     private SecureClient client;
 
-    public JoinGame(SecureClient client, Main.TEAM team)
+    public JoinGame(SecureClient client, int team)
     {
         this.team = team;
         this.client = client;
