@@ -9,6 +9,9 @@ package tiwjj;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import java.awt.event.*;
+import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
@@ -33,51 +36,63 @@ public class Main extends JApplet {
      */
     private static final int DEFAULT_HEIGHT = 350;
 
-
+    /**
+     * Obiekt sluzacy do wymiany danych z serwerem
+     */
     private static SecureClient client = new SecureClient();
-    
+
+    public static enum TEAM {
+        WHITE,
+        BLACK
+    }
+
+
+    /**
+     * Tworzy menu
+     */
+    public JMenuBar createMenuBar() {
+        JMenuBar menuBar;
+        JMenu menu, submenu;
+        JMenuItem menuItem;
+        JRadioButtonMenuItem rbMenuItem;
+
+        //Create the menu bar.
+        menuBar = new JMenuBar();
+
+        //Build the first menu.
+        menu = new JMenu("Gra");
+        menu.setMnemonic(KeyEvent.VK_A);
+        menuBar.add(menu);
+
+        //a submenu
+        submenu = new JMenu("Dołącz do gry");
+
+        ButtonGroup group = new ButtonGroup();
+
+        rbMenuItem = new JRadioButtonMenuItem("Biali");
+        rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client,
+                                                                TEAM.WHITE));
+        group.add(rbMenuItem);
+        submenu.add(rbMenuItem);
+
+        rbMenuItem = new JRadioButtonMenuItem("Czarni");
+        rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client,
+                                                                TEAM.BLACK));
+        group.add(rbMenuItem);
+        submenu.add(rbMenuItem);
+        menu.add(submenu);
+        menu.addSeparator();
+        menuItem = new JMenuItem("Zakończ grę");
+        menu.add(menuItem);
+
+        return menuBar;
+    }
     /**
      * Stworzenie menu
      */
-    private void createMenuBar()
+    private void addMenuBar()
     {
-        JMenuBar jMenuBar = new JMenuBar();
-        JMenu jMenu1 = new JMenu();
-        JMenu jMenu2 = new JMenu();
-        JMenuItem jMenu1Item1 = new JMenuItem();
-        JMenuItem jMenu1Item2 = new JMenuItem();
-        JMenuItem jMenu1Item2sub1 = new JMenuItem();
-        JMenuItem jMenu1Item4 = new JMenuItem();
-        JMenuItem jMenu2Item3 = new JMenuItem();
-        JMenuItem jMenu2Item5 = new JMenuItem();
-
-        jMenu1.setText("Gra");
-
-        jMenu1Item1.setText("Nowa gra");
-        jMenu1Item1.addActionListener(new tiwjj.actionListener.NewGame());
-        jMenu1.add(jMenu1Item1);
-      
-        jMenu1Item2.setText("Dołącz do gry");
-        jMenu1Item2sub1.setText("Gra 1");
-        jMenu1Item2.add(jMenu1Item2sub1);
-        jMenu1Item2.addActionListener(new tiwjj.actionListener.JoinGame());
-        jMenu1.add(jMenu1Item2);
-     
-        jMenu1Item4.setText("Zakończ");
-        jMenu1Item4.addActionListener(new tiwjj.actionListener.EndGame());
-        jMenu1.add(jMenu1Item4);
-        jMenuBar.add(jMenu1);
-        jMenu2.setText("Edycja");
-       
-        jMenu2Item3.setText("Ustawienia");
-        jMenu2Item3.addActionListener(new tiwjj.actionListener.Settings());
-        jMenu2.add(jMenu2Item3);
-        
-        jMenu2Item5.setText("Zasady");
-        jMenu2Item5.addActionListener(new tiwjj.actionListener.Rules());
-        jMenu2.add(jMenu2Item5);
-        jMenuBar.add(jMenu2);
-        setJMenuBar(jMenuBar);
+        setJMenuBar(createMenuBar());
     }
 
     /**
@@ -123,7 +138,7 @@ public class Main extends JApplet {
     @Override
     public void init()
     {
-        createMenuBar();
+        addMenuBar();
         setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
         createCanvas();
     }
@@ -167,7 +182,7 @@ public class Main extends JApplet {
         System.out.println("Startuje program");
         createFrame(applet, width, height);
         System.out.println("Stworzona ramka");
-       //client = new SecureClient();
+
         try
         {
             System.out.println("Klient dziala");
