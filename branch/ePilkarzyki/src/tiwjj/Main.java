@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import tiwjj.playground.*;
+import tiwjj.communication.client.SecureClient;
 
 /**
  *
@@ -21,9 +22,23 @@ import tiwjj.playground.*;
  */
 public class Main extends JApplet {
 
+    /**
+     * Domyslna szerokosc okna
+     */
     private static final int DEFAULT_WIDTH = 270;
+
+
+    /**
+     * Domyslna wysokosc okna
+     */
     private static final int DEFAULT_HEIGHT = 350;
 
+
+    private static SecureClient client = new SecureClient();
+    
+    /**
+     * Stworzenie menu
+     */
     private void createMenuBar()
     {
         JMenuBar jMenuBar = new JMenuBar();
@@ -65,6 +80,9 @@ public class Main extends JApplet {
         setJMenuBar(jMenuBar);
     }
 
+    /**
+     * Wstawienie canvasu do aplettu
+     */
     private void createCanvas()
     {
         JPanel jPanel1 = new JPanel();
@@ -80,15 +98,18 @@ public class Main extends JApplet {
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(canvas1, GroupLayout.PREFERRED_SIZE, Size.WIDTH, GroupLayout.PREFERRED_SIZE)
+                .addComponent(canvas1, GroupLayout.PREFERRED_SIZE, Size.WIDTH,
+                                                    GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE)
             )
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.
+                                                        createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
-                .addComponent(canvas1, GroupLayout.PREFERRED_SIZE, Size.HEIGHT, GroupLayout.PREFERRED_SIZE)
+                .addComponent(canvas1, GroupLayout.PREFERRED_SIZE, Size.HEIGHT,
+                                                    GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
             )
         );
@@ -96,6 +117,9 @@ public class Main extends JApplet {
         add(jPanel1);
     }
 
+    /**
+     * Rozpoczecie dzialania aplletu
+     */
     @Override
     public void init()
     {
@@ -105,11 +129,21 @@ public class Main extends JApplet {
     }
 
     // TODO: Pozniej odkomentowac [moze byc zarowno aplikacja okienkowa jak i appletem
-    /*
-    public static void main(String[] args) {
+    
+    public static void main(String[] args)
+    {
         run(new Main(), 300, 400);
     }
-    */
+    
+
+
+    /**
+     * Stworzenie ramki z appletem
+     *
+     * @param JApplet applet
+     * @param int width
+     * @param int height
+     */
     private static void createFrame(JApplet applet, int w, int h)
     {
         JFrame frame = new JFrame("e-Piłkarzyki");
@@ -122,6 +156,7 @@ public class Main extends JApplet {
     }
 
     /**
+     * Uruchomienie aplletu z zadanymi rozmiarami
      *
      * @param applet
      * @param width
@@ -129,11 +164,21 @@ public class Main extends JApplet {
      */
     public static void run(JApplet applet, int width, int height)
     {
+        System.out.println("Startuje program");
         createFrame(applet, width, height);
+        System.out.println("Stworzona ramka");
+       //client = new SecureClient();
+        try
+        {
+            System.out.println("Klient dziala");
+            client.start();
+        }
+        catch( Exception e) { }
     }
 
     /**
-     *
+     * Uruchomiwnie apletu z domyslnymi rozmiarami
+     * 
      * @param applet
      */
     public static void run(JApplet applet)
