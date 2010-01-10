@@ -134,13 +134,13 @@ public class Main extends JApplet {
         createCanvas();
     }
 
-    // TODO: Pozniej odkomentowac [moze byc zarowno aplikacja okienkowa jak i appletem
-    
+    /**
+     * 
+     */
     public static void main(String[] args)
     {
-        run(new Main(), 300, 400);
+        run(new Main(), Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
     }
-    
 
 
     /**
