@@ -5,8 +5,8 @@ import java.net.*;
 import java.security.*;
 import javax.net.*;
 import javax.net.ssl.*;
-import dataexchange.Exchanger;
 import java.util.Vector;
+import tiwjj.communication.Exchanger;
 
 public class SecureServer {
 

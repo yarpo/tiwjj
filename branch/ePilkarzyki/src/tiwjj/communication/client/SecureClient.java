@@ -5,8 +5,7 @@ import java.net.*;
 import java.security.*;
 import javax.net.*;
 import javax.net.ssl.*;
-import dataexchange.Exchanger;
-
+import tiwjj.communication.Exchanger;
 
 public class SecureClient {
 
