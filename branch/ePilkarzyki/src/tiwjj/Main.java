@@ -31,9 +31,11 @@ public class Main extends JApplet {
         JMenu jMenu2 = new JMenu();
         JMenuItem jMenu1Item1 = new JMenuItem();
         JMenuItem jMenu1Item2 = new JMenuItem();
+        JMenuItem jMenu1Item2sub1 = new JMenuItem();
         JMenuItem jMenu1Item4 = new JMenuItem();
         JMenuItem jMenu2Item3 = new JMenuItem();
         JMenuItem jMenu2Item5 = new JMenuItem();
+
         jMenu1.setText("Gra");
 
         jMenu1Item1.setText("Nowa gra");
@@ -41,6 +43,8 @@ public class Main extends JApplet {
         jMenu1.add(jMenu1Item1);
       
         jMenu1Item2.setText("Dołącz do gry");
+        jMenu1Item2sub1.setText("Gra 1");
+        jMenu1Item2.add(jMenu1Item2sub1);
         jMenu1Item2.addActionListener(new tiwjj.actionListener.JoinGame());
         jMenu1.add(jMenu1Item2);
      
