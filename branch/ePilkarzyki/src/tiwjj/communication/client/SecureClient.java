@@ -116,6 +116,23 @@ public class SecureClient {
         connect(host, port, KEY);
     }
 
+    /**
+     * Zamyka polaczenie z serwerem
+     */
+    public void disconnect()
+    {
+        // TODO: komunkat do serwera
+        try
+        {
+            System.out.println("Siuaa");
+            this.clientSocket.close();
+        }
+        catch(Exception e)
+        {
+
+        }
+    }
+
 
     /**
      * Wysyla dane na serwer
@@ -152,6 +169,11 @@ public class SecureClient {
             System.out.println(response.content);
             try { Thread.sleep(1000); } catch(Exception e) {}
             i++;
+            if (i > 20)
+            {
+                a.content = "to dziala";
+            }
+
         }
     }
 }
