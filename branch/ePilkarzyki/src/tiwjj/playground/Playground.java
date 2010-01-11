@@ -11,9 +11,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.Vector;
+import tiwjj.communication.*;
+import tiwjj.communication.client.*;
 
 
 public class Playground extends Canvas {
+
+    /**
+     * Obiekt pozwalajacy na polaczenie z serwerem
+     */
+    private SecureClient client;
 
     /**
      * Obiekt pozwalajacy wyrysowywac wyniki na ekran
@@ -51,16 +58,19 @@ public class Playground extends Canvas {
      */
     public final static int xStart = Size.StartXGrass - Size.OffsetX;
 
+
     /**
      * poczatek na osi y wyrysowywania punktow.
      * _Nie_ musi pokrywac sie z poczatekiem boiska
      */
     public final static int yStart = Size.StartYGrass - Size.OffsetY;
 
+
     /**
      * graniczy punkt dla wyrysowywania punktow na boisku w osi x
      */
     public final static int xStop  = Size.PlaygroundWidth + Playground.xStart;
+
 
     /**
      * graniczy punkt dla wyrysowywania punktow na boisku w osi y
@@ -73,9 +83,51 @@ public class Playground extends Canvas {
      *
      * tworzy pierwszy ruch
      */
-    public Playground()
+    public Playground(SecureClient client)
     {
-        this.createFirstMove();
+        this.client = client;
+
+        this.client.connection();
+
+        if (this.client.isConnected())
+        {
+            System.out.println("Jestem polaczony");
+        }
+        else
+        {
+            System.out.println("Nie jestem polaczony");
+        }
+
+/*
+        Exchanger e = new Exchanger();
+        e.type = Exchanger.MessagesType.CHECK_MOVE;
+        this.client.send(e);
+
+        e = this.client.receive();
+        if (e.type == Exchanger.MessagesType.BAD_MOVE)
+        {
+            System.out.println("BAD_MOVE");
+        }
+
+        e.type = Exchanger.MessagesType.CHECK_MOVE;
+        this.client.send(e);
+
+        e = this.client.receive();
+        if (e.type == Exchanger.MessagesType.UPDATE_MOVE)
+        {
+            System.out.println("UPDATE_MOVE");
+        }
+
+        e.type = Exchanger.MessagesType.END;
+        this.client.send(e);
+
+        e = this.client.receive();
+        if (e.type == Exchanger.MessagesType.LOSER)
+        {
+            System.out.println("LOSER");
+        }
+*/
+       this.createFirstMove();
     }
 
     /**
@@ -238,19 +290,52 @@ public class Playground extends Canvas {
      */
     public boolean addMove(Spot p)
     {
-        p = Spot.normalize(p); 
+        System.out.println("addMove - no i co?");
 
-        if (this.moves.possible(p))
+        Exchanger e = this.client.waitForYourTurn();
+
+        if (null == e)
         {
-            this.teamTurn = (this.teamTurn+1)%2;
-            this.moves.add(new Move(Spot.lastSpot, p, this.teamTurn));
-            update();
-            return true;
+            System.out.println("Nie moja tura?!");
+            return false;
         }
         else
         {
-            System.out.println("Nie mozesz!");
+            System.out.println("Niby moja tura");
+            if (Exchanger.MessagesType.UPDATE == e.type)
+            {
+                System.out.println("NAJPIERW UPADTE PLANSZY");
+            }
         }
+
+        p = Spot.normalize(p); 
+
+        do
+        {
+            System.out.println("Probuje robic krok");
+
+            e.type = Exchanger.MessagesType.CHECK_MOVE;
+            this.client.send(e);
+            e = this.client.receive();
+
+            System.out.println("Z serwera dostalem : " + e.type + " druzyny" + e.team);
+            
+            if (this.moves.possible(p))
+            {
+                this.moves.add(new Move(Spot.lastSpot, p, this.client.getTeam()));
+                update();
+            }
+            else
+            {
+                System.out.println("Nie mozesz!");
+            }
+            e = this.client.receive();
+        }
+        while(this.client.getTeam() != e.team);
+
+        System.out.println("To juz niby zrobilem krok, teraz czas na drugiego klienta");
+
+        
 
         return false;
     }
