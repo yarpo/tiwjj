@@ -25,6 +25,7 @@ public class JoinGame implements ActionListener  {
 
     public void actionPerformed(ActionEvent e)
     {
+        // TODO: client.join();
         javax.swing.JOptionPane.showMessageDialog(null, "alert " + e.getActionCommand() +"\n",
               "Komunikat", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
