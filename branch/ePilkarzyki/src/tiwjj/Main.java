@@ -94,7 +94,7 @@ public class Main extends JApplet {
     {
         JPanel jPanel1 = new JPanel();
 
-        Playground canvas1 = new Playground();
+        Playground canvas1 = new Playground(client);
         canvas1.setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
         canvas1.addMouseListener(new PlaygroundMouseAdapter(canvas1));
         canvas1.addMouseMotionListener(new PlaygroundMouseAdapter(canvas1));
@@ -160,7 +160,7 @@ public class Main extends JApplet {
         applet.init();
         applet.start();
         frame.setVisible(true);
-        connect();
+        //connect();
         
     }
 
