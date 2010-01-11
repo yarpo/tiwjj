@@ -75,7 +75,7 @@ public class SecureClient {
         {
             char[] passphrase = keyword.toCharArray();
             KeyStore ks = KeyStore.getInstance("JKS");
-            ks.load(new FileInputStream(".truststore"), passphrase);
+            ks.load(new FileInputStream(Settings.SSL.KEY_File), passphrase);
             TrustManagerFactory tmf = TrustManagerFactory.
                                                     getInstance("SunX509");
             tmf.init(ks);

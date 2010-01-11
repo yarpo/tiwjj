@@ -201,7 +201,7 @@ public class SecureServer {
     {
         char[] passphrase = Settings.SSL.KEYWORD.toCharArray();
         KeyStore ks = KeyStore.getInstance("JKS");
-        ks.load(new FileInputStream(".keystore"), passphrase);
+        ks.load(new FileInputStream(Settings.SSL.KEY_File), passphrase);
         KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
         kmf.init(ks, passphrase);
         SSLContext sslContext = SSLContext.getInstance("TLS");
