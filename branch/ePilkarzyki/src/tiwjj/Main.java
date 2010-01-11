@@ -80,7 +80,8 @@ public class Main extends JApplet {
         menu.add(submenu);
         menu.addSeparator();
         menuItem = new JMenuItem("Zakończ grę");
-        rbMenuItem.addActionListener(new tiwjj.actions.EndGame());
+        menuItem.addActionListener(new tiwjj.actions.EndGame(client,
+                                                            BLACK_TEAM));
         menu.add(menuItem);
 
         return menuBar;
@@ -159,6 +160,21 @@ public class Main extends JApplet {
         applet.init();
         applet.start();
         frame.setVisible(true);
+        connect();
+        
+    }
+
+    private static void connect()
+    {
+        try
+        {
+            System.out.println("Klient dziala");
+           /* javax.swing.JOptionPane.showMessageDialog(null, "Klient dziala\n",
+              "Komunikat", javax.swing.JOptionPane.ERROR_MESSAGE);*/
+            client.start();
+        }
+        catch( Exception e) { }
+
     }
 
     /**
@@ -173,13 +189,6 @@ public class Main extends JApplet {
         System.out.println("Startuje program");
         createFrame(applet, width, height);
         System.out.println("Stworzona ramka");
-
-        try
-        {
-            System.out.println("Klient dziala");
-            client.start();
-        }
-        catch( Exception e) { }
     }
 
     /**
@@ -189,7 +198,7 @@ public class Main extends JApplet {
      */
     public static void run(JApplet applet)
     {
-        createFrame(applet, Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
+        run(applet, Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
     }
 } ///:~
 
