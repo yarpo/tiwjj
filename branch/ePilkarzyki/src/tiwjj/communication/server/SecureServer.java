@@ -147,7 +147,7 @@ public class SecureServer {
     }
 
     /**
-     * Wysyla dane do koknretnego kliekta
+     * Wysyla dane do kokretnego kliekta
      *
      * @param Socket client
      * @param Exchanger message
@@ -156,10 +156,13 @@ public class SecureServer {
     {
         try
         {
-            ObjectOutputStream oos = new ObjectOutputStream(
-                                            client.getOutputStream());
-            oos.writeObject(message);
-            oos.flush();
+            if (!this.closed)
+            {
+                ObjectOutputStream oos = new ObjectOutputStream(
+                                                client.getOutputStream());
+                oos.writeObject(message);
+                oos.flush();
+            }
         }
         catch(Exception ex)
         {
@@ -182,8 +185,11 @@ public class SecureServer {
 
         try
         {
-            ObjectInputStream in = new ObjectInputStream(from.getInputStream());
-            message = (Exchanger) in.readObject();
+            if (!this.closed)
+            {
+                ObjectInputStream in = new ObjectInputStream(from.getInputStream());
+                message = (Exchanger) in.readObject();
+            }
         }
         catch(Exception e)
         {
