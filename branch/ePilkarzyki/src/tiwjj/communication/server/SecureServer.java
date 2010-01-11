@@ -6,15 +6,9 @@ import java.security.*;
 import javax.net.*;
 import javax.net.ssl.*;
 import java.util.Vector;
-import tiwjj.communication.Exchanger;
+import tiwjj.communication.*;
 
 public class SecureServer {
-
-    /**
-     * domyslny numer portu, na ktorym dziala serwer
-     */
-    private final static int PORT = 4444;
-
 
     /**
      * Socket serwerowy - tu pracuje na sockecie zabezpieczonym SSL
@@ -57,7 +51,7 @@ public class SecureServer {
      */
     public SecureServer()
     {
-        this(PORT);
+        this(Settings.PORT);
     }
 
     
@@ -205,7 +199,7 @@ public class SecureServer {
      */
     private void server(int port) throws Exception
     {
-        char[] passphrase = "keyword".toCharArray();
+        char[] passphrase = Settings.SSL.KEYWORD.toCharArray();
         KeyStore ks = KeyStore.getInstance("JKS");
         ks.load(new FileInputStream(".keystore"), passphrase);
         KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");

@@ -5,27 +5,10 @@ import java.net.*;
 import java.security.*;
 import javax.net.*;
 import javax.net.ssl.*;
-import tiwjj.communication.Exchanger;
+import tiwjj.communication.*;
+        //.Exchanger;
 
 public class SecureClient {
-
-    /**
-     * Nazwa serwera
-     */
-    static public String HOST       = "localhost";
-
-
-    /**
-     * Domylsny port, na ktorym pracuje serwer
-     */
-    static public int PORT          = 4444;
-
-    
-    /**
-     * Domylsny klucz zabezpieczajacy polaczenie
-     */
-    static private final String KEY = "keyword";
-
 
     /**
      * Socket przez ktory laczy sie z serwerem
@@ -50,7 +33,7 @@ public class SecureClient {
      */
     public SecureClient()
     {
-        this(HOST, PORT);
+        this(Settings.HOST, Settings.PORT);
     }
 
 
@@ -113,7 +96,7 @@ public class SecureClient {
      */
     private void connect(String host, int port)
     {
-        connect(host, port, KEY);
+        connect(host, port, Settings.SSL.TRUSTWORD);
     }
 
     /**
