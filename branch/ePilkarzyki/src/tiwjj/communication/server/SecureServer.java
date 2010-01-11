@@ -28,6 +28,8 @@ public class SecureServer {
     private boolean closed = false;
 
 
+    private int teamCounter;
+
     /**
      * Konstruktor SecureServer - tworzy serwer na podanym porcie
      *
@@ -43,6 +45,8 @@ public class SecureServer {
         {
             e.printStackTrace();
         }
+
+        this.teamCounter = 0;
     }
 
 
@@ -72,10 +76,9 @@ public class SecureServer {
      */
     public void listen(int clientsNo)
     {
-        for(int i = 0; i<clientsNo; i++)
-        {
-            this.addClient();
-        }
+        this.addClients(clientsNo);
+
+        Exchanger e = new Exchanger();
 
         while (!this.closed)
         {
@@ -83,13 +86,32 @@ public class SecureServer {
 
             for(int i = 0; i < m; i++)
             {
-                Exchanger e = this.get(this.clients.elementAt(i));
-                System.out.println("Wynik od klienta " + i + " " + e.content);
+                Socket client = this.clients.elementAt(i);
+
+                //this.get(this.clients.elementAt(i));
+                e.type = Exchanger.MessagesType.GO;
+                e.team = i;
+                this.send(client, e);
+                e = this.get(client);
+                
+                System.out.println("STATUS od klienta " + i + " " + e.type);
 
                 // TODO: powyliczac wyniki
 
-                this.broadcast("otrzymalem dane od klienta " + i);
+                e.type = Exchanger.MessagesType.UPDATE;
+                e.team = (i+1)%2;
+
+                this.broadcast(e);
             }
+        }
+    }
+
+    private void broadcast(Exchanger e)
+    {
+        int n = clients.size();
+        for(int i = 0; i < n; i++)
+        {
+            send( clients.elementAt(i), e );
         }
     }
 
@@ -102,12 +124,7 @@ public class SecureServer {
     {
         Exchanger e = new Exchanger();
         e.content = content;
-
-        int n = clients.size();
-        for(int i = 0; i < n; i++)
-        {
-            send( clients.elementAt(i), e );
-        }
+        this.broadcast(e);
     }
 
     /**
@@ -115,29 +132,53 @@ public class SecureServer {
      *
      * @param int n
      */
-    public void addClient(int n)
+    public boolean addClients(int n)
     {
-        for(int i = n; i >= 0; i--)
+        for(int i = 0; i < n; i++)
         {
-            this.addClient();
+            Socket newClient = this.addClient(); // zlapal klienta na nowy socket
+            if (null == newClient)
+            {
+                System.out.println("jakis blad z socketem");
+            }
+
+            Exchanger e = this.get(newClient);
+            if (Exchanger.MessagesType.CONNECT != e.type)
+            {
+                System.out.println("No i dupa, bledne dane!");
+            }
+
+            e.type = Exchanger.MessagesType.OK;
+            e.team = this.teamCounter++;
+            boolean result = this.send(newClient, e);
+
+            if (false == result)
+            {
+                System.out.println("No i nie udalo sie wyslac START!");
+            }
         }
+        return true;
     }
 
 
     /**
      * Dodaje jednego klienta
      */
-    public void addClient()
+    public Socket addClient()
     {
+        Socket newClient = null;
         try
         {
-            clients.add(serverSocket.accept());
+            newClient = this.serverSocket.accept(); // kolejny klient
+            clients.add(newClient);
         }
         catch(Exception e)
         {
-            this.closed = true;
-            e.printStackTrace();
+            this.closed = true; // blad, zamykamy serwer
+            return null;
         }
+
+        return newClient; // zwracamy socket z klientem
     }
 
     /**
@@ -146,7 +187,7 @@ public class SecureServer {
      * @param Socket client
      * @param Exchanger message
      */
-    private void send(Socket client, Exchanger message)
+    private boolean send(Socket client, Exchanger message)
     {
         try
         {
@@ -161,8 +202,11 @@ public class SecureServer {
         catch(Exception ex)
         {
             this.closed = true;
-            ex.printStackTrace();
+            return false;
+            //ex.printStackTrace();
         }
+
+        return true;
     }
 
 

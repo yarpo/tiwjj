@@ -6,7 +6,6 @@ import java.security.*;
 import javax.net.*;
 import javax.net.ssl.*;
 import tiwjj.communication.*;
-        //.Exchanger;
 
 public class SecureClient {
 
@@ -16,6 +15,10 @@ public class SecureClient {
     private Socket clientSocket = null;
 
 
+    private boolean connected = false;
+
+
+    private int team;
     /**
      * Konstruktor tworzocy polaczenie z wlasnymi wartosciami hosta i portu
      *
@@ -42,28 +45,66 @@ public class SecureClient {
      *
      * @returns Exchange message
      */
-    private Exchanger receive() throws Exception
+    public Exchanger receive()
     {
-        ObjectInputStream in = new ObjectInputStream(this.clientSocket.
-                                                            getInputStream());
         Exchanger message = null;
 
         try
         {
+            ObjectInputStream in = new ObjectInputStream(this.clientSocket.
+                                                            getInputStream());
             message = (Exchanger) in.readObject();
         }
-        catch(ClassNotFoundException e)
+        catch(Exception e)
         {
-            System.out.println("Niby nie ma klasy:/");
             return null;
         }
 
         return message;
     }
 
+    public Exchanger waitForYourTurn()
+    {
+        Exchanger e = this.receive();
+
+        // jesli to jest jeden z kimunikatow mowiacych o updacie planszy
+        if (Exchanger.MessagesType.GO == e.type ||
+            Exchanger.MessagesType.UPDATE == e.type)
+        {
+            return e;
+        }
+
+        // to nie jest twoj ruch
+        return null;
+    }
+
+    public boolean isConnected()
+    {
+        return this.connected;
+    }
+
+    public boolean connection()
+    {
+        Exchanger e = new Exchanger();
+
+        e.type = Exchanger.MessagesType.CONNECT;
+        this.send(e);
+        e = this.receive();
+
+        this.connected = (Exchanger.MessagesType.OK == e.type);
+
+        this.team = e.team;
+
+        return this.connected;
+    }
+
+    public int getTeam()
+    {
+        return this.team;
+    }
 
     /**
-     * Tworzy bezpieczne polaczenie z serwerem - SSL, mozna przekazac wlasny klucz
+     * Bezpieczne polaczenie z serwerem - SSL, mozna przekazac wlasny klucz
      *
      * @param String host
      * @param int port
@@ -110,12 +151,15 @@ public class SecureClient {
             System.out.println("Siuaa");
             this.clientSocket.close();
         }
-        catch(Exception e)
-        {
-
-        }
+        catch(Exception e) { }
     }
 
+    public void send(String content)
+    {
+        Exchanger e = new Exchanger();
+        e.content = content;
+        this.send(e);
+    }
 
     /**
      * Wysyla dane na serwer
@@ -134,6 +178,16 @@ public class SecureClient {
         catch(Exception e) { }
     }
 
+    // tymczasowa
+    public String alert()
+    {
+        Exchanger e = this.receive();
+        if (null != e)
+        {
+            return e.content;
+        }
+        return "";
+    }
 
     /**
      * metoda tymczasowa do testow
@@ -141,17 +195,23 @@ public class SecureClient {
      */
     public void start() throws Exception
     {
+        
         Exchanger a = new Exchanger();
         a.content = "To dziala";
         int i = 0;
         while (true)
         {
-            a.content += i;
-            this.send(a);
-            Exchanger response = this.receive();
-            System.out.println(response.content);
-            try { Thread.sleep(1000); } catch(Exception e) {}
-            i++;
+           // try
+           // {
+                Exchanger response = this.receive();
+                System.out.println(response.content);
+           // } catch(Exception e) {}
+            //a.content += i;
+            //this.send(a);
+            //Exchanger response = this.receive();
+            //System.out.println(response.content);
+            //try { Thread.sleep(1000); } catch(Exception e) {}
+            //i++;
             if (i > 20)
             {
                 a.content = "to dziala";
