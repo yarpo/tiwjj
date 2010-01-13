@@ -4,6 +4,7 @@ package tiwjj.playground;
 import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.Vector;
+import java.awt.Color;
 /**
  *
  * @author yarpo
@@ -12,6 +13,7 @@ public class DrawPlayground {
 
     private Playground playground;
     private Graphics g;
+    private Color bgColor;
 
     public DrawPlayground(Playground playground)
     {
@@ -64,6 +66,11 @@ public class DrawPlayground {
         }
     }
 
+    public void setBgColor(Color c)
+    {
+        this.bgColor = c;
+    }
+
     /**
      * Wyrysowuje punkty niekatywne
      */
@@ -71,11 +78,9 @@ public class DrawPlayground {
     {
         this.g.setColor(Colors.Points);
 
-        for (int i = Playground.xStop; i >= Playground.xStart;
-                                                    i -= Size.VerticalGap)
+        for (int i = Size.xStop; i >= Size.xStart;  i -= Size.VerticalGap)
         {
-            for (int j = Playground.yStop; j >=  Playground.yStart;
-                                                        j -= Size.HorizontalGap)
+            for (int j = Size.yStop; j >=  Size.yStart; j -= Size.HorizontalGap)
             {
                 this.g.drawRect(i, j, Size.PointX, Size.PointY);
             }
@@ -105,14 +110,14 @@ public class DrawPlayground {
     private void drawGrass()
     {
         this.g.clearRect(0, 0, Size.WIDTH, Size.HEIGHT);
-        this.g.setColor(this.playground.bgColor);
+        this.g.setColor(this.bgColor);
         this.g.fillRect(Size.StartXGrass, Size.StartYGrass,
                                                 Size.PlaygroundWidth,
                                                 Size.PlaygroundHeight);
         this.g.setColor(Colors.Lines);
-        this.g.drawLine(Size.StartXGrass, this.playground.yCenter,
+        this.g.drawLine(Size.StartXGrass, Size.yCenter,
                                                 Size.PlaygroundWidth,
-                                                this.playground.yCenter);
+                                                Size.yCenter);
     }
 
 
@@ -124,7 +129,8 @@ public class DrawPlayground {
     private void drawMove( Move m)
     {
         this.g.setColor(Colors.Teams[m.getTeam()]);
-        this.g.drawLine(m.getStart().x, m.getStart().y, m.getEnd().x, m.getEnd().y);
+        this.g.drawLine(m.getStart().x, m.getStart().y, m.getEnd().x,
+                                                        m.getEnd().y);
     }
 
 
@@ -141,8 +147,8 @@ public class DrawPlayground {
 
         this.g.setColor(Colors.CurrentPoint);
         this.g.fillRect(Spot.lastSpot.getXx(), Spot.lastSpot.getYy(), 
-                                                                    Size.PointX,
-                                                                    Size.PointY);
+                                                                Size.PointX,
+                                                                Size.PointY);
     }
 
 }

@@ -263,8 +263,8 @@ public class Spot extends Point {
      */
     public static Spot normalize(Spot p)
     {
-        p.x = round(p.x - Playground.xStart, Size.HorizontalGap) + Playground.xStart + Size.OffsetX;
-        p.y = round(p.y - Playground.yStart, Size.VerticalGap) + Playground.yStart + Size.OffsetX;
+        p.x = round(p.x - Size.xStart, Size.HorizontalGap) + Size.xStart + Size.OffsetX;
+        p.y = round(p.y - Size.yStart, Size.VerticalGap) + Size.yStart + Size.OffsetX;
 
         return p;
     }

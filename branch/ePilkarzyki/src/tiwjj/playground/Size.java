@@ -31,4 +31,42 @@ public class Size {
     final static public int HoverAreaY = 30;    // obszar podswietlany wokol aktualnego punktu w poziomie
     // maksymalny dystans miedzy dwoma punktami, ktore mialy tworzy jeden ruch
     final static public double MaxDistance = Math.sqrt(Size.VerticalGap*Size.VerticalGap + Size.HorizontalGap*Size.HorizontalGap);
+
+
+        /**
+     * srodek boiska w poziomie
+     */
+    public final static int xCenter = (int)(PlaygroundWidth/2) + StartXGrass;
+
+
+    /**
+     * srodek boiska w pionie
+     */
+    public final static int yCenter = (int)(PlaygroundHeight/2) + StartYGrass;
+
+
+    /**
+     * poczatek na osi x wyrysowywania punktow.
+     * _Nie_ musi pokrywac sie z poczatekiem boiska
+     */
+    public final static int xStart = StartXGrass - OffsetX;
+
+
+    /**
+     * poczatek na osi y wyrysowywania punktow.
+     * _Nie_ musi pokrywac sie z poczatekiem boiska
+     */
+    public final static int yStart = StartYGrass - OffsetY;
+
+
+    /**
+     * graniczy punkt dla wyrysowywania punktow na boisku w osi x
+     */
+    public final static int xStop  = PlaygroundWidth + xStart;
+
+
+    /**
+     * graniczy punkt dla wyrysowywania punktow na boisku w osi y
+     */
+    public final static int yStop  = PlaygroundHeight + yStart;
 }

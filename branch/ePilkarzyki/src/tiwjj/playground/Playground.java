@@ -7,10 +7,7 @@ package tiwjj.playground;
  * @date    6 - 01 - 2009
  */
 import java.awt.*;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.Iterator;
-import java.util.Vector;
+//import java.awt.Graphics;
 import tiwjj.communication.*;
 
 
@@ -21,61 +18,15 @@ public class Playground extends Canvas {
      */
     private IClient client;
 
-    /**
-     * Obiekt pozwalajacy wyrysowywac wyniki na ekran
-     */
-    private Graphics g;
-
 
     /**
      * Obiekt pozwalajacy na obsluge ruchow graczy
      */
     private Moves moves;
 
-
     /**
-     * kolor tla
+     * Obiekt odpowiedzialny za wyrysowanie calego boiska na ekranie
      */
-    public Color bgColor = Colors.Normal;
-
-
-    /**
-     * srodek boiska w poziomie
-     */
-    public int xCenter = (int)(Size.PlaygroundWidth/2) +  Size.StartXGrass;
-
-
-    /**
-     * srodek boiska w pionie
-     */
-    public int yCenter = (int)(Size.PlaygroundHeight/2) + Size.StartYGrass;
-
-
-    /** 
-     * poczatek na osi x wyrysowywania punktow.
-     * _Nie_ musi pokrywac sie z poczatekiem boiska
-     */
-    public final static int xStart = Size.StartXGrass - Size.OffsetX;
-
-
-    /**
-     * poczatek na osi y wyrysowywania punktow.
-     * _Nie_ musi pokrywac sie z poczatekiem boiska
-     */
-    public final static int yStart = Size.StartYGrass - Size.OffsetY;
-
-
-    /**
-     * graniczy punkt dla wyrysowywania punktow na boisku w osi x
-     */
-    public final static int xStop  = Size.PlaygroundWidth + Playground.xStart;
-
-
-    /**
-     * graniczy punkt dla wyrysowywania punktow na boisku w osi y
-     */
-    public final static int yStop  = Size.PlaygroundHeight + Playground.yStart;
-
     private DrawPlayground view;
 
     
@@ -87,7 +38,7 @@ public class Playground extends Canvas {
     public Playground(IClient client)
     {
         this.client = client;
-        this.moves = new Moves(this.xCenter, this.yCenter);
+        this.moves = new Moves(Size.xCenter, Size.yCenter);
         this.view = new DrawPlayground(this);
         System.out.println("Druzyna numer " + this.client.joinGame());
     }
@@ -99,7 +50,7 @@ public class Playground extends Canvas {
      */
     public void mouseOver()
     {
-        this.bgColor = Colors.Hover;
+        this.view.setBgColor(Colors.Hover);
         this.update();
     }
 
@@ -110,7 +61,7 @@ public class Playground extends Canvas {
      */
     public void mouseOut()
     {
-        this.bgColor = Colors.Normal;
+        this.view.setBgColor(Colors.Normal);
         Spot.hoveredSpot = null;
         this.update();
     }
@@ -138,6 +89,8 @@ public class Playground extends Canvas {
 
     /**
      * Dodaje nowy ruch jesli jest to mozliwe
+     *
+     * @param Spot newSpot
      */
     public boolean addMove(Spot p)
     {
@@ -157,6 +110,15 @@ public class Playground extends Canvas {
         }
 
         return false;
+    }
+
+    
+    /**
+     * Getter wektora ruchow
+     */
+    public Moves getMoves()
+    {
+        return this.moves;
     }
 
     /**
@@ -198,10 +160,10 @@ public class Playground extends Canvas {
      */
     public static boolean isSpotable(int x, int y)
     {
-        if (y >= Playground.yStart &&
-            y <= Playground.yStop + Size.OffsetY &&
-            x <= Playground.xStop + Size.OffsetX &&
-            x >= Playground.xStart)
+        if (y >= Size.yStart &&
+            y <= Size.yStop + Size.OffsetY &&
+            x <= Size.xStop + Size.OffsetX &&
+            x >= Size.xStart)
         {
             return true;
         }
@@ -222,8 +184,5 @@ public class Playground extends Canvas {
     }
 
 
-    public Moves getMoves()
-    {
-        return this.moves;
-    }
+    
 }
