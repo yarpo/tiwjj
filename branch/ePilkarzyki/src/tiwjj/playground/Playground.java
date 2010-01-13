@@ -76,7 +76,7 @@ public class Playground extends Canvas {
      */
     public final static int yStop  = Size.PlaygroundHeight + Playground.yStart;
 
-    private DrawPlayground graphics;
+    private DrawPlayground view;
 
     
     /** 
@@ -88,9 +88,8 @@ public class Playground extends Canvas {
     {
         this.client = client;
         this.moves = new Moves(this.xCenter, this.yCenter);
-        this.graphics = new DrawPlayground(this);
+        this.view = new DrawPlayground(this);
         System.out.println("Druzyna numer " + this.client.joinGame());
-        
     }
 
 
@@ -129,10 +128,10 @@ public class Playground extends Canvas {
     public void hover(Spot p)
     {
         Spot.hoveredSpot = p;
-        this.graphics.drawSpecialPoints();
+        this.view.drawSpecialPoints();
         if (p.isAccessible(Spot.lastSpot))
         {
-            this.graphics.drawHoveredPoint();
+            this.view.drawHoveredPoint();
         }
     }
 
@@ -165,7 +164,7 @@ public class Playground extends Canvas {
      */
     public void update()
     {
-        this.graphics.refresh();
+        this.view.refresh();
     }
 
    /**
