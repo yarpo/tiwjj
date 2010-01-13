@@ -36,19 +36,19 @@ public class Playground extends Canvas {
     /**
      * kolor tla
      */
-    private Color bgColor = Colors.Normal;
+    public Color bgColor = Colors.Normal;
 
 
     /**
      * srodek boiska w poziomie
      */
-    private int xCenter = (int)(Size.PlaygroundWidth/2) +  Size.StartXGrass;
+    public int xCenter = (int)(Size.PlaygroundWidth/2) +  Size.StartXGrass;
 
 
     /**
      * srodek boiska w pionie
      */
-    private int yCenter = (int)(Size.PlaygroundHeight/2) + Size.StartYGrass;
+    public int yCenter = (int)(Size.PlaygroundHeight/2) + Size.StartYGrass;
 
 
     /** 
@@ -76,6 +76,8 @@ public class Playground extends Canvas {
      */
     public final static int yStop  = Size.PlaygroundHeight + Playground.yStart;
 
+    private DrawPlayground graphics;
+
     
     /** 
      * Konstruktor
@@ -86,6 +88,7 @@ public class Playground extends Canvas {
     {
         this.client = client;
         this.createFirstMove();
+        this.graphics = new DrawPlayground(this);
         System.out.println("Druzyna numer " + this.client.joinGame());
         
     }
@@ -136,10 +139,10 @@ public class Playground extends Canvas {
     public void hover(Spot p)
     {
         Spot.hoveredSpot = p;
-        drawSpecialPoints();
+        this.graphics.drawSpecialPoints();
         if (p.isAccessible(Spot.lastSpot))
         {
-            drawHoveredPoint();
+            this.graphics.drawHoveredPoint();
         }
     }
 
@@ -273,7 +276,7 @@ public class Playground extends Canvas {
      */
     public void update()
     {
-        if (null == this.g)
+       /* if (null == this.g)
         {
             this.g = this.getGraphics();
         }
@@ -281,7 +284,8 @@ public class Playground extends Canvas {
         drawGrass();
         drawGoals();
         drawPoints();
-        drawMoves();
+        drawMoves();*/
+        this.graphics.refresh();
     }
 
    /**
@@ -336,5 +340,11 @@ public class Playground extends Canvas {
     public static boolean isSpotable(Point p)
     {
         return isSpotable(p.x, p.y);
+    }
+
+
+    public Moves getMoves()
+    {
+        return this.moves;
     }
 }
