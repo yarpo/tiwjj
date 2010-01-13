@@ -37,6 +37,21 @@ public class RmiClient implements IClient
         return this.team;
     }
 
+    public int joinTeam(int team)
+    {
+        try
+        {
+            this.team = rmiServer.joinTeam(team);
+        }
+        catch(Exception e)
+        {
+            this.team = -1;
+            e.printStackTrace();
+        }
+
+        return this.team;
+    }
+
     public boolean isMyTurn()
     {
         try
@@ -60,4 +75,12 @@ public class RmiClient implements IClient
             return false;
         }
     }
+
+    // TODO jakies cialo metody
+    public boolean end()
+    {
+        // wyslac na serwer komunikat o tym, ze ten klient konczy gre
+        return true;
+    }
+
 }
