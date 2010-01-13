@@ -87,20 +87,10 @@ public class Playground extends Canvas {
     public Playground(IClient client)
     {
         this.client = client;
-        this.createFirstMove();
+        this.moves = new Moves(this.xCenter, this.yCenter);
         this.graphics = new DrawPlayground(this);
         System.out.println("Druzyna numer " + this.client.joinGame());
         
-    }
-
-    /**
-     * Tworzy pierwszy (pusty) ruch
-     * WYMAGANE przy starcie gry
-     */
-    private void createFirstMove()
-    {
-        Spot f = new Spot(this.xCenter, this.yCenter);
-        this.moves = new Moves(new Move(f, f, 0));
     }
 
 
