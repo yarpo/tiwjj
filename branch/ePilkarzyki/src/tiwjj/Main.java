@@ -16,7 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import tiwjj.playground.*;
-import tiwjj.communication.client.SecureClient;
+import tiwjj.communication.*;
+import tiwjj.communication.rmiclient.RmiClient;
 
 /**
  *
@@ -35,15 +36,14 @@ public class Main extends JApplet {
      */
     private static final int DEFAULT_HEIGHT = 350;
 
+    
     /**
      * Obiekt sluzacy do wymiany danych z serwerem
      */
-    private static SecureClient client = new SecureClient();
+    private static IClient client = new RmiClient("localhost", 3232);
 
     public static int WHITE_TEAM = 0;
     public static int BLACK_TEAM = 1;
-        
-
 
     /**
      * Tworzy menu
@@ -81,7 +81,7 @@ public class Main extends JApplet {
         menu.addSeparator();
         menuItem = new JMenuItem("Zakończ grę");
         menuItem.addActionListener(new tiwjj.actions.EndGame(client,
-                                                            BLACK_TEAM));
+                                                              BLACK_TEAM));
         menu.add(menuItem);
 
         return menuBar;
@@ -94,7 +94,7 @@ public class Main extends JApplet {
     {
         JPanel jPanel1 = new JPanel();
 
-        Playground canvas1 = new Playground(client);
+        Playground canvas1 = new Playground();
         canvas1.setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
         canvas1.addMouseListener(new PlaygroundMouseAdapter(canvas1));
         canvas1.addMouseMotionListener(new PlaygroundMouseAdapter(canvas1));
@@ -124,6 +124,7 @@ public class Main extends JApplet {
         add(jPanel1);
     }
 
+
     /**
      * Rozpoczecie dzialania aplletu
      */
@@ -134,6 +135,7 @@ public class Main extends JApplet {
         setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
         createCanvas();
     }
+
 
     /**
      * 
@@ -160,22 +162,8 @@ public class Main extends JApplet {
         applet.init();
         applet.start();
         frame.setVisible(true);
-        //connect();
-        
     }
 
-    private static void connect()
-    {
-        try
-        {
-            System.out.println("Klient dziala");
-           /* javax.swing.JOptionPane.showMessageDialog(null, "Klient dziala\n",
-              "Komunikat", javax.swing.JOptionPane.ERROR_MESSAGE);*/
-            client.start();
-        }
-        catch( Exception e) { }
-
-    }
 
     /**
      * Uruchomienie aplletu z zadanymi rozmiarami
@@ -186,11 +174,10 @@ public class Main extends JApplet {
      */
     public static void run(JApplet applet, int width, int height)
     {
-        System.out.println("Startuje program");
         createFrame(applet, width, height);
-        System.out.println("Stworzona ramka");
     }
 
+    
     /**
      * Uruchomiwnie apletu z domyslnymi rozmiarami
      * 
