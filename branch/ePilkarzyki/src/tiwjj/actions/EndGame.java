@@ -14,9 +14,9 @@ import java.awt.event.*;
 
 public class EndGame extends ActionHandler implements ActionListener  {
 
-    public EndGame(IClient client, int team)
+    public EndGame(IClient client)
     {
-        super(client, team);
+        super(client, client.getTeam());
     }
 
     public void actionPerformed(ActionEvent e)
