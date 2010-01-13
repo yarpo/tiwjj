@@ -10,9 +10,10 @@ package tiwjj.communication;
  * @author yarpo
  */
 public interface IClient {
-    
+
     public int joinGame();
     public int joinTeam(int i);
+    public int getTeam();
     public boolean isMyTurn();
     public boolean myMove();
     public boolean end();

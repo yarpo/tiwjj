@@ -83,4 +83,9 @@ public class RmiClient implements IClient
         return true;
     }
 
+    public int getTeam()
+    {
+        return this.team;
+    }
+
 }
