@@ -29,13 +29,22 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject
     {
         for(int i = 0; i < this.teams.length; i++)
         {
-            if (false == this.teams[i])
+            if (-1 != this.joinTeam(i))
             {
-                this.teams[i] = true;
                 return i;
             }
         }
 
+        return -1;
+    }
+
+    public int joinTeam(int index)
+    {
+        if (false == this.teams[index])
+        {
+            this.teams[index] = true;
+            return index;
+        }
         return -1;
     }
 
@@ -54,6 +63,11 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject
         System.out.println("Teraz druzyna: " + this.currentTeam);
 
         return false;
+    }
+
+    public boolean end()
+    {
+        return true; // TODO
     }
 
     public RmiServer() throws RemoteException
