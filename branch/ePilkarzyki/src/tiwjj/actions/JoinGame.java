@@ -1,32 +1,32 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package tiwjj.actions;
 
-import tiwjj.communication.client.SecureClient;
+import tiwjj.communication.IClient;
 /**
  *
  * @author yarpo
  */
 import java.awt.event.*;
 
-public class JoinGame implements ActionListener  {
+public class JoinGame extends ActionHandler implements ActionListener  {
 
-    private int team;
-    private SecureClient client;
-
-    public JoinGame(SecureClient client, int team)
+    public JoinGame(IClient client, int team)
     {
-        this.team = team;
-        this.client = client;
+        super(client, team);
     }
 
     public void actionPerformed(ActionEvent e)
     {
-        // TODO: client.join();
-        javax.swing.JOptionPane.showMessageDialog(null, "alert " + e.getActionCommand() +"\n",
-              "Komunikat", javax.swing.JOptionPane.ERROR_MESSAGE);
+        if (-1 != this.client.joinTeam(this.team))
+        {
+            javax.swing.JOptionPane.showMessageDialog(null, "alert " +
+                                                e.getActionCommand() +"\n",
+                                                "Komunikat",
+                                                javax.swing.JOptionPane.
+                                                                ERROR_MESSAGE);
+        }
+        else
+        {
+            
+        }
     }
 }

@@ -5,29 +5,25 @@
 
 package tiwjj.actions;
 
-import tiwjj.communication.client.SecureClient;
+import tiwjj.communication.IClient;
 /**
  *
  * @author yarpo
  */
 import java.awt.event.*;
 
-public class EndGame implements ActionListener  {
+public class EndGame extends ActionHandler implements ActionListener  {
 
-    private int team;
-    private SecureClient client;
-
-    public EndGame(SecureClient client, int team)
+    public EndGame(IClient client, int team)
     {
-        this.team = team;
-        this.client = client;
+        super(client, team);
     }
 
     public void actionPerformed(ActionEvent e)
     {
         javax.swing.JOptionPane.showMessageDialog(null, "Koniec gry",
               "Komunikat", javax.swing.JOptionPane.ERROR_MESSAGE);
-        this.client.disconnect();
+        this.client.end();
     }
 }
 
