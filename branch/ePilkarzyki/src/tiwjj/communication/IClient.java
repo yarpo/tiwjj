@@ -12,7 +12,8 @@ package tiwjj.communication;
 public interface IClient {
     
     public int joinGame();
+    public int joinTeam(int i);
     public boolean isMyTurn();
     public boolean myMove();
-
+    public boolean end();
 }
