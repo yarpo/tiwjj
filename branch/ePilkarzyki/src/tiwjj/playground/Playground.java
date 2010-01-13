@@ -148,107 +148,6 @@ public class Playground extends Canvas {
 
 
     /**
-     * Wyrysowywanie podswietlonego punktow
-     */
-    private void drawHoveredPoint()
-    {
-        Spot s = Spot.normalize(Spot.hoveredSpot);
-        g.setColor(Colors.HoveredPoint);
-        if (Spot.lastSpot.isAccessible(s) && !s.theSameField(Spot.lastSpot))
-        {
-            g.fillRect(s.x-Size.OffsetX, s.y-Size.OffsetY, Size.PointX, Size.PointY);
-        }
-    }
-
-
-    /**
-     * Wyrysuj specjalne punkty - otaczajace aktualny punkt
-     */
-    private void drawSpecialPoints()
-    {
-        g.setColor(Colors.FocusedPoint);
-
-        Vector v = Spot.lastSpot.getNeighbours();
-
-        for(int i = v.size()- 1; i >= 0; i--)
-        {
-            Spot p = (Spot)v.elementAt(i);
-            g.fillRect(p.getXx(), p.getYy(), Size.PointX, Size.PointY);
-        }
-    }
-
-    /**
-     * Wyrysowuje punkty niekatywne
-     */
-    private void drawPoints()
-    {
-        g.setColor(Colors.Points);
-
-        for (int i = Playground.xStop; i >= Playground.xStart;  i -= Size.VerticalGap)
-        {
-            for (int j = Playground.yStop; j >=  Playground.yStart; j -= Size.HorizontalGap)
-            {
-                g.drawRect(i, j, Size.PointX, Size.PointY);
-            }
-        }
-    }
-
-    /**
-     * Rysuje bramki
-     */
-    private void drawGoals()
-    {
-        g.setColor(Colors.Goals);
-        int x_start = (int)(Size.PointsX/2 - 1)*Size.HorizontalGap+Size.StartXGrass;
-        g.fillRect(x_start-Size.OffsetX, Size.StartYGrass - Size.GoalHeight, Size.GoalWidth, Size.GoalHeight);
-        g.fillRect(x_start-Size.OffsetY, Size.PlaygroundHeight + Size.StartYGrass, Size.GoalWidth, Size.GoalHeight);
-    }
-
-    /**
-     * Rysuje trawe i srodkowa linie
-     */
-    private void drawGrass()
-    {
-        g.clearRect(0, 0, Size.WIDTH, Size.HEIGHT);
-        g.setColor(this.bgColor);
-        g.fillRect(Size.StartXGrass, Size.StartYGrass, Size.PlaygroundWidth, Size.PlaygroundHeight);
-        g.setColor(Colors.Lines);
-        g.drawLine(Size.StartXGrass, this.yCenter, Size.PlaygroundWidth,
-                                                            this.yCenter);
-    }
-
-
-    /**
-     * Rysuje pojedynczy ruch
-     *
-     * @param Move m
-     */
-    private void drawMove( Move m)
-    {
-        g.setColor(Colors.Teams[m.getTeam()]);
-        g.drawLine(m.getStart().x, m.getStart().y, m.getEnd().x, m.getEnd().y);
-    }
-
-
-    /**
-     * Rysuje wszystkie ruchy
-     */
-    private void drawMoves()
-    {
-        Iterator move = this.moves.getIterator();
-        while(move.hasNext())
-        {
-            drawMove((Move)move.next());
-        }
-
-        g.setColor(Colors.CurrentPoint);
-        g.fillRect(Spot.lastSpot.getXx(), Spot.lastSpot.getYy(), Size.PointX, Size.PointY);
-    }
-
-    // TODO: usunac po wprowadzeniu serwera
-    private int teamTurn = 0;
-
-    /**
      * Dodaje nowy ruch jesli jest to mozliwe
      */
     public boolean addMove(Spot p)
@@ -264,7 +163,7 @@ public class Playground extends Canvas {
         if (this.moves.possible(p))
         {
             this.client.myMove();
-            this.moves.add(new Move(Spot.lastSpot, p, (teamTurn=(teamTurn+1)%2)));
+            this.moves.add(new Move(Spot.lastSpot, p, this.client.getTeam()));
             update();
         }
 
@@ -276,15 +175,6 @@ public class Playground extends Canvas {
      */
     public void update()
     {
-       /* if (null == this.g)
-        {
-            this.g = this.getGraphics();
-        }
-
-        drawGrass();
-        drawGoals();
-        drawPoints();
-        drawMoves();*/
         this.graphics.refresh();
     }
 
