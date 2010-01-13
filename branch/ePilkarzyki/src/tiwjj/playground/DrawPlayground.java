@@ -5,22 +5,45 @@ import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.Vector;
 import java.awt.Color;
+
 /**
  *
  * @author yarpo
  */
 public class DrawPlayground {
 
+    /**
+     * Referacja na obiekt boiska
+     */
     private Playground playground;
+
+
+    /**
+     * referencja na obiekt pozwalajacy wypisywac cokolweik na ekran
+     */
     private Graphics g;
+
+
+    /**
+     * Kolor tla
+     */
     private Color bgColor = Colors.Normal;
 
+
+    /**
+     * Konstruktor
+     *
+     * @param Playground playground
+     */
     public DrawPlayground(Playground playground)
     {
         this.playground = playground;
     }
 
-    
+
+    /**
+     * Wyrysuj wszystko na ekran ponownie
+     */
     public void refresh()
     {
         if (null == this.g)
@@ -93,12 +116,12 @@ public class DrawPlayground {
     private void drawGoals()
     {
         this.g.setColor(Colors.Goals);
-        int x_start = (int)(Size.PointsX / 2 - 1) * Size.HorizontalGap +
+        int x = (int)(Size.PointsX / 2 - 1) * Size.HorizontalGap +
                                                             Size.StartXGrass;
-        this.g.fillRect(x_start-Size.OffsetX, Size.StartYGrass - Size.GoalHeight,
+        this.g.fillRect(x - Size.OffsetX, Size.StartYGrass - Size.GoalHeight,
                                                             Size.GoalWidth,
                                                             Size.GoalHeight);
-        this.g.fillRect(x_start-Size.OffsetY, Size.PlaygroundHeight +
+        this.g.fillRect(x - Size.OffsetY, Size.PlaygroundHeight +
                                                             Size.StartYGrass,
                                                             Size.GoalWidth,
                                                             Size.GoalHeight);
