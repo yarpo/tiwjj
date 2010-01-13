@@ -9,6 +9,7 @@ public class RmiClient implements IClient
     private Registry        registry;
     private int             team;
 
+
     public RmiClient(String host, int port)
     {
         try
@@ -20,6 +21,11 @@ public class RmiClient implements IClient
         {
             e.printStackTrace();
         }
+    }
+
+    public RmiClient()
+    {
+        this(Settings.HOST, Settings.PORT);
     }
 
     public int joinGame()

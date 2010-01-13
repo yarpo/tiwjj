@@ -40,10 +40,8 @@ public class Main extends JApplet {
     /**
      * Obiekt sluzacy do wymiany danych z serwerem
      */
-    private static IClient client = new RmiClient("localhost", 3232);
+    private static IClient client = new RmiClient();
 
-    public static int WHITE_TEAM = 0;
-    public static int BLACK_TEAM = 1;
 
     /**
      * Tworzy menu
@@ -67,21 +65,18 @@ public class Main extends JApplet {
         ButtonGroup group = new ButtonGroup();
 
         rbMenuItem = new JRadioButtonMenuItem("Biali");
-        rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client,
-                                                             WHITE_TEAM));
+        rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client, 0));
         group.add(rbMenuItem);
         submenu.add(rbMenuItem);
 
         rbMenuItem = new JRadioButtonMenuItem("Czarni");
-        rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client,
-                                                              BLACK_TEAM));
+        rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client, 1));
         group.add(rbMenuItem);
         submenu.add(rbMenuItem);
         menu.add(submenu);
         menu.addSeparator();
         menuItem = new JMenuItem("Zakończ grę");
-        menuItem.addActionListener(new tiwjj.actions.EndGame(client,
-                                                              BLACK_TEAM));
+        menuItem.addActionListener(new tiwjj.actions.EndGame(client));
         menu.add(menuItem);
 
         return menuBar;

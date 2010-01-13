@@ -2,19 +2,40 @@ package tiwjj.communication.rmiserver;
 
 import java.rmi.*;
 import java.rmi.registry.*;
-import java.net.*;
+import java.rmi.server.UnicastRemoteObject;
 import tiwjj.communication.RMIInterface;
+import tiwjj.communication.Settings;
 
-public class RmiServer extends java.rmi.server.UnicastRemoteObject
-                                            implements RMIInterface
-{
-    int     port = 3232;
-    String  address;
-    Registry registry;    // rmi registry for lookup the remote objects.
-    Integer n = 0;
+public class RmiServer extends UnicastRemoteObject implements RMIInterface {
+
+    /**
+     * Port na ktorym slucha serwer
+     */
+    private int port = Settings.PORT;
+
+    /**
+     * TODO: Przerobic na zabezpieczone polaczenie
+     */
+    Registry registry;
+
+    /**
+     * id druzyny, ktora aktualnie moze grac
+     */
     int currentTeam = 0;
+
+    /**
+     * tablica "zajetosci" druzyn
+     */
     boolean [] teams = {false, false};
 
+
+    /**
+     * Sprawdza, czy teraz jest kolej tej druzyny
+     *
+     * @param inr team
+     *
+     * @returns boolean
+     */
     public boolean isMyTurn(int team)
     {
         if (team == this.currentTeam)
@@ -25,6 +46,13 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject
         return false;
     }
 
+
+    /**
+     * Dolacza do gry. Zwraca numer druzyny do ktorej zostal gracz przypisany,
+     * albo -1 jesli nie udalo mu sie rzpoczac gry
+     *
+     * @returns int 
+     */
     public int joinGame()
     {
         for(int i = 0; i < this.teams.length; i++)
@@ -38,6 +66,13 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject
         return -1;
     }
 
+    /**
+     * Probuje dolaczyc gracza do gry do konkretej druzyny
+     *
+     * @param index - numer druzyny, do ktoprej chcemy dolaczyc
+     *
+     * @returns int - numer druzyny, do ktorej nas dolaczylo alno -1 jesli sie nie udalo
+     */
     public int joinTeam(int index)
     {
         if (false == this.teams[index])
@@ -48,6 +83,18 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject
         return -1;
     }
 
+
+    /**
+     * Dodaje nowe ruch wykonany przez zawodnika
+     * Czy dany ruch jest dozwolony sprawdza klient tu jedynie zapisanie
+     * i pozniejsze rozsylanie
+     *
+     * TODO : zrobic, aby dzialalo jak w powyzszym opisie
+     *
+     * @param int team
+     *
+     * @returns boolean
+     */
     public boolean myMove(int team)
     {
         java.util.Random r = new java.util.Random();
@@ -65,23 +112,24 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject
         return false;
     }
 
+
+    /**
+     * Konczy gre
+     *
+     * @returns boolean
+     */
     public boolean end()
     {
         return true; // TODO
     }
 
+
+    /**
+     * Konstruktor
+     */
     public RmiServer() throws RemoteException
     {
-        try
-        {
-            this.address= (InetAddress.getLocalHost()).toString();
-        }
-        catch(Exception e)
-        {
-            throw new RemoteException("can't get inet address.");
-        }
-
-        System.out.println("serwer pracuje na " + this.address + ":" + this.port);
+        System.out.println("serwer pracuje na porcie " + this.port);
 
         try
         {
