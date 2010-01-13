@@ -53,12 +53,12 @@ public class RmiServer extends java.rmi.server.UnicastRemoteObject
         java.util.Random r = new java.util.Random();
         int a = r.nextInt(10);
 
+        this.currentTeam = (this.currentTeam+1)%2;
+
         if (a%2 == 1)
         {
             return true;
         }
-
-        this.currentTeam = (this.currentTeam+1)%2;
 
         System.out.println("Teraz druzyna: " + this.currentTeam);
 

@@ -12,7 +12,6 @@ import java.awt.Graphics;
 import java.util.Iterator;
 import java.util.Vector;
 import tiwjj.communication.*;
-import tiwjj.communication.client.*;
 
 
 public class Playground extends Canvas {
@@ -20,7 +19,7 @@ public class Playground extends Canvas {
     /**
      * Obiekt pozwalajacy na polaczenie z serwerem
      */
-    private SecureClient client;
+    private IClient client;
 
     /**
      * Obiekt pozwalajacy wyrysowywac wyniki na ekran
@@ -83,51 +82,12 @@ public class Playground extends Canvas {
      *
      * tworzy pierwszy ruch
      */
-    public Playground(SecureClient client)
+    public Playground(IClient client)
     {
         this.client = client;
-
-        this.client.connection();
-
-        if (this.client.isConnected())
-        {
-            System.out.println("Jestem polaczony");
-        }
-        else
-        {
-            System.out.println("Nie jestem polaczony");
-        }
-
-/*
-        Exchanger e = new Exchanger();
-        e.type = Exchanger.MessagesType.CHECK_MOVE;
-        this.client.send(e);
-
-        e = this.client.receive();
-        if (e.type == Exchanger.MessagesType.BAD_MOVE)
-        {
-            System.out.println("BAD_MOVE");
-        }
-
-        e.type = Exchanger.MessagesType.CHECK_MOVE;
-        this.client.send(e);
-
-        e = this.client.receive();
-        if (e.type == Exchanger.MessagesType.UPDATE_MOVE)
-        {
-            System.out.println("UPDATE_MOVE");
-        }
-
-        e.type = Exchanger.MessagesType.END;
-        this.client.send(e);
-
-        e = this.client.receive();
-        if (e.type == Exchanger.MessagesType.LOSER)
-        {
-            System.out.println("LOSER");
-        }
-*/
-       this.createFirstMove();
+        this.createFirstMove();
+        System.out.println("Druzyna numer " + this.client.joinGame());
+        
     }
 
     /**
@@ -290,52 +250,20 @@ public class Playground extends Canvas {
      */
     public boolean addMove(Spot p)
     {
-        System.out.println("addMove - no i co?");
-
-        Exchanger e = this.client.waitForYourTurn();
-
-        if (null == e)
+        if (!this.client.isMyTurn())
         {
-            System.out.println("Nie moja tura?!");
+            System.out.println("To nie twoja kolej!");
             return false;
         }
-        else
+
+        p = Spot.normalize(p);
+
+        if (this.moves.possible(p))
         {
-            System.out.println("Niby moja tura");
-            if (Exchanger.MessagesType.UPDATE == e.type)
-            {
-                System.out.println("NAJPIERW UPADTE PLANSZY");
-            }
+            this.client.myMove();
+            this.moves.add(new Move(Spot.lastSpot, p, (teamTurn=(teamTurn+1)%2)));
+            update();
         }
-
-        p = Spot.normalize(p); 
-
-        do
-        {
-            System.out.println("Probuje robic krok");
-
-            e.type = Exchanger.MessagesType.CHECK_MOVE;
-            this.client.send(e);
-            e = this.client.receive();
-
-            System.out.println("Z serwera dostalem : " + e.type + " druzyny" + e.team);
-            
-            if (this.moves.possible(p))
-            {
-                this.moves.add(new Move(Spot.lastSpot, p, this.client.getTeam()));
-                update();
-            }
-            else
-            {
-                System.out.println("Nie mozesz!");
-            }
-            e = this.client.receive();
-        }
-        while(this.client.getTeam() != e.team);
-
-        System.out.println("To juz niby zrobilem krok, teraz czas na drugiego klienta");
-
-        
 
         return false;
     }
