@@ -13,7 +13,7 @@ public class DrawPlayground {
 
     private Playground playground;
     private Graphics g;
-    private Color bgColor;
+    private Color bgColor = Colors.Normal;
 
     public DrawPlayground(Playground playground)
     {
