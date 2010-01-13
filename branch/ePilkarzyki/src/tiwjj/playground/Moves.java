@@ -31,9 +31,21 @@ public class Moves {
         this.moves.add(m);
     }
 
-
+    
     /**
      * Konstruktor Moves 2
+     * Tworzy pierwszy ruch - punkt o wspolrzednych x, y
+     *
+     * @param int x_center
+     * @param int y_center
+     */
+    public Moves(int x, int y)
+    {
+        this(new Spot(x,y), new Spot(x,y), 0);
+    }
+
+    /**
+     * Konstruktor Moves 3
      * Tworzy pierwszy ruch
      *
      * @param Spot s
