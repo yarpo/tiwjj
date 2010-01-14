@@ -45,6 +45,10 @@ public class RmiClient implements Runnable, IClient  {
      */
     private int             team = -1; // domyslnie nie ma druzyny
 
+    /**
+     * Flaga dla update. Pierwszy update jest traktowany specjalnie
+     */
+    private boolean first = true;
 
     public RmiClient(String host, int port)
     {
@@ -138,6 +142,13 @@ public class RmiClient implements Runnable, IClient  {
 
     public boolean update()
     {
+        if (first)
+        {
+            try { Thread.sleep(1000); } catch(Exception e) {}
+            first = false;
+        }
+
+
 System.out.println("Update start:");
         try
         {
