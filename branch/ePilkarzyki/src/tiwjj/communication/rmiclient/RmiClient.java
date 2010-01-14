@@ -7,25 +7,17 @@ import tiwjj.playground.*;
 
 public class RmiClient implements Runnable, IClient  {
 
+    /**
+     * Osobny watek dla ciaglego update'owania wektora ruchow
+     */
     Thread clientThread;
+
+
+    /**
+     * Referencja na playground, aby moc zmieniac wektor ruchow i ponownie
+     * wszystko wyrysowywac
+     */
     Playground playground;
-
-    public void start(Playground p)
-    {
-        this.playground = p;
-        this.clientThread = new Thread(this);
-        this.clientThread.start();
-    }
-
-    public void pause()
-    {
-        clientThread.suspend();
-    }
-
-    public void resume()
-    {
-        clientThread.resume();
-    }
 
 
     /**
@@ -45,11 +37,19 @@ public class RmiClient implements Runnable, IClient  {
      */
     private int             team = -1; // domyslnie nie ma druzyny
 
+
     /**
      * Flaga dla update. Pierwszy update jest traktowany specjalnie
      */
     private boolean first = true;
 
+
+    /**
+     * Konstruktor
+     *
+     * @param String host
+     * @param int port
+     */
     public RmiClient(String host, int port)
     {
         try
@@ -63,11 +63,22 @@ public class RmiClient implements Runnable, IClient  {
         }
     }
 
+
+    /**
+     * Konstruktor tworzocy obiekt na domyslnych wartosciach odczytywanych
+     * ze statycznej klasy Settings
+     */
     public RmiClient()
     {
         this(Settings.HOST, Settings.PORT);
     }
 
+
+    /**
+     * Dolacz do gry. Zwraca numer druzyny, jaki dostalismy od serwera
+     *
+     * @returns int team
+     */
     public int joinGame()
     {
         try
@@ -83,6 +94,15 @@ public class RmiClient implements Runnable, IClient  {
         return this.team;
     }
 
+
+    /**
+     * Dolacz do konkretnego zespolu. Zwraca numer zespolu, albo -1 jesli 
+     * nie jest mozliwe dolaczenie do takiego zespolu
+     *
+     * @param int team
+     *
+     * @returns int
+     */
     public int joinTeam(int team)
     {
         try
@@ -98,6 +118,12 @@ public class RmiClient implements Runnable, IClient  {
         return this.team;
     }
 
+
+    /**
+     * Sprawdza czy to jest tura tego zawodnika
+     *
+     * @returns boolean
+     */
     public boolean isMyTurn()
     {
         try
@@ -109,7 +135,15 @@ public class RmiClient implements Runnable, IClient  {
             return false;
         }
     }
-    
+
+
+    /**
+     * Przeslanie na serwer swojego wektora ruchow
+     *
+     * @param Vector<Move> moves
+     *
+     * @returns boolean
+     */
     public boolean myMove(Vector<Move> moves)
     {
         try
@@ -117,77 +151,126 @@ public class RmiClient implements Runnable, IClient  {
             Exchanger data = new Exchanger();
             data.team = this.team;
             data.moves = moves;
-            System.out.println("Moves size: " + moves.size());
             return rmiServer.myMove(data);
         }
         catch(Exception e)
         {
-            e.printStackTrace();
-            System.out.println("To nie dziala");
             return false;
         }
     }
 
-    // TODO jakies cialo metody
+
+    /**
+     * Konczy gre.
+     * Przeciwnik dostaje informacje o poddaniu meczu. Serwer ustawia sie w
+     * gotowosci na nowych zawodnikow
+     *
+     * @returns boolean
+     */
     public boolean end()
     {
+        // TODO jakies cialo metody
         // wyslac na serwer komunikat o tym, ze ten klient konczy gre
         return true;
     }
 
+
+    /**
+     * Getter identyfikatora druzyny
+     */
     public int getTeam()
     {
         return this.team;
     }
 
+
+    /**
+     * Regularnie wywolywana metoda pobierajaca z serwera aktualny wektor ruchow
+     *
+     * @returns boolean
+     */
     public boolean update()
     {
-        if (first)
+        if (this.first)
         {
-            try { Thread.sleep(1000); } catch(Exception e) {}
-            first = false;
+            this.wait(1);
+            this.first = false;
         }
 
-
-System.out.println("Update start:");
         try
         {
            Exchanger data = rmiServer.update();
            if (null != data)
            {
-System.out.println("1");
-               playground.setMoves(data.moves);
-System.out.println("2");
-               playground.update();
+                playground.setMoves(data.moves);
+                playground.update();
+                return false;
            }
+           return true;
         }
         catch(Exception e)
         {
-System.out.println("3");
-            e.printStackTrace();
-            System.out.println("Update sie nie udal");
+            return false;
         }
-
-System.out.println("Update stop.");
-        return true;
     }
 
+
+    /**
+     * Uruchamia watek odpowiedzialny za ciagla aktualizacje danych w wektorze
+     * ruchow
+     */
     public void run()
     {
         while(true)
         {
-            //Exchanger data = this.update();
             this.update();
-            //this.playground.setMoves(data.moves);
+            this.wait(1);
+        }
+    }
+
+    
+    /**
+     * Uspienie watku na okreslona liczbe sekund
+     *
+     * @param int sec
+     */
+    private void wait(int sec)
+    {
             try
             {
-                Thread.sleep(1000);
+                Thread.sleep(sec*1000);
             }
-            catch(Exception e)
-            {
-                System.out.println("Update sie nie powiodl");
-            }
-        }
+            catch(Exception e) {}
+    }
+
+    /**
+     * Uruchamia watek
+     *
+     * @param Playground p
+     */
+    public void start(Playground p)
+    {
+        this.playground = p;
+        this.clientThread = new Thread(this);
+        this.clientThread.start();
+    }
+
+
+    /**
+     * Zatrzymuje watek
+     */
+    public void pause()
+    {
+        clientThread.suspend();
+    }
+
+
+    /**
+     * Wznawia watek
+     */
+    public void resume()
+    {
+        clientThread.resume();
     }
 
 }
