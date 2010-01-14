@@ -136,7 +136,6 @@ public class Playground extends Canvas {
      */
     public void update()
     {
-        Spot.lastSpot = this.moves.getLastSpot();
         this.view.refresh();
     }
 

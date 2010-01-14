@@ -207,6 +207,7 @@ public class Moves {
     public void setMoves(Vector<Move> moves)
     {
         this.moves = moves;
+        Spot.lastSpot = this.moves.lastElement().getEnd();
     }
 
     public Spot getLastSpot()
