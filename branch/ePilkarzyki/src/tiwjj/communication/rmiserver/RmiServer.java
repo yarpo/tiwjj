@@ -123,6 +123,11 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
         return true; // TODO
     }
 
+    public String update(int team)
+    {
+        System.out.println("Zglosil sie po update zespol " + team);
+        return "Druzyna " + team + " dostala update";
+    }
 
     /**
      * Konstruktor

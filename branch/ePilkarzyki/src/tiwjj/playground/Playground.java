@@ -9,6 +9,8 @@ package tiwjj.playground;
 import java.awt.*;
 //import java.awt.Graphics;
 import tiwjj.communication.*;
+import java.lang.Thread;
+
 
 
 public class Playground extends Canvas {
@@ -41,6 +43,8 @@ public class Playground extends Canvas {
         this.moves = new Moves(Size.xCenter, Size.yCenter);
         this.view = new DrawPlayground(this);
         System.out.println("Druzyna numer " + this.client.joinGame());
+
+        this.client.start();
     }
 
 
@@ -94,6 +98,8 @@ public class Playground extends Canvas {
      */
     public boolean addMove(Spot p)
     {
+        this.client.pause(); // zastopuj automatyczne pozyskiwanie danych
+
         if (!this.client.isMyTurn())
         {
             System.out.println("To nie twoja kolej!");
@@ -108,6 +114,8 @@ public class Playground extends Canvas {
             this.moves.add(new Move(Spot.lastSpot, p, this.client.getTeam()));
             update();
         }
+
+        this.client.resume(); // wznow dzialanie watku
 
         return false;
     }

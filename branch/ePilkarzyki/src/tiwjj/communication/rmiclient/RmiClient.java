@@ -3,11 +3,43 @@ package tiwjj.communication.rmiclient;
 import java.rmi.registry.*;
 import tiwjj.communication.*;
 
-public class RmiClient implements IClient
-{
+public class RmiClient implements Runnable, IClient  {
+
+    Thread clientThread;
+
+    public void start()
+    {
+        clientThread = new Thread(this);
+        clientThread.start();
+    }
+
+    public void pause()
+    {
+        clientThread.suspend();
+    }
+
+    public void resume()
+    {
+        clientThread.resume();
+    }
+
+
+    /**
+     * Instacje zdalnego obiektu
+     */
     private RMIInterface    rmiServer;
+
+
+    /**
+     * todo: przerobic na zabezpieczone polaczenie
+     */
     private Registry        registry;
-    private int             team;
+
+
+    /**
+     * numer druzyny, w ktorej jest ten klient
+     */
+    private int             team = -1; // domyslnie nie ma druzyny
 
 
     public RmiClient(String host, int port)
@@ -92,6 +124,36 @@ public class RmiClient implements IClient
     public int getTeam()
     {
         return this.team;
+    }
+
+    public boolean update()
+    {
+        try
+        {
+            System.out.println(rmiServer.update(this.team));
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void run()
+    {
+        while(true)
+        {
+            this.update();
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch(Exception e)
+            {
+                
+            }
+        }
     }
 
 }

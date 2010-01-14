@@ -17,4 +17,8 @@ public interface IClient {
     public boolean isMyTurn();
     public boolean myMove();
     public boolean end();
+    public boolean update();
+    public void start();
+    public void pause();
+    public void resume();
 }
