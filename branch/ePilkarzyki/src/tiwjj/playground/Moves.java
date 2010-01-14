@@ -141,32 +141,50 @@ public class Moves {
         return true;
     }
 
+    private void debug(String a)
+    {
+        System.out.println(a);
+    }
+
     public boolean isUsed(Spot p)
     {
+debug("Jestem w isUsed");
         int n = this.moves.size() - 1;
 
         if (0 == n)
         {
+            debug("Nie ma ruchow");
             return true;
         }
+
+        debug("Zaraz wejde do petli");
+
         // nie bierze pierwszego ani ostatniego ruchu
         // pierwszy jest mockowy - srodek do srodek
         // ostatni to on sam
         for(int i = 1; i < n; i++)
         {
+            debug("isUsed: for : i = " + i);
             Move m = this.moves.elementAt(i);
             if (m.getStart().theSameField(p) || m.getEnd().theSameField(p))
             {
+                debug("isUsed:for:if");
                 return true;
             }
         }
-
+debug("isUsed:false");
         return false;
     }
 
     // TODO: przeniesc do Spot?
     public boolean isBorder(Spot p)
     {
+debug("isBorder");
+debug("p.getXx() " + p.getXx());
+debug("p.getYy() " + p.getYy());
+debug("Size.xStart " + Size.xStart);
+debug("Size.yStart " + Size.yStart);
+
         if (p.getXx() == Size.xStart || p.getXx() == Size.xStop ||
             p.getYy() == Size.yStart || p.getYy() == Size.yStop)
         {
@@ -178,24 +196,29 @@ public class Moves {
 
     public boolean isMyTurn(int team)
     {
+        debug("isMyTurn");
         // kolejny ruch pod rzad
         if (this.isUsed(this.moves.lastElement().getEnd()) ||
             this.isBorder(this.moves.lastElement().getEnd()))
         {
+            debug("isMyTurn:if");
             if (team == this.moves.lastElement().getTeam())
             {
+                debug("isMyTurn:if:if");
                 return true;
             }
         }
         else
         {
+            debug("isMyTurn:else");
             // koniec tury przeciwnika
             if (team != this.moves.lastElement().getTeam())
             {
+                debug("isMyTurn:else:if");
                 return true;
             }
         }
-
+debug("isMyTurn:false");
         return false;
     }
 

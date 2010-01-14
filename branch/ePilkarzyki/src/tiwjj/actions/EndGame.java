@@ -16,7 +16,7 @@ public class EndGame extends ActionHandler implements ActionListener  {
 
     public EndGame(IClient client)
     {
-        super(client, client.getTeam());
+        super(client, client.getMyTeam());
     }
 
     public void actionPerformed(ActionEvent e)

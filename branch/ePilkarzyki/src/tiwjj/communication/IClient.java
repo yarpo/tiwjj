@@ -16,8 +16,9 @@ public interface IClient {
 
     public int joinGame();
     public int joinTeam(int i);
-    public int getTeam();
-    public boolean isMyTurn();
+    public int getMyTeam();
+    public int getCurrentTeam();
+    public void nextTeam();
     public boolean myMove(Vector<Move> moves);
     public boolean end();
     public boolean update();

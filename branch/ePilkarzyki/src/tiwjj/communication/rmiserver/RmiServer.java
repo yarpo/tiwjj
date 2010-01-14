@@ -31,6 +31,8 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
 
 
     private Vector<Move> moves;
+
+
     /**
      * Sprawdza, czy teraz jest kolej tej druzyny
      *
@@ -38,17 +40,19 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
      *
      * @returns boolean
      */
-    public boolean isMyTurn(int team)
+    public int getCurrentTeam()
     {
-System.out.println("Druzyna " + team + "pyta sie czy to jego tura. Teraz tura " + this.currentTeam);
-        if (team == this.currentTeam)
-        {
-            return true;
-        }
-
-        return false;
+        return this.currentTeam;
     }
 
+
+    /**
+     * 
+     */
+    public void nextTeam()
+    {
+        this.currentTeam = (this.currentTeam+1)%2;
+    }
 
     /**
      * Dolacza do gry. Zwraca numer druzyny do ktorej zostal gracz przypisany,
@@ -92,20 +96,13 @@ System.out.println("Druzyna " + team + "pyta sie czy to jego tura. Teraz tura " 
      * Czy dany ruch jest dozwolony sprawdza klient tu jedynie zapisanie
      * i pozniejsze rozsylanie
      *
-     * TODO : zrobic, aby dzialalo jak w powyzszym opisie
-     *
      * @param int team
      *
      * @returns boolean
      */
     public boolean myMove(Exchanger data)
     {
-System.out.println("Ruch druzyny " + data.team);
         this.moves = data.moves;
-System.out.println("Byl ruch druzyny " + this.currentTeam);
-        this.currentTeam = (this.currentTeam+1)%2;
-System.out.println("teraz ruch druzyny " + this.currentTeam);
-        System.out.println("Teraz druzyna: " + this.currentTeam);
 
         return true;
     }
@@ -123,8 +120,6 @@ System.out.println("teraz ruch druzyny " + this.currentTeam);
 
     public Exchanger update()
     {
-        //System.out.println("zespol: " + data.team + "\t" + data.moves);
-        //this.moves = data.moves;
         if (null == this.moves)
         {
             System.out.println("Nie ma ruchow");

@@ -99,10 +99,9 @@ public class Playground extends Canvas {
     {
         this.client.pause(); // zastopuj automatyczne pozyskiwanie danych
 
-        // TODO po zrobieniu wymiany danych między klientami, przerobic na moves.isMyTurn(team)
-        if (!this.client.isMyTurn())
+        if (this.client.getCurrentTeam() != this.client.getMyTeam())
         {
-            System.out.println("To nie twoja kolej!");
+            debug("To nie twoja kolej!");
             this.client.resume(); // wznow dzialanie watkus
             return false;
         }
@@ -111,9 +110,16 @@ public class Playground extends Canvas {
 
         if (this.moves.possible(p))
         {
-            this.moves.add(new Move(Spot.lastSpot, p, this.client.getTeam()));
+            this.moves.add(new Move(Spot.lastSpot, p, this.client.getMyTeam()));
             this.client.myMove(this.moves.getMoves());
-           // this.client.update(this);
+            if (!this.moves.isMyTurn(this.client.getMyTeam()))
+            {
+                //debug("\t\t\tZmieniam druzyne, bo to juz nie bedzie moja kolej");
+                //debug("Moja druzyna: " + this.client.getMyTeam());
+                //debug("Aktualna druzyna: " + this.client.getCurrentTeam());
+                this.client.nextTeam();
+                debug("Druzyna aktualna po zmianie: " + this.client.getCurrentTeam());
+            }
             update();
         }
 
@@ -122,6 +128,10 @@ public class Playground extends Canvas {
         return false;
     }
 
+    private void debug(String a)
+    {
+        System.out.println(a);
+    }
     
     /**
      * Getter wektora ruchow

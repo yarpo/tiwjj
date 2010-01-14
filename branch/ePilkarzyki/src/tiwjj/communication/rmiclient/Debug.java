@@ -24,7 +24,7 @@ public class Debug {
             System.out.println("Nie możesz się dołączyc");
             return;
         }
-
+/*
         while(true)
         {
             if (rmi.isMyTurn())
@@ -52,8 +52,8 @@ public class Debug {
                 Thread.sleep(r.nextInt(2300));
             }
             catch(Exception e) {}
-            
+            */
 
-        }
+      //  }
     }
 }

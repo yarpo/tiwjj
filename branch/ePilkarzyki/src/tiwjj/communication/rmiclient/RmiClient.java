@@ -120,21 +120,31 @@ public class RmiClient implements Runnable, IClient  {
 
 
     /**
-     * Sprawdza czy to jest tura tego zawodnika
+     * Zwraca identyfikator druzyny
      *
      * @returns boolean
      */
-    public boolean isMyTurn()
+    public int getCurrentTeam()
     {
         try
         {
-            return rmiServer.isMyTurn(this.team);
+            return rmiServer.getCurrentTeam();
         }
         catch(Exception e)
         {
-            return false;
+            return -1;
         }
     }
+
+
+     public void nextTeam()
+     {
+        try
+        {
+            rmiServer.nextTeam();
+        }
+        catch(Exception e) {}
+     }
 
 
     /**
@@ -178,7 +188,7 @@ public class RmiClient implements Runnable, IClient  {
     /**
      * Getter identyfikatora druzyny
      */
-    public int getTeam()
+    public int getMyTeam()
     {
         return this.team;
     }
