@@ -5,10 +5,12 @@
 
 package tiwjj.communication;
 
+import tiwjj.playground.Move;
+import java.util.Vector;
+
 public class Exchanger implements java.io.Serializable {
-    public int a;
-    public int b;
-    public String s;
+    public int team;
+    public Vector<Move> moves;
 }
 
 

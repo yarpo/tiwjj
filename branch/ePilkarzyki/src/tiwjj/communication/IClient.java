@@ -5,6 +5,9 @@
 
 package tiwjj.communication;
 
+import tiwjj.playground.*;
+import java.util.Vector;
+
 /**
  *
  * @author yarpo
@@ -15,10 +18,10 @@ public interface IClient {
     public int joinTeam(int i);
     public int getTeam();
     public boolean isMyTurn();
-    public boolean myMove();
+    public boolean myMove(Vector<Move> moves);
     public boolean end();
-    public boolean update(Exchanger data);
-    public void start();
+    public boolean update();
+    public void start(Playground p);
     public void pause();
     public void resume();
 }

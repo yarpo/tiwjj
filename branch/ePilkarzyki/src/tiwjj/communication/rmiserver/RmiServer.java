@@ -4,6 +4,8 @@ import java.rmi.*;
 import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
 import tiwjj.communication.*;
+import tiwjj.playground.Move;
+import java.util.Vector;
 
 public class RmiServer extends UnicastRemoteObject implements RMIInterface {
 
@@ -28,6 +30,7 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
     boolean [] teams = {false, false};
 
 
+    private Vector<Move> moves;
     /**
      * Sprawdza, czy teraz jest kolej tej druzyny
      *
@@ -37,6 +40,7 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
      */
     public boolean isMyTurn(int team)
     {
+System.out.println("Druzyna " + team + "pyta sie czy to jego tura. Teraz tura " + this.currentTeam);
         if (team == this.currentTeam)
         {
             return true;
@@ -94,21 +98,16 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
      *
      * @returns boolean
      */
-    public boolean myMove(int team)
+    public boolean myMove(Exchanger data)
     {
-        java.util.Random r = new java.util.Random();
-        int a = r.nextInt(10);
-
+System.out.println("Ruch druzyny " + data.team);
+        this.moves = data.moves;
+System.out.println("Byl ruch druzyny " + this.currentTeam);
         this.currentTeam = (this.currentTeam+1)%2;
-
-        if (a%2 == 1)
-        {
-            return true;
-        }
-
+System.out.println("teraz ruch druzyny " + this.currentTeam);
         System.out.println("Teraz druzyna: " + this.currentTeam);
 
-        return false;
+        return true;
     }
 
 
@@ -122,12 +121,19 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
         return true; // TODO
     }
 
-    public Exchanger update(int team, Exchanger data)
+    public Exchanger update()
     {
-        System.out.println("zespol: " + team + "\t" + data.s);
-        data.a = 1;
-        data.b = 2;
-        data.s = "To jest odpowiedz serwera na request update'u dla druzyny " + team;
+        //System.out.println("zespol: " + data.team + "\t" + data.moves);
+        //this.moves = data.moves;
+        if (null == this.moves)
+        {
+            System.out.println("Nie ma ruchow");
+            return null;
+        }
+
+        Exchanger data = new Exchanger();
+        data.moves = this.moves;
+
         return data;
     }
 

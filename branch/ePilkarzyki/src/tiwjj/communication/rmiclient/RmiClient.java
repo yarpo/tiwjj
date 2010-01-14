@@ -2,15 +2,19 @@ package tiwjj.communication.rmiclient;
 
 import java.rmi.registry.*;
 import tiwjj.communication.*;
+import java.util.Vector;
+import tiwjj.playground.*;
 
 public class RmiClient implements Runnable, IClient  {
 
     Thread clientThread;
+    Playground playground;
 
-    public void start()
+    public void start(Playground p)
     {
-        clientThread = new Thread(this);
-        clientThread.start();
+        this.playground = p;
+        this.clientThread = new Thread(this);
+        this.clientThread.start();
     }
 
     public void pause()
@@ -102,14 +106,20 @@ public class RmiClient implements Runnable, IClient  {
         }
     }
     
-    public boolean myMove()
+    public boolean myMove(Vector<Move> moves)
     {
         try
         {
-            return rmiServer.myMove(this.team);
+            Exchanger data = new Exchanger();
+            data.team = this.team;
+            data.moves = moves;
+            System.out.println("Moves size: " + moves.size());
+            return rmiServer.myMove(data);
         }
         catch(Exception e)
         {
+            e.printStackTrace();
+            System.out.println("To nie dziala");
             return false;
         }
     }
@@ -126,32 +136,38 @@ public class RmiClient implements Runnable, IClient  {
         return this.team;
     }
 
-    public boolean update(Exchanger data)
+    public boolean update()
     {
+System.out.println("Update start:");
         try
         {
-           data = rmiServer.update(this.team, data);
+           Exchanger data = rmiServer.update();
+           if (null != data)
+           {
+System.out.println("1");
+               playground.setMoves(data.moves);
+System.out.println("2");
+               playground.update();
+           }
         }
         catch(Exception e)
         {
+System.out.println("3");
             e.printStackTrace();
             System.out.println("Update sie nie udal");
-            return false;
         }
 
+System.out.println("Update stop.");
         return true;
     }
 
     public void run()
     {
-        Exchanger ex = new Exchanger();
-
         while(true)
         {
-            ex.a = 2;
-            ex.b = -1;
-            ex.s = "Zapytanie o update";
-            this.update(ex);
+            //Exchanger data = this.update();
+            this.update();
+            //this.playground.setMoves(data.moves);
             try
             {
                 Thread.sleep(1000);

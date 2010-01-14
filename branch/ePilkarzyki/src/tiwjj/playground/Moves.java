@@ -140,4 +140,72 @@ public class Moves {
 
         return true;
     }
+
+    public boolean isUsed(Spot p)
+    {
+        int n = this.moves.size() - 1;
+
+        if (0 == n)
+        {
+            return true;
+        }
+        // nie bierze pierwszego ani ostatniego ruchu
+        // pierwszy jest mockowy - srodek do srodek
+        // ostatni to on sam
+        for(int i = 1; i < n; i++)
+        {
+            Move m = this.moves.elementAt(i);
+            if (m.getStart().theSameField(p) || m.getEnd().theSameField(p))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // TODO: przeniesc do Spot?
+    public boolean isBorder(Spot p)
+    {
+        if (p.getXx() == Size.xStart || p.getXx() == Size.xStop ||
+            p.getYy() == Size.yStart || p.getYy() == Size.yStop)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isMyTurn(int team)
+    {
+        // kolejny ruch pod rzad
+        if (this.isUsed(this.moves.lastElement().getEnd()) ||
+            this.isBorder(this.moves.lastElement().getEnd()))
+        {
+            if (team == this.moves.lastElement().getTeam())
+            {
+                return true;
+            }
+        }
+        else
+        {
+            // koniec tury przeciwnika
+            if (team != this.moves.lastElement().getTeam())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Vector<Move> getMoves()
+    {
+        return this.moves;
+    }
+
+    public void setMoves(Vector<Move> moves)
+    {
+        this.moves = moves;
+    }
 }

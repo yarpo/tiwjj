@@ -6,7 +6,7 @@ package tiwjj.playground;
  * @date    6 - 01 - 2009
  */
 
-public class Move {
+public class Move implements java.io.Serializable {
 
     /**
      * Punkt startowy ruchu
