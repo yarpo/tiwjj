@@ -5,10 +5,19 @@
 
 package tiwjj.communication;
 
+public class Exchanger implements java.io.Serializable {
+    public int a;
+    public int b;
+    public String s;
+}
+
+
 /**
  *
  * @author yarpo
- */
+
+ *
+ *
 public class Exchanger implements java.io.Serializable {
 
     public enum MessagesType {
@@ -27,3 +36,4 @@ public class Exchanger implements java.io.Serializable {
     public String content;
     public int team;
 }
+*/

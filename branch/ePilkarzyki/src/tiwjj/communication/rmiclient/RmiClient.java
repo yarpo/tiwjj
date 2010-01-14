@@ -126,14 +126,16 @@ public class RmiClient implements Runnable, IClient  {
         return this.team;
     }
 
-    public boolean update()
+    public boolean update(Exchanger data)
     {
         try
         {
-            System.out.println(rmiServer.update(this.team));
+           data = rmiServer.update(this.team, data);
         }
         catch(Exception e)
         {
+            e.printStackTrace();
+            System.out.println("Update sie nie udal");
             return false;
         }
 
@@ -142,16 +144,21 @@ public class RmiClient implements Runnable, IClient  {
 
     public void run()
     {
+        Exchanger ex = new Exchanger();
+
         while(true)
         {
-            this.update();
+            ex.a = 2;
+            ex.b = -1;
+            ex.s = "Zapytanie o update";
+            this.update(ex);
             try
             {
                 Thread.sleep(1000);
             }
             catch(Exception e)
             {
-                
+                System.out.println("Update sie nie powiodl");
             }
         }
     }

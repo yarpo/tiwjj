@@ -17,6 +17,7 @@ public interface RMIInterface  extends Remote {
     public boolean isMyTurn(int team) throws RemoteException;
     public boolean myMove(int team) throws RemoteException;
     public boolean end() throws RemoteException;
-    public String update(int team) throws RemoteException;
+    public Exchanger update(int team, Exchanger data) throws RemoteException;
 }
+
 

@@ -17,7 +17,7 @@ public interface IClient {
     public boolean isMyTurn();
     public boolean myMove();
     public boolean end();
-    public boolean update();
+    public boolean update(Exchanger data);
     public void start();
     public void pause();
     public void resume();

@@ -3,8 +3,7 @@ package tiwjj.communication.rmiserver;
 import java.rmi.*;
 import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
-import tiwjj.communication.RMIInterface;
-import tiwjj.communication.Settings;
+import tiwjj.communication.*;
 
 public class RmiServer extends UnicastRemoteObject implements RMIInterface {
 
@@ -123,10 +122,13 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
         return true; // TODO
     }
 
-    public String update(int team)
+    public Exchanger update(int team, Exchanger data)
     {
-        System.out.println("Zglosil sie po update zespol " + team);
-        return "Druzyna " + team + " dostala update";
+        System.out.println("zespol: " + team + "\t" + data.s);
+        data.a = 1;
+        data.b = 2;
+        data.s = "To jest odpowiedz serwera na request update'u dla druzyny " + team;
+        return data;
     }
 
     /**
