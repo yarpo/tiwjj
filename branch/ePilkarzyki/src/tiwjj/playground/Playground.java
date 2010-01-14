@@ -197,5 +197,4 @@ public class Playground extends Canvas {
     {
         this.moves.setMoves(moves);
     }
-    
 }
