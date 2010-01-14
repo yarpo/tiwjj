@@ -208,4 +208,9 @@ public class Moves {
     {
         this.moves = moves;
     }
+
+    public Spot getLastSpot()
+    {
+        return this.moves.lastElement().getEnd();
+    }
 }
