@@ -103,6 +103,7 @@ public class Playground extends Canvas {
         if (!this.client.isMyTurn())
         {
             System.out.println("To nie twoja kolej!");
+            this.client.resume(); // wznow dzialanie watkus
             return false;
         }
 
