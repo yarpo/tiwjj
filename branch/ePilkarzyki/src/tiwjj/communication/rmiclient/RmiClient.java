@@ -52,6 +52,14 @@ public class RmiClient implements Runnable, IClient  {
      */
     public RmiClient(String host, int port)
     {
+
+        System.setProperty("java.security.policy", "policy");
+        System.setProperty("javax.net.ssl.trustStore", ".trustword");
+
+	if (System.getSecurityManager() == null) {
+	    System.setSecurityManager(new SecurityManager());
+	}
+
         try
         {
            this.registry = LocateRegistry.getRegistry(host, port);

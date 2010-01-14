@@ -1,23 +1,15 @@
 package tiwjj.communication.rmiserver;
 
 import java.rmi.*;
-import java.rmi.registry.*;
-import java.rmi.server.UnicastRemoteObject;
+
+import java.rmi.server.*;
+import java.util.Vector;
 import tiwjj.communication.*;
 import tiwjj.playground.Move;
-import java.util.Vector;
+import java.rmi.registry.*;
+
 
 public class RmiServer extends UnicastRemoteObject implements RMIInterface {
-
-    /**
-     * Port na ktorym slucha serwer
-     */
-    private int port = Settings.PORT;
-
-    /**
-     * TODO: Przerobic na zabezpieczone polaczenie
-     */
-    Registry registry;
 
     /**
      * id druzyny, ktora aktualnie moze grac
@@ -31,6 +23,24 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
 
 
     private Vector<Move> moves;
+
+
+    /**
+     * Konstruktor
+     */
+    public RmiServer() throws RemoteException
+    {
+        System.out.println("serwer pracuje na porcie " + Settings.PORT);
+
+        try
+        {
+
+            Registry registry = LocateRegistry.createRegistry( Settings.PORT );
+            registry.rebind("rmiServer", this);
+
+        }
+        catch(Exception e) {}
+    }
 
 
     /**
@@ -132,21 +142,5 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
         return data;
     }
 
-    /**
-     * Konstruktor
-     */
-    public RmiServer() throws RemoteException
-    {
-        System.out.println("serwer pracuje na porcie " + this.port);
-
-        try
-        {
-            registry = LocateRegistry.createRegistry( this.port );
-            registry.rebind("rmiServer", this);
-        }
-        catch(RemoteException e)
-        {
-            throw e;
-        }
-    }
+    
 }
