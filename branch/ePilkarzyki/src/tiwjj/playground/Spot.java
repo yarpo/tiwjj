@@ -157,7 +157,6 @@ public class Spot extends Point {
      * Tworzy wektor sasiednich punktow (tych, ktore  znajduja sie na planszy)
      * _Nie_ sprawdza czy mozna do nich pojsc
      *
-     * @uses Playground.isSpotable
      * @uses Size.HorizontalGap
      * @uses Size.VerticalGap
      *
@@ -201,6 +200,25 @@ public class Spot extends Point {
         return this.createNeighboursVector();
     }
 
+    
+    /**
+     * Sprawdza, czy aktualny punkt jest polozony na lini koncowej lub bocznej
+     * boiska
+     *
+     * @returns boolean
+     */
+    public boolean isBorder()
+    {
+        if (this.getXx() == Size.xStart || this.getXx() == Size.xStop ||
+            this.getYy() == Size.yStart || this.getYy() == Size.yStop)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    
     /**
      * Pseudo podloga i sufit
      * z ta roznica, ze zaokragla nie do calosci, a do liczby podanej jako
@@ -264,7 +282,7 @@ public class Spot extends Point {
     public static Spot normalize(Spot p)
     {
         p.x = round(p.x - Size.xStart, Size.HorizontalGap) + Size.xStart + Size.OffsetX;
-        p.y = round(p.y - Size.yStart, Size.VerticalGap) + Size.yStart + Size.OffsetX;
+        p.y = round(p.y - Size.yStart, Size.VerticalGap) + Size.yStart + Size.OffsetY;
 
         return p;
     }

@@ -104,21 +104,36 @@ public class Playground extends Canvas {
             this.client.nextTeam(); // kolej na nastepna druzyne
         }
         update(); // wyswietl owa sytuacje na boisku
-        this.matchesState();
+       
     }
 
 
     private void matchesState()
-    {
+    {/*
         if (this.moves.winner(this.client.getMyTeam()))
         {
             System.out.println("Wygrales");
         }
-       /* else if (this.moves.loser(this.client.getMyTeam()))
+        else if (this.moves.loser(this.client.getMyTeam()))
         {
             System.out.println("przegrales");
         }*/
+
+        if (-1 != this.moves.goal())
+        {
+            System.out.println("GOAL");
+        }
+
+        if (this.moves.winner(this.client.getMyTeam()))
+        {
+            System.out.println("Wygrales");
+        }
+        else if (this.moves.loser(this.client.getMyTeam()))
+        {
+            System.out.println("przegrales");
+        }
     }
+
 
     /**
      * Dodaje nowy ruch jesli jest to mozliwe
@@ -169,6 +184,7 @@ public class Playground extends Canvas {
      */
     public void update()
     {
+        this.matchesState();
         this.view.refresh();
     }
 

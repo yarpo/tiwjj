@@ -44,6 +44,7 @@ public class Moves {
         this(new Spot(x,y), new Spot(x,y), 0);
     }
 
+
     /**
      * Konstruktor Moves 3
      * Tworzy pierwszy ruch
@@ -141,11 +142,23 @@ public class Moves {
         return true;
     }
 
+
+    /**
+     * Metoda do debuga - TODO: usunac, gdy niepotrzebna
+     */
     private void debug(String a)
     {
         System.out.println(a);
     }
 
+
+    /**
+     * Sprawdza czy dany punkt jest juz uzywany
+     *
+     * @param Spot p
+     *
+     * @return boolean
+     */
     public boolean isUsed(Spot p)
     {
         int n = this.moves.size() - 1;
@@ -168,24 +181,20 @@ public class Moves {
         }
         return false;
     }
+    
 
-    // TODO: przeniesc do Spot?
-    public boolean isBorder(Spot p)
-    {
-        if (p.getXx() == Size.xStart || p.getXx() == Size.xStop ||
-            p.getYy() == Size.yStart || p.getYy() == Size.yStop)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
+    /**
+     * Sprawdza czy to jest tura druzyny o podanym identyfikatorze
+     *
+     * @param int team
+     *
+     * @returns boolean
+     */
     public boolean isMyTurn(int team)
     {
         // kolejny ruch pod rzad
         if (this.isUsed(this.moves.lastElement().getEnd()) ||
-            this.isBorder(this.moves.lastElement().getEnd()))
+            this.moves.lastElement().getEnd().isBorder())
         {
             if (team == this.moves.lastElement().getTeam())
             {
@@ -204,50 +213,91 @@ public class Moves {
         return false;
     }
 
+
+    /**
+     * Getter wektora ruchow
+     *
+     * @returns Vector<Move> moves
+     */
     public Vector<Move> getMoves()
     {
         return this.moves;
     }
 
+
+    /**
+     * Setter wektora ruchow
+     *
+     * @param Vector<Move> moves
+     */
     public void setMoves(Vector<Move> moves)
     {
         this.moves = moves;
         Spot.lastSpot = this.moves.lastElement().getEnd();
     }
 
+
+    /**
+     * Pobiera ostatni punkt ze sciezki wszystkich ruchow
+     *
+     * @returns Spot
+     */
     public Spot getLastSpot()
     {
         return this.moves.lastElement().getEnd();
     }
 
-    private boolean goal()
-    {
-        debug("goal start x = " + Size.GoalXStart);
-        debug("goal koncowy x = " + (Size.GoalXStart + Size.GoalWidth));
-        debug("goal y top = " + Size.GoalYTop);
-        //debug("goal y bottm = " + Size.GoalYBottom);
-        debug("znormalizowane Ytop = " + (Size.GoalYTop + Size.GoalHeight));
-        debug("moj y = " + Spot.lastSpot.y);
-        debug("moj x = " + Spot.lastSpot.getXx());
 
-        // bramka na gorze
+    /**
+     * Sprawdza czy padla bramka. jesli tak to zwraca identyfikator zwycieskiej
+     * druzyny, albo -1 jesli bramki nie ma
+     *
+     * @returns int
+     */
+    public int goal()
+    {
+        // czy w plaszczyznie x pasuje na bramke
         if ((Spot.lastSpot.getXx() >= Size.GoalXStart &&
-            Spot.lastSpot.x <= Size.GoalXStart + Size.GoalWidth) &&
-            (Spot.lastSpot.y == Size.GoalYTop + Size.GoalHeight))
+            Spot.lastSpot.x <= Size.GoalXStart + Size.GoalWidth))
         {
-            return true;
+            if (Spot.lastSpot.y == Size.GoalYTop + Size.GoalHeight)
+            {
+                return 1; // bramka gorna
+            }
+
+            if (Spot.lastSpot.y == Size.GoalYBottom)
+            {
+                return 0; // bramka dolna
+            }
         }
 
-       return false;
+       return -1;
     }
-    
+
+
+    /**
+     * Sprawdza czy podana druzyna wygrala
+     *
+     * @param int team
+     *
+     * @returns boolean
+     */
     public boolean winner(int team)
     {
-        if (this.goal())
-        {
-            return true;
-        }
+        return (this.goal() == team);
+    }
 
-        return false;
+
+    /**
+     * Sprawdza czy podana druzyna przegrala
+     *
+     * @param int team
+     *
+     * @rteturns boolean
+     */
+    public boolean loser(int team)
+    {
+        int score = this.goal();
+        return (score > -1 && score != team);
     }
 }

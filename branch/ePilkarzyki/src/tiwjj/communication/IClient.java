@@ -18,6 +18,7 @@ public interface IClient {
     public int joinTeam(int i);
     public int getMyTeam();
     public int getCurrentTeam();
+    public boolean isMyTurn();
     public void nextTeam();
     public boolean myMove(Vector<Move> moves);
     public boolean end();

@@ -155,6 +155,18 @@ public class RmiClient implements Runnable, IClient  {
      }
 
 
+     public boolean isMyTurn()
+     {
+         int currentTeam = this.getCurrentTeam();
+
+         if (-1 != currentTeam && currentTeam == this.team)
+         {
+             return true;
+         }
+
+         return false;
+     }
+
     /**
      * Przeslanie na serwer swojego wektora ruchow
      *
