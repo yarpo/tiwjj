@@ -89,52 +89,75 @@ public class Playground extends Canvas {
         }
     }
 
+    /**
+     * Dodaje nowy ruch - nie sprawdza, czy moze. Zaklada, ze juz mozna skoro
+     * zostala wywolana
+     *
+     * @param Move m
+     */
+    private void addMove(Move m)
+    {
+        this.moves.add(m);
+        this.client.myMove(this.moves.getMoves());
+        if (!this.moves.isMyTurn(this.client.getMyTeam()))
+        {
+            this.client.nextTeam(); // kolej na nastepna druzyne
+        }
+        update(); // wyswietl owa sytuacje na boisku
+        //this.matchesState();
+    }
+
+
+    private void mathcesState()
+    {
+        if (this.moves.winner(this.client.getMyTeam()))
+        {
+            System.out.println("Wygrales");
+        }
+       /* else if (this.moves.loser(this.client.getMyTeam()))
+        {
+            System.out.println("przegrales");
+        }*/
+    }
 
     /**
      * Dodaje nowy ruch jesli jest to mozliwe
      *
      * @param Spot newSpot
      */
-    public boolean addMove(Spot p)
+    public void addMove(Spot p)
     {
         this.client.pause(); // zastopuj automatyczne pozyskiwanie danych
 
-        if (this.client.getCurrentTeam() != this.client.getMyTeam())
+        if (this.client.isMyTurn())
         {
-            debug("To nie twoja kolej!");
-            this.client.resume(); // wznow dzialanie watkus
-            return false;
-        }
+            p = Spot.normalize(p);
 
-        p = Spot.normalize(p);
-
-        if (this.moves.possible(p))
-        {
-            this.moves.add(new Move(Spot.lastSpot, p, this.client.getMyTeam()));
-            this.client.myMove(this.moves.getMoves());
-            if (!this.moves.isMyTurn(this.client.getMyTeam()))
+            if (this.moves.possible(p))
             {
-                //debug("\t\t\tZmieniam druzyne, bo to juz nie bedzie moja kolej");
-                //debug("Moja druzyna: " + this.client.getMyTeam());
-                //debug("Aktualna druzyna: " + this.client.getCurrentTeam());
-                this.client.nextTeam();
-                debug("Druzyna aktualna po zmianie: " + this.client.getCurrentTeam());
+                this.addMove(new Move(Spot.lastSpot, p, this.client.getMyTeam()));
             }
-            update();
         }
 
         this.client.resume(); // wznow dzialanie watku
-
-        return false;
     }
 
-    private void debug(String a)
+
+    /**
+     * Setter wektora ruchow
+     *
+     * @param Vector<Move> moves
+     */
+    public void setMoves(Vector<Move> moves)
     {
-        System.out.println(a);
+        this.moves.setMoves(moves);
     }
-    
+
+
     /**
      * Getter wektora ruchow
+     *
+     * @returns Moves moves
      */
     public Moves getMoves()
     {
@@ -201,10 +224,5 @@ public class Playground extends Canvas {
     public static boolean isSpotable(Point p)
     {
         return isSpotable(p.x, p.y);
-    }
-
-    public void setMoves(Vector<Move> moves)
-    {
-        this.moves.setMoves(moves);
     }
 }
