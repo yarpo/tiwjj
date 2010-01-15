@@ -6,9 +6,7 @@
 package tiwjj.communication.rmiserver.datasrc;
 
 /**
- * String url = "jdbc:mysql://localhost/JunkDB";
-        String username = "root";
-        String password = "123";
+ * 
  * @author yarpo
  */
 public class Settings {
