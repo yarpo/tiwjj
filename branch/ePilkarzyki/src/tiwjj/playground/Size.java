@@ -69,4 +69,8 @@ public class Size {
      * graniczy punkt dla wyrysowywania punktow na boisku w osi y
      */
     public final static int yStop  = PlaygroundHeight + yStart;
+
+    public final static int goalStart = (int)(PointsX / 2 - 1) * HorizontalGap +
+                                                            StartXGrass;
+    
 }

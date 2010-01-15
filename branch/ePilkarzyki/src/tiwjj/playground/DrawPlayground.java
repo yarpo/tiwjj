@@ -116,12 +116,11 @@ public class DrawPlayground {
     private void drawGoals()
     {
         this.g.setColor(Colors.Goals);
-        int x = (int)(Size.PointsX / 2 - 1) * Size.HorizontalGap +
-                                                            Size.StartXGrass;
-        this.g.fillRect(x - Size.OffsetX, Size.StartYGrass - Size.GoalHeight,
+        this.g.fillRect(Size.goalStart - Size.OffsetX, Size.StartYGrass -
+                                                            Size.GoalHeight,
                                                             Size.GoalWidth,
                                                             Size.GoalHeight);
-        this.g.fillRect(x - Size.OffsetY, Size.PlaygroundHeight +
+        this.g.fillRect(Size.goalStart - Size.OffsetY, Size.PlaygroundHeight +
                                                             Size.StartYGrass,
                                                             Size.GoalWidth,
                                                             Size.GoalHeight);
