@@ -16,12 +16,16 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
      */
     int currentTeam = 0;
 
+    
     /**
      * tablica "zajetosci" druzyn
      */
     boolean [] teams = {false, false};
 
 
+    /**
+     * Wektor ruchow wykonanych przez zawodnikow
+     */
     private Vector<Move> moves;
 
 
@@ -64,6 +68,7 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
         this.currentTeam = (this.currentTeam+1)%2;
     }
 
+
     /**
      * Dolacza do gry. Zwraca numer druzyny do ktorej zostal gracz przypisany,
      * albo -1 jesli nie udalo mu sie rzpoczac gry
@@ -82,6 +87,7 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
 
         return -1;
     }
+
 
     /**
      * Probuje dolaczyc gracza do gry do konkretej druzyny
@@ -110,9 +116,9 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
      *
      * @returns boolean
      */
-    public boolean myMove(Exchanger data)
+    public boolean myMove(Vector<Move> moves)
     {
-        this.moves = data.moves;
+        this.moves = moves;
 
         return true;
     }
@@ -128,7 +134,10 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
         return true; // TODO
     }
 
-    public Exchanger update()
+    /**
+     * Wywolywana przez specjlany watek metoda zwraca aktualny wektor ruchow
+     */
+    public Vector<Move> update()
     {
         if (null == this.moves)
         {
@@ -136,11 +145,6 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
             return null;
         }
 
-        Exchanger data = new Exchanger();
-        data.moves = this.moves;
-
-        return data;
+        return this.moves;
     }
-
-    
 }

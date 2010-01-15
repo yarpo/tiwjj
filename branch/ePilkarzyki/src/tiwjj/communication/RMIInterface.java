@@ -10,15 +10,17 @@ package tiwjj.communication;
  * @author yarpo
  */
 import java.rmi.*;
+import java.util.Vector;
+import tiwjj.playground.Move;
 
 public interface RMIInterface  extends Remote {
     public int joinGame() throws RemoteException;
     public int joinTeam(int team) throws RemoteException;
     public int getCurrentTeam() throws RemoteException;
     public void nextTeam() throws RemoteException;
-    public boolean myMove(Exchanger data) throws RemoteException;
+    public boolean myMove(Vector<Move> data) throws RemoteException;
     public boolean end() throws RemoteException;
-    public Exchanger update() throws RemoteException;
+    public Vector<Move> update() throws RemoteException;
 }
 
 

@@ -178,10 +178,7 @@ public class RmiClient implements Runnable, IClient  {
     {
         try
         {
-            Exchanger data = new Exchanger();
-            data.team = this.team;
-            data.moves = moves;
-            return rmiServer.myMove(data);
+            return rmiServer.myMove(moves);
         }
         catch(Exception e)
         {
@@ -229,10 +226,10 @@ public class RmiClient implements Runnable, IClient  {
 
         try
         {
-           Exchanger data = rmiServer.update();
-           if (null != data)
+           Vector<Move> moves = rmiServer.update();
+           if (null != moves)
            {
-                playground.setMoves(data.moves);
+                playground.setMoves(moves);
                 playground.update();
                 return false;
            }
