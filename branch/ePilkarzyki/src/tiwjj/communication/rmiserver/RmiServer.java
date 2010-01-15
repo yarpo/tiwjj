@@ -14,13 +14,13 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
     /**
      * id druzyny, ktora aktualnie moze grac
      */
-    int currentTeam = 0;
+    private int currentTeam = 0;
 
     
     /**
      * tablica "zajetosci" druzyn
      */
-    boolean [] teams = {false, false};
+    private boolean [] teams = {false, false};
 
 
     /**
@@ -129,9 +129,14 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
      *
      * @returns boolean
      */
-    public boolean end()
+    public boolean reset()
     {
-        return true; // TODO
+        this.moves = null;
+        this.teams[0] = false;
+        this.teams[1] = false;
+        this.currentTeam = 0;
+
+        return true;
     }
 
     /**

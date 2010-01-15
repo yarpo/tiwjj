@@ -198,6 +198,15 @@ public class RmiClient implements Runnable, IClient  {
     {
         // TODO jakies cialo metody
         // wyslac na serwer komunikat o tym, ze ten klient konczy gre
+        
+        try
+        {
+            this.wait(2);
+            this.clientThread.stop();
+            this.rmiServer.reset();
+        }
+        catch(Exception e) {}
+
         return true;
     }
 

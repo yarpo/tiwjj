@@ -19,7 +19,7 @@ public interface RMIInterface  extends Remote {
     public int getCurrentTeam() throws RemoteException;
     public void nextTeam() throws RemoteException;
     public boolean myMove(Vector<Move> data) throws RemoteException;
-    public boolean end() throws RemoteException;
+    public boolean reset() throws RemoteException;
     public Vector<Move> update() throws RemoteException;
 }
 

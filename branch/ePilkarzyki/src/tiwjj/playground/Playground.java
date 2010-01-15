@@ -127,10 +127,12 @@ public class Playground extends Canvas {
         if (this.moves.winner(this.client.getMyTeam()))
         {
             System.out.println("Wygrales");
+            this.client.end();
         }
         else if (this.moves.loser(this.client.getMyTeam()))
         {
             System.out.println("przegrales");
+            this.client.end();
         }
     }
 
@@ -184,8 +186,8 @@ public class Playground extends Canvas {
      */
     public void update()
     {
-        this.matchesState();
         this.view.refresh();
+        this.matchesState();
     }
 
    /**
