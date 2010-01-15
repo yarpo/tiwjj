@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package tiwjj.communication.rmiserver.datasrc;
+package tiwjj.communication.rmiserver.datasrc.db.mysql;
 
 /**
  * 

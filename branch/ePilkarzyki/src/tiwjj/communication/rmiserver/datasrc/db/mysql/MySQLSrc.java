@@ -3,9 +3,10 @@
  * and open the template in the editor.
  */
 
-package tiwjj.communication.rmiserver.datasrc;
+package tiwjj.communication.rmiserver.datasrc.db.mysql;
 
 import java.sql.*;
+import tiwjj.communication.rmiserver.datasrc.IDataSource;
 /**
  *
  * @author yarpo
