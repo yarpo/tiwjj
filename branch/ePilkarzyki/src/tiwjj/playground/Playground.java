@@ -104,11 +104,11 @@ public class Playground extends Canvas {
             this.client.nextTeam(); // kolej na nastepna druzyne
         }
         update(); // wyswietl owa sytuacje na boisku
-        //this.matchesState();
+        this.matchesState();
     }
 
 
-    private void mathcesState()
+    private void matchesState()
     {
         if (this.moves.winner(this.client.getMyTeam()))
         {

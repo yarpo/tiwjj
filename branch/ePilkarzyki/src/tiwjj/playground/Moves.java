@@ -148,43 +148,30 @@ public class Moves {
 
     public boolean isUsed(Spot p)
     {
-debug("Jestem w isUsed");
         int n = this.moves.size() - 1;
 
         if (0 == n)
         {
-            debug("Nie ma ruchow");
             return true;
         }
-
-        debug("Zaraz wejde do petli");
 
         // nie bierze pierwszego ani ostatniego ruchu
         // pierwszy jest mockowy - srodek do srodek
         // ostatni to on sam
         for(int i = 1; i < n; i++)
         {
-            debug("isUsed: for : i = " + i);
             Move m = this.moves.elementAt(i);
             if (m.getStart().theSameField(p) || m.getEnd().theSameField(p))
             {
-                debug("isUsed:for:if");
                 return true;
             }
         }
-debug("isUsed:false");
         return false;
     }
 
     // TODO: przeniesc do Spot?
     public boolean isBorder(Spot p)
     {
-debug("isBorder");
-debug("p.getXx() " + p.getXx());
-debug("p.getYy() " + p.getYy());
-debug("Size.xStart " + Size.xStart);
-debug("Size.yStart " + Size.yStart);
-
         if (p.getXx() == Size.xStart || p.getXx() == Size.xStop ||
             p.getYy() == Size.yStart || p.getYy() == Size.yStop)
         {
@@ -196,29 +183,24 @@ debug("Size.yStart " + Size.yStart);
 
     public boolean isMyTurn(int team)
     {
-        debug("isMyTurn");
         // kolejny ruch pod rzad
         if (this.isUsed(this.moves.lastElement().getEnd()) ||
             this.isBorder(this.moves.lastElement().getEnd()))
         {
-            debug("isMyTurn:if");
             if (team == this.moves.lastElement().getTeam())
             {
-                debug("isMyTurn:if:if");
                 return true;
             }
         }
         else
         {
-            debug("isMyTurn:else");
             // koniec tury przeciwnika
             if (team != this.moves.lastElement().getTeam())
             {
-                debug("isMyTurn:else:if");
                 return true;
             }
         }
-debug("isMyTurn:false");
+
         return false;
     }
 
@@ -236,5 +218,36 @@ debug("isMyTurn:false");
     public Spot getLastSpot()
     {
         return this.moves.lastElement().getEnd();
+    }
+
+    private boolean goal()
+    {
+        debug("goal start x = " + Size.GoalXStart);
+        debug("goal koncowy x = " + (Size.GoalXStart + Size.GoalWidth));
+        debug("goal y top = " + Size.GoalYTop);
+        //debug("goal y bottm = " + Size.GoalYBottom);
+        debug("znormalizowane Ytop = " + (Size.GoalYTop + Size.GoalHeight));
+        debug("moj y = " + Spot.lastSpot.y);
+        debug("moj x = " + Spot.lastSpot.getXx());
+
+        // bramka na gorze
+        if ((Spot.lastSpot.getXx() >= Size.GoalXStart &&
+            Spot.lastSpot.x <= Size.GoalXStart + Size.GoalWidth) &&
+            (Spot.lastSpot.y == Size.GoalYTop + Size.GoalHeight))
+        {
+            return true;
+        }
+
+       return false;
+    }
+    
+    public boolean winner(int team)
+    {
+        if (this.goal())
+        {
+            return true;
+        }
+
+        return false;
     }
 }
