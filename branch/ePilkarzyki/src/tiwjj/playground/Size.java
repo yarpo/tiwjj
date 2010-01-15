@@ -70,7 +70,13 @@ public class Size {
      */
     public final static int yStop  = PlaygroundHeight + yStart;
 
-    public final static int goalStart = (int)(PointsX / 2 - 1) * HorizontalGap +
-                                                            StartXGrass;
+    public final static int GoalXStart = (int)((PointsX / 2 - 1) *
+                                                        HorizontalGap +
+                                                        StartXGrass) - OffsetX;
+
+    public final static int GoalYBottom = PlaygroundHeight + StartYGrass;
+    
+    public final static int GoalYTop = StartYGrass - GoalHeight;
+
     
 }
