@@ -60,7 +60,7 @@ public class DrawPlayground {
     /**
      * Wyrysowywanie podswietlonego punktow
      */
-    public void drawHoveredPoint()
+    public synchronized void drawHoveredPoint()
     {
         Spot s = Spot.normalize(Spot.hoveredSpot);
         this.g.setColor(Colors.HoveredPoint);
@@ -76,7 +76,7 @@ public class DrawPlayground {
     /**
      * Wyrysuj specjalne punkty - otaczajace aktualny punkt
      */
-    public void drawSpecialPoints()
+    public synchronized void drawSpecialPoints()
     {
         this.g.setColor(Colors.FocusedPoint);
 
