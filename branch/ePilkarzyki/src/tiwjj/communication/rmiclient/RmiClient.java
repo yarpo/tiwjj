@@ -54,7 +54,7 @@ public class RmiClient implements Runnable, IClient  {
     {
 
         System.setProperty("java.security.policy", "policy");
-        System.setProperty("javax.net.ssl.trustStore", ".trustword");
+        System.setProperty("javax.net.ssl.trustStore", ".truststore");
 
 	if (System.getSecurityManager() == null) {
 	    System.setSecurityManager(new SecurityManager());

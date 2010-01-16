@@ -11,8 +11,7 @@ public class RMISSLClientSocketFactory
 
     public Socket createSocket(String host, int port) throws IOException {
 
-        System.setProperty("javax.net.ssl.trustStore", ".truststore");
-        System.setProperty("javax.net.ssl.trustStorePassword","keyword");
+
 
         SSLSocketFactory factory =
                                 (SSLSocketFactory)SSLSocketFactory.getDefault();

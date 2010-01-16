@@ -44,7 +44,7 @@ public class DrawPlayground {
     /**
      * Wyrysuj wszystko na ekran ponownie
      */
-    public void refresh()
+    public synchronized void refresh()
     {
         if (null == this.g)
         {

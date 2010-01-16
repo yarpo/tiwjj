@@ -9,7 +9,7 @@ import tiwjj.playground.Move;
 import java.rmi.registry.*;
 
 
-public class RmiServer extends UnicastRemoteObject implements RMIInterface {
+public class RmiServer implements RMIInterface {
 
     /**
      * id druzyny, ktora aktualnie moze grac
@@ -32,10 +32,10 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
     /**
      * Konstruktor
      */
-    public RmiServer() throws RemoteException
+    public RmiServer()
     {
-        System.out.println("serwer pracuje na porcie " + Settings.PORT);
-
+        //System.out.println("serwer pracuje na porcie " + Settings.PORT);
+/*
         try
         {
 
@@ -43,7 +43,7 @@ public class RmiServer extends UnicastRemoteObject implements RMIInterface {
             registry.rebind("rmiServer", this);
 
         }
-        catch(Exception e) {}
+        catch(Exception e) {}*/
     }
 
 

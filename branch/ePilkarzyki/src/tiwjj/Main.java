@@ -43,6 +43,8 @@ public class Main extends JApplet {
     private static IClient client = new RmiClient();
 
 
+    // TODO osobna klasa pozwalajaca na steowanie wygladem "dolacz do gry" itp.
+    // np. obj.setDisabledJoinFirstTeam(); i juz nie mozna wybrac pierwszej druzyny
     /**
      * Tworzy menu
      */
@@ -126,6 +128,8 @@ public class Main extends JApplet {
     @Override
     public void init()
     {
+        JFrame frame = new JFrame("Podaj dane");
+        frame.setVisible(true);
         setJMenuBar(createMenuBar());
         setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
         createCanvas();

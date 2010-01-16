@@ -43,7 +43,14 @@ public class Playground extends Canvas {
         this.view = new DrawPlayground(this);
         System.out.println("Druzyna numer " + this.client.joinGame());
         this.client.myMove(this.moves.getMoves());
-        this.client.start(this);
+        if (-1 != this.client.getMyTeam())
+        {
+            this.client.start(this);
+        }
+        else
+        {
+            System.out.println("Teraz nie możesz pograć");
+        }
     }
 
 
