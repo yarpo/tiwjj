@@ -44,40 +44,21 @@ public class Main extends JApplet {
     private static IClient client = new RmiClient();
 
 
-    // TODO osobna klasa pozwalajaca na steowanie wygladem "dolacz do gry" itp.
-    // np. obj.setDisabledJoinFirstTeam(); i juz nie mozna wybrac pierwszej druzyny
     /**
      * Tworzy menu
+     *
+     * @returns JMenuBar
      */
     public JMenuBar createMenuBar() {
         JMenuBar menuBar;
-        JMenu menu, submenu;
+        JMenu menu;
         JMenuItem menuItem;
-        JRadioButtonMenuItem rbMenuItem;
 
-        //Create the menu bar.
         menuBar = new JMenuBar();
 
-        //Build the first menu.
         menu = new JMenu("Gra");
         menuBar.add(menu);
 
-        //a submenu
-        submenu = new JMenu("Dołącz do gry");
-
-        ButtonGroup group = new ButtonGroup();
-
-        rbMenuItem = new JRadioButtonMenuItem("Biali");
-        rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client, 0));
-        group.add(rbMenuItem);
-        submenu.add(rbMenuItem);
-
-        rbMenuItem = new JRadioButtonMenuItem("Czarni");
-        rbMenuItem.addActionListener(new tiwjj.actions.JoinGame(client, 1));
-        group.add(rbMenuItem);
-        submenu.add(rbMenuItem);
-        menu.add(submenu);
-        menu.addSeparator();
         menuItem = new JMenuItem("Zakończ grę");
         menuItem.addActionListener(new tiwjj.actions.EndGame(client));
         menu.add(menuItem);
@@ -85,6 +66,7 @@ public class Main extends JApplet {
         return menuBar;
     }
 
+    
     /**
      * Wstawienie canvasu do aplettu
      */
