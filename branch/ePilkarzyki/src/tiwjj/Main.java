@@ -6,23 +6,17 @@ package tiwjj;
  * @author  Patryk yarpo Jar
  * @date    6 - 01 - 2009
  */
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
-import javax.swing.JApplet;
-import javax.swing.JFrame;
-import javax.swing.GroupLayout;
-import javax.swing.JPanel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import tiwjj.playground.*;
 import tiwjj.communication.*;
 import tiwjj.communication.rmiclient.RmiClient;
 
 /**
- *
- * @author yarpo
+ * Statyczna klasa Main
+ * Pozwala rozpoczac dzialanie aplikacji - zarowno jako apletu
+ * jak i jako standalone
+ * @author  Patryk yarpo Jar
+ * @date    15 - 01 - 2009
  */
 public class Main extends JApplet {
 
@@ -125,7 +119,9 @@ public class Main extends JApplet {
 
 
     /**
-     * 
+     * Metoda rozpoczynajaca prgram odpalany jako standalone
+     *
+     * @param String [] args nie uzywany
      */
     public static void main(String[] args)
     {
