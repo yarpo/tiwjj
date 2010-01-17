@@ -1,24 +1,34 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package tiwjj.actions;
 
 import tiwjj.communication.IClient;
-/**
- *
- * @author yarpo
- */
 import java.awt.event.*;
 
-public class EndGame extends ActionHandler implements ActionListener  {
+/**
+ * Abstrakcyjna klasa ActionHandler
+ * Klasy dziedziczace po tej klasie obsluguja zdarzenia zwiazane z zarzadzaniem
+ * gra: koniec poczate, dolacz itp.
+ * @author  Patryk yarpo Jar
+ * @date    6 - 01 - 2009
+ */
 
+public class EndGame extends ActionHandler  {
+
+    /**
+     * Konstruktor
+     *
+     * @param client
+     */
     public EndGame(IClient client)
     {
         super(client, client.getMyTeam());
     }
 
+
+    /**
+     * Obsluga zdarzenia - wybranie w menu "zakoncz gre"
+     *
+     * @param ActionEvent e
+     */
     public void actionPerformed(ActionEvent e)
     {
         javax.swing.JOptionPane.showMessageDialog(null, "Koniec gry",
