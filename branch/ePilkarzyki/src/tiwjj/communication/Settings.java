@@ -20,6 +20,9 @@ public class Settings {
     public static final String  HOST = "localhost";
 
 
+    public static final String CODEBASE = "file:/C:/Users/yarpo/Documents/NetBeansProjects/ePilkarzyki/build/classes/";
+
+
     /**
      * Statyczna klasa zawierajaca dane do szyfrowanego polaczenia SSL
      */

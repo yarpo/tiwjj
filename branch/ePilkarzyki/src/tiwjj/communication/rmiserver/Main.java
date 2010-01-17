@@ -20,10 +20,8 @@ public class Main {
      */
     static public void main(String args[])
     {
-        String codebase =   "file:/C:/Users/yarpo/Documents/NetBeansProjects/";
-               codebase +=  "ePilkarzyki/build/classes/";
         System.setProperty("java.security.policy", "policy");
-        System.setProperty("java.rmi.server.codebase", codebase);
+        System.setProperty("java.rmi.server.codebase", Settings.CODEBASE);
         System.setProperty("java.rmi.server.hostname", "localhost");
 
         System.setProperty("javax.net.ssl.keyStore", ".keyword");
