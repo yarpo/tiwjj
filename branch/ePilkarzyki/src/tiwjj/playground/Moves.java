@@ -86,7 +86,7 @@ public class Moves {
     /**
      * Zwraca liczbe ruchow
      *
-     * @returns int
+     * @return int
      */
     public int length()
     {
@@ -99,7 +99,7 @@ public class Moves {
      *
      * @param Spot e
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean possible(Spot e)
     {
@@ -188,7 +188,7 @@ public class Moves {
      *
      * @param int team
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean isMyTurn(int team)
     {
@@ -217,7 +217,7 @@ public class Moves {
     /**
      * Getter wektora ruchow
      *
-     * @returns Vector<Move> moves
+     * @return Vector<Move> moves
      */
     public Vector<Move> getMoves()
     {
@@ -240,7 +240,7 @@ public class Moves {
     /**
      * Pobiera ostatni punkt ze sciezki wszystkich ruchow
      *
-     * @returns Spot
+     * @return Spot
      */
     public Spot getLastSpot()
     {
@@ -252,7 +252,7 @@ public class Moves {
      * Sprawdza czy padla bramka. jesli tak to zwraca identyfikator zwycieskiej
      * druzyny, albo -1 jesli bramki nie ma
      *
-     * @returns int
+     * @return int
      */
     public int goal()
     {
@@ -280,7 +280,7 @@ public class Moves {
      *
      * @param int team
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean winner(int team)
     {

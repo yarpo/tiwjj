@@ -120,7 +120,7 @@ public class RmiClient implements Runnable, IClient  {
     /**
      * Dolacz do gry. Zwraca numer druzyny, jaki dostalismy od serwera
      *
-     * @returns int team
+     * @return int team
      */
     public int joinGame()
     {
@@ -144,7 +144,7 @@ public class RmiClient implements Runnable, IClient  {
      *
      * @param int team
      *
-     * @returns int
+     * @return int
      */
     public int joinTeam(int team)
     {
@@ -165,7 +165,7 @@ public class RmiClient implements Runnable, IClient  {
     /**
      * Zwraca identyfikator druzyny
      *
-     * @returns boolean
+     * @return boolean
      */
     public int getCurrentTeam()
     {
@@ -196,7 +196,7 @@ public class RmiClient implements Runnable, IClient  {
      /**
       * Sprawdza czy teraz jest tura tego zawodnika
       *
-      * @returns boolean
+      * @return boolean
       */
      public boolean isMyTurn()
      {
@@ -216,7 +216,7 @@ public class RmiClient implements Runnable, IClient  {
      *
      * @param Vector<Move> moves
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean myMove(Vector<Move> moves)
     {
@@ -236,7 +236,7 @@ public class RmiClient implements Runnable, IClient  {
      * Przeciwnik dostaje informacje o poddaniu meczu. Serwer ustawia sie w
      * gotowosci na nowych zawodnikow
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean end()
     {
@@ -265,7 +265,7 @@ public class RmiClient implements Runnable, IClient  {
     /**
      * Regularnie wywolywana metoda pobierajaca z serwera aktualny wektor ruchow
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean update()
     {

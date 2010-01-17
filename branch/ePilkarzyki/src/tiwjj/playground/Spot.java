@@ -63,7 +63,7 @@ public class Spot extends Point {
      * 
      * @uses Size.OffsetX
      *
-     * @returns int
+     * @return int
      */
     public int getXx()
     {
@@ -76,7 +76,7 @@ public class Spot extends Point {
      *
      * @uses Size.OffsetY
      *
-     * @returns int
+     * @return int
      */
     public int getYy()
     {
@@ -90,7 +90,7 @@ public class Spot extends Point {
      * @param int x - wspolrzedna x
      * @param int y - wspolrzedna y
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean theSameField(int x, int y)
     {
@@ -103,7 +103,7 @@ public class Spot extends Point {
      *
      * @param Point p - obiekt klasy Point
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean theSameField(Point p)
     {
@@ -118,7 +118,7 @@ public class Spot extends Point {
      * @uses Size.HoverAreaX
      * @uses Size.HoverAreaY
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean isFocused()
     {
@@ -145,7 +145,7 @@ public class Spot extends Point {
      *
      * @uses Size.MaxDistance
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean isAccessible(Point p)
     {
@@ -160,7 +160,7 @@ public class Spot extends Point {
      * @uses Size.HorizontalGap
      * @uses Size.VerticalGap
      *
-     * @returns Vector<Spot>
+     * @return Vector<Spot>
      */
     private Vector<Spot> createNeighboursVector()
     {
@@ -188,7 +188,7 @@ public class Spot extends Point {
      * Zwraca wektor sasiednich punktow
      * Jesli taki istnieje lub wpierw nakazuje go stworzyc i potem zwraca
      *
-     * @returns Vector<Spot> 
+     * @return Vector<Spot> 
      */
     public Vector<Spot> getNeighbours()
     {
@@ -205,7 +205,7 @@ public class Spot extends Point {
      * Sprawdza, czy aktualny punkt jest polozony na lini koncowej lub bocznej
      * boiska
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean isBorder()
     {
@@ -227,7 +227,7 @@ public class Spot extends Point {
      * @param int x - liczba 'zaokraglana'
      * @param int m - liczba do ktorej wielokrotnosci sie zaokragla
      *
-     * @returns int
+     * @return int
      */
     private static int round(int x, int m)
     {
@@ -250,7 +250,7 @@ public class Spot extends Point {
      *
      * @param Point p
      *
-     * @returns Spot
+     * @return Spot
      */
     public static Spot normalize(Point p)
     {
@@ -264,7 +264,7 @@ public class Spot extends Point {
      *
      * @param Point p
      *
-     * @returns Spot
+     * @return Spot
      */
     public static Spot normalize(int x, int y)
     {
@@ -277,7 +277,7 @@ public class Spot extends Point {
      *
      * @param Spot p
      *
-     * @returns Spot
+     * @return Spot
      */
     public static Spot normalize(Spot p)
     {

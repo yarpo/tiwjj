@@ -35,7 +35,7 @@ public class Main extends JApplet {
     /**
      * Tworzy menu
      *
-     * @returns JMenuBar
+     * @return JMenuBar
      */
     public JMenuBar createMenuBar() {
         JMenuBar menuBar;

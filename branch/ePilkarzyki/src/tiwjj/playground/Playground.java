@@ -179,7 +179,7 @@ public class Playground extends Canvas {
     /**
      * Getter wektora ruchow
      *
-     * @returns Moves moves
+     * @return Moves moves
      */
     public Moves getMoves()
     {
@@ -222,7 +222,7 @@ public class Playground extends Canvas {
      * @param int x
      * @param int y
      *
-     * @returns boolean
+     * @return boolean
      */
     public static boolean isSpotable(int x, int y)
     {
@@ -242,7 +242,7 @@ public class Playground extends Canvas {
      *
      * @param Point p
      * 
-     * @returns boolean
+     * @return boolean
      */
     public static boolean isSpotable(Point p)
     {

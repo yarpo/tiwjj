@@ -94,7 +94,7 @@ public class Move implements java.io.Serializable {
      *
      * @param Move m
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean theSameMove(Move m)
     {
@@ -109,7 +109,7 @@ public class Move implements java.io.Serializable {
      * @param Move m
      * @param int team
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean theSameMove(Move m, int t)
     {

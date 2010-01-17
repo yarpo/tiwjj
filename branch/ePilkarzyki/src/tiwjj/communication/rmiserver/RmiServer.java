@@ -44,7 +44,7 @@ public class RmiServer implements RMIInterface {
      * @param String user
      * @param @password
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean login(String user, String pass)
     {
@@ -58,7 +58,7 @@ public class RmiServer implements RMIInterface {
      *
      * @param inr team
      *
-     * @returns boolean
+     * @return boolean
      */
     public int getCurrentTeam()
     {
@@ -79,7 +79,7 @@ public class RmiServer implements RMIInterface {
      * Dolacza do gry. Zwraca numer druzyny do ktorej zostal gracz przypisany,
      * albo -1 jesli nie udalo mu sie rzpoczac gry
      *
-     * @returns int 
+     * @return int 
      */
     public int joinGame()
     {
@@ -100,7 +100,7 @@ public class RmiServer implements RMIInterface {
      *
      * @param index - numer druzyny, do ktoprej chcemy dolaczyc
      *
-     * @returns int - numer druzyny, do ktorej nas dolaczylo alno -1 jesli sie nie udalo
+     * @return int - numer druzyny, do ktorej nas dolaczylo alno -1 jesli sie nie udalo
      */
     public int joinTeam(int index)
     {
@@ -120,7 +120,7 @@ public class RmiServer implements RMIInterface {
      *
      * @param int team
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean myMove(Vector<Move> moves)
     {
@@ -133,7 +133,7 @@ public class RmiServer implements RMIInterface {
     /**
      * Konczy gre
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean reset()
     {

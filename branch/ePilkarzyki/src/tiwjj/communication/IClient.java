@@ -16,7 +16,7 @@ public interface IClient {
      * @param String user
      * @param String pass
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean login(String user, String pass);
 
@@ -25,7 +25,7 @@ public interface IClient {
      * Dolaczanie do gry. Zwraca identyfikator dryzyny. Jesli -1, nie udalo sie
      * dolaczyc
      *
-     * @returns int
+     * @return int
      */
     public int joinGame();
 
@@ -35,7 +35,7 @@ public interface IClient {
      *
      * @param int i
      *
-     * @returns int
+     * @return int
      */
     public int joinTeam(int i);
 
@@ -43,7 +43,7 @@ public interface IClient {
     /**
      * Pobranie identyfikatora wlasnej druzyny
      *
-     * @returns int
+     * @return int
      */
     public int getMyTeam();
 
@@ -51,7 +51,7 @@ public interface IClient {
     /**
      * Pobranie identyfikatora druzyny, ktora ma aktualnie ruch
      *
-     * @returns int
+     * @return int
      */
     public int getCurrentTeam();
 
@@ -59,7 +59,7 @@ public interface IClient {
     /**
      * Sprawdza czy to twoja runda
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean isMyTurn();
 
@@ -75,7 +75,7 @@ public interface IClient {
      *
      * @param Vector<Move> moves
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean myMove(Vector<Move> moves);
 

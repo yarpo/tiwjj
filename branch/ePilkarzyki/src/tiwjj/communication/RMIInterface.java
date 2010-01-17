@@ -21,7 +21,7 @@ public interface RMIInterface  extends Remote {
      *
      * @throws RemoteException
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean login(String user, String pass) throws RemoteException;
 
@@ -31,7 +31,7 @@ public interface RMIInterface  extends Remote {
      *
      * @throws RemoteException
      *
-     * @returns int
+     * @return int
      */
     public int joinGame() throws RemoteException;
 
@@ -43,7 +43,7 @@ public interface RMIInterface  extends Remote {
      *
      * @throws RemoteException
      *
-     * @returns int
+     * @return int
      */
     public int joinTeam(int team) throws RemoteException;
 
@@ -53,7 +53,7 @@ public interface RMIInterface  extends Remote {
      *
      * @throws RemoteException
      *
-     * @returns int
+     * @return int
      */
     public int getCurrentTeam() throws RemoteException;
 
@@ -83,7 +83,7 @@ public interface RMIInterface  extends Remote {
      *
      * @throws RemoteException
      *
-     * @returns boolean
+     * @return boolean
      */
     public boolean reset() throws RemoteException;
 
@@ -93,7 +93,7 @@ public interface RMIInterface  extends Remote {
      *
      * @throws RemoteException
      *
-     * @returns Vector<Move>
+     * @return Vector<Move>
      */
     public Vector<Move> update() throws RemoteException;
 }

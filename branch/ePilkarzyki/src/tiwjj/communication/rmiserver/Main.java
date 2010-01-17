@@ -3,6 +3,8 @@ package tiwjj.communication.rmiserver;
 import java.rmi.registry.*;
 import java.rmi.server.*;
 import tiwjj.communication.*;
+import java.net.InetAddress;
+
 
 /**
  * Klasa Main
@@ -39,13 +41,16 @@ public class Main {
 	    RMIClientSocketFactory csf = new RMISSLClientSocketFactory();
 	    RMIServerSocketFactory ssf = new RMISSLServerSocketFactory();
 	    RMIInterface stub =
-		(RMIInterface) UnicastRemoteObject.exportObject(server, 0, csf, ssf);
+		(RMIInterface) UnicastRemoteObject.exportObject(server, 0, csf,
+                                                                           ssf);
 
 
 	    LocateRegistry.createRegistry(Settings.PORT);
 	    Registry registry = LocateRegistry.getRegistry(Settings.PORT);
 	    registry.rebind("rmiServer", stub);
-	    System.out.println("Dobra, dziala bound in registry");
+            System.out.println("Host: " + InetAddress.getLocalHost()
+                                                            .toString());
+	    System.out.println("port: " + Settings.PORT);
         }
         catch (Exception e)
         {
