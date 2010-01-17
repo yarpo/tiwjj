@@ -14,6 +14,7 @@ import java.util.Vector;
 import tiwjj.playground.Move;
 
 public interface RMIInterface  extends Remote {
+    public boolean login(String user, String pass) throws RemoteException;
     public int joinGame() throws RemoteException;
     public int joinTeam(int team) throws RemoteException;
     public int getCurrentTeam() throws RemoteException;

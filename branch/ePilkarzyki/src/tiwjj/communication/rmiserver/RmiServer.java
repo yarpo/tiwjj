@@ -1,13 +1,10 @@
 package tiwjj.communication.rmiserver;
 
-import java.rmi.*;
-
-import java.rmi.server.*;
 import java.util.Vector;
 import tiwjj.communication.*;
 import tiwjj.playground.Move;
-import java.rmi.registry.*;
-
+import tiwjj.communication.rmiserver.datasrc.IDataSource;
+import tiwjj.communication.rmiserver.datasrc.db.mysql.MySQLSrc;
 
 public class RmiServer implements RMIInterface {
 
@@ -32,20 +29,23 @@ public class RmiServer implements RMIInterface {
     /**
      * Konstruktor
      */
-    public RmiServer()
+    public RmiServer() { }
+
+
+    /**
+     * Loguje gracza do systemu
+     *
+     * @param String user
+     * @param @password
+     *
+     * @returns boolean
+     */
+    public boolean login(String user, String pass)
     {
-        //System.out.println("serwer pracuje na porcie " + Settings.PORT);
-/*
-        try
-        {
+        IDataSource src = new MySQLSrc();
 
-            Registry registry = LocateRegistry.createRegistry( Settings.PORT );
-            registry.rebind("rmiServer", this);
-
-        }
-        catch(Exception e) {}*/
+        return (src.login(user, pass));
     }
-
 
     /**
      * Sprawdza, czy teraz jest kolej tej druzyny

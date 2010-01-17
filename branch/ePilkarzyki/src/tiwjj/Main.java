@@ -15,6 +15,7 @@ import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import tiwjj.playground.*;
 import tiwjj.communication.*;
 import tiwjj.communication.rmiclient.RmiClient;
@@ -128,10 +129,15 @@ public class Main extends JApplet {
     @Override
     public void init()
     {
-        JFrame frame = new JFrame("Podaj dane");
-        frame.setVisible(true);
         setJMenuBar(createMenuBar());
         setSize(Main.DEFAULT_WIDTH, Main.DEFAULT_HEIGHT);
+        boolean loged = false;
+        while(!loged)
+        {
+            String login = JOptionPane.showInputDialog("Podaj login:");
+            String pass = JOptionPane.showInputDialog("Podaj hasło:");
+            loged = client.login(login, pass);
+        }
         createCanvas();
     }
 

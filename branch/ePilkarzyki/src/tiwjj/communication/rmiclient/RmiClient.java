@@ -81,6 +81,26 @@ public class RmiClient implements Runnable, IClient  {
         this(Settings.HOST, Settings.PORT);
     }
 
+    /**
+     * Sprawdza czy podany uzytkownik ma takie haslo
+     *
+     * @param String user
+     * @param String password
+     *
+     * @return boolean
+     */
+     public boolean login(String user, String pass)
+     {
+         boolean result = false;
+         try
+         {
+             result = this.rmiServer.login(user, pass);
+         }
+         catch(Exception e) {}
+
+         return result;
+
+     }
 
     /**
      * Dolacz do gry. Zwraca numer druzyny, jaki dostalismy od serwera
@@ -145,6 +165,9 @@ public class RmiClient implements Runnable, IClient  {
     }
 
 
+     /**
+      * Zmienia druzyne - koniec mojej tury
+      */
      public void nextTeam()
      {
         try
@@ -155,6 +178,11 @@ public class RmiClient implements Runnable, IClient  {
      }
 
 
+     /**
+      * Sprawdza czy teraz jest tura tego zawodnika
+      *
+      * @returns boolean
+      */
      public boolean isMyTurn()
      {
          int currentTeam = this.getCurrentTeam();
@@ -167,6 +195,7 @@ public class RmiClient implements Runnable, IClient  {
          return false;
      }
 
+     
     /**
      * Przeslanie na serwer swojego wektora ruchow
      *

@@ -14,6 +14,7 @@ import java.util.Vector;
  */
 public interface IClient {
 
+    public boolean login(String user, String pass);
     public int joinGame();
     public int joinTeam(int i);
     public int getMyTeam();

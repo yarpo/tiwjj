@@ -33,7 +33,7 @@ public class Main {
 	    RMIClientSocketFactory csf = new RMISSLClientSocketFactory();
 	    RMIServerSocketFactory ssf = new RMISSLServerSocketFactory();
 	    RMIInterface stub =
-		(RMIInterface) UnicastRemoteObject.exportObject((RMIInterface)server, 0, csf, ssf);
+		(RMIInterface) UnicastRemoteObject.exportObject(server, 0, csf, ssf);
 
 
 	    LocateRegistry.createRegistry(Settings.PORT);
