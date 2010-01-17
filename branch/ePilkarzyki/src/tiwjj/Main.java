@@ -1,22 +1,16 @@
 package tiwjj;
 
-/**
- * Klasa Main dziedziczaca po JApplet
- * Pozwala na stworzenie apletu i umieszczenie w nim gry
- * @author  Patryk yarpo Jar
- * @date    6 - 01 - 2009
- */
+
 import javax.swing.*;
 import tiwjj.playground.*;
 import tiwjj.communication.*;
 import tiwjj.communication.rmiclient.RmiClient;
 
 /**
- * Statyczna klasa Main
- * Pozwala rozpoczac dzialanie aplikacji - zarowno jako apletu
- * jak i jako standalone
+ * Klasa Main dziedziczaca po JApplet
+ * Pozwala na stworzenie apletu i umieszczenie w nim gry
  * @author  Patryk yarpo Jar
- * @date    15 - 01 - 2009
+ * @date    6 - 01 - 2009
  */
 public class Main extends JApplet {
 
