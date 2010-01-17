@@ -7,8 +7,10 @@ import java.util.Vector;
 import java.awt.Color;
 
 /**
- *
- * @author yarpo
+ * Klasa DrawPlayground
+ * Sluzy do wyrysowywania boiska wraz z ruchami graczy na canvasie
+ * @author  Patryk yarpo Jar
+ * @date    17 - 01 - 2009
  */
 public class DrawPlayground {
 
@@ -57,6 +59,7 @@ public class DrawPlayground {
         this.drawMoves();
     }
 
+    
     /**
      * Wyrysowywanie podswietlonego punktow
      */
