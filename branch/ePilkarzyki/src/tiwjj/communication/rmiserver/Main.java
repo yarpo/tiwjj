@@ -5,11 +5,17 @@ import java.rmi.server.*;
 import tiwjj.communication.*;
 
 /**
- *
- * @author yarpo
+ * Klasa Main
+ * Pozwala na uruchomienie serwera RMI
+ * @author  Patryk yarpo Jar
+ * @date    6 - 01 - 2009
  */
 public class Main {
-    
+
+    /**
+     * 
+     * @param args
+     */
     static public void main(String args[])
     {
         String codebase =   "file:/C:/Users/yarpo/Documents/NetBeansProjects/";

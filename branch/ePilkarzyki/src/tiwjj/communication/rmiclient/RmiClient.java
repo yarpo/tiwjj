@@ -5,6 +5,13 @@ import tiwjj.communication.*;
 import java.util.Vector;
 import tiwjj.playground.*;
 
+/**
+ * Klasa RmiClient implementujaca Runnable oraz IClient
+ * Pozwala na wymiane danych z serwerem poprzez RMI
+ * @author  Patryk yarpo Jar
+ * @date    6 - 01 - 2009
+ */
+
 public class RmiClient implements Runnable, IClient  {
 
     /**
@@ -87,6 +94,7 @@ public class RmiClient implements Runnable, IClient  {
         this(Settings.HOST, Settings.PORT);
     }
 
+
     /**
      * Sprawdza czy podany uzytkownik ma takie haslo
      *
@@ -108,6 +116,7 @@ public class RmiClient implements Runnable, IClient  {
 
      }
 
+     
     /**
      * Dolacz do gry. Zwraca numer druzyny, jaki dostalismy od serwera
      *

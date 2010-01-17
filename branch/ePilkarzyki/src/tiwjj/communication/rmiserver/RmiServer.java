@@ -6,6 +6,12 @@ import tiwjj.playground.Move;
 import tiwjj.communication.rmiserver.datasrc.IDataSource;
 import tiwjj.communication.rmiserver.datasrc.db.mysql.MySQLSrc;
 
+/**
+ * Klasa RmiServer implementuje RMIInterface
+ * Pozwala postawic serwer RMI zabezpieczony SSL
+ * @author  Patryk yarpo Jar
+ * @date    6 - 01 - 2009
+ */
 public class RmiServer implements RMIInterface {
 
     /**

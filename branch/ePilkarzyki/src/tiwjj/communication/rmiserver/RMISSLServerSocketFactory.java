@@ -7,11 +7,28 @@ import java.security.*;
 import javax.net.*;
 import javax.net.ssl.*;
 
-public class RMISSLServerSocketFactory
-    implements RMIServerSocketFactory {
+/**
+ * Klasa RMISSLClientSocketFactory implementujaca RMIClientSocketFactory oraz
+ * Serializable
+ * Pozwala na tworzenie bezpiecznego polaczenia miedzy serwerem a klientem
+  * @author  Patryk yarpo Jar
+ * @date    6 - 01 - 2009
+ */
+public class RMISSLServerSocketFactory implements RMIServerSocketFactory {
 
+    /**
+     * Obiet socketu serwera do akceptacji kolejnych klientow
+     */
     private ServerSocketFactory serverSocket;
 
+
+    /**
+     * Tworzy socket serwerowy zabezpieczony SSL
+     *
+     * @param port
+     *
+     * @return ServerSocket
+     */
     public ServerSocket createServerSocket(int port)
     {
         if (null == this.serverSocket)
