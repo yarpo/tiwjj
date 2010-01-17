@@ -42,6 +42,12 @@ public class RmiClient implements Runnable, IClient  {
      * Flaga dla update. Pierwszy update jest traktowany specjalnie
      */
     private boolean first = true;
+    
+
+    /**
+     * Flaga wskazujaca na stan watku update'u
+     */
+    private boolean stopped = false;
 
 
     /**
@@ -225,11 +231,9 @@ public class RmiClient implements Runnable, IClient  {
      */
     public boolean end()
     {
-        // TODO jakies cialo metody
-        // wyslac na serwer komunikat o tym, ze ten klient konczy gre
-        
         try
         {
+            this.stopped = true;
             this.wait(2);
             this.clientThread.stop();
             this.rmiServer.reset();
@@ -260,6 +264,11 @@ public class RmiClient implements Runnable, IClient  {
         {
             this.wait(1);
             this.first = false;
+        }
+
+        if (this.stopped)
+        {
+            return false;
         }
 
         try
@@ -318,6 +327,7 @@ public class RmiClient implements Runnable, IClient  {
         this.playground = p;
         this.clientThread = new Thread(this);
         this.clientThread.start();
+        this.stopped = false;
     }
 
 
@@ -327,6 +337,7 @@ public class RmiClient implements Runnable, IClient  {
     public void pause()
     {
         clientThread.suspend();
+        this.stopped = true;
     }
 
 
@@ -336,6 +347,7 @@ public class RmiClient implements Runnable, IClient  {
     public void resume()
     {
         clientThread.resume();
+        this.stopped = false;
     }
 
 }

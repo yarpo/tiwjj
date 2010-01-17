@@ -89,10 +89,17 @@ public class DrawPlayground {
         }
     }
 
+    
+    /**
+     * Ustawia kolor tla
+     *
+     * @param Color c
+     */
     public void setBgColor(Color c)
     {
         this.bgColor = c;
     }
+
 
     /**
      * Wyrysowuje punkty niekatywne
@@ -110,6 +117,7 @@ public class DrawPlayground {
         }
     }
 
+
     /**
      * Rysuje bramki
      */
@@ -122,6 +130,7 @@ public class DrawPlayground {
                                                            Size.GoalHeight);
     }
 
+    
     /**
      * Rysuje trawe i srodkowa linie
      */

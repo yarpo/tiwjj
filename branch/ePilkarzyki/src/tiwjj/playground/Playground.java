@@ -30,7 +30,8 @@ public class Playground extends Canvas {
      */
     private DrawPlayground view;
 
-    
+
+    private boolean running = true;
     /** 
      * Konstruktor
      *
@@ -115,31 +116,24 @@ public class Playground extends Canvas {
     }
 
 
+    /**
+     * Sprawdza czy jest goal
+     */
     private void matchesState()
-    {/*
+    {
         if (this.moves.winner(this.client.getMyTeam()))
         {
-            System.out.println("Wygrales");
+            this.running = false;
+            this.client.end();
+            javax.swing.JOptionPane.showMessageDialog(null, "Wygrałeś",
+              "Gratuluję", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
         else if (this.moves.loser(this.client.getMyTeam()))
         {
-            System.out.println("przegrales");
-        }*/
-
-        if (-1 != this.moves.goal())
-        {
-            System.out.println("GOAL");
-        }
-
-        if (this.moves.winner(this.client.getMyTeam()))
-        {
-            System.out.println("Wygrales");
+            this.running = false;
             this.client.end();
-        }
-        else if (this.moves.loser(this.client.getMyTeam()))
-        {
-            System.out.println("przegrales");
-            this.client.end();
+            javax.swing.JOptionPane.showMessageDialog(null, "Przegrałeś",
+              "Spróbuj ponownie", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -151,19 +145,23 @@ public class Playground extends Canvas {
      */
     public void addMove(Spot p)
     {
-        this.client.pause(); // zastopuj automatyczne pozyskiwanie danych
-
-        if (this.client.isMyTurn())
+        if (this.running)
         {
-            p = Spot.normalize(p);
+            this.client.pause(); // zastopuj automatyczne pozyskiwanie danych
 
-            if (this.moves.possible(p))
+            if (this.client.isMyTurn())
             {
-                this.addMove(new Move(Spot.lastSpot, p, this.client.getMyTeam()));
-            }
-        }
+                p = Spot.normalize(p);
 
-        this.client.resume(); // wznow dzialanie watku
+                if (this.moves.possible(p))
+                {
+                    this.addMove(new Move(Spot.lastSpot, p, this.client.
+                                                                  getMyTeam()));
+                }
+            }
+
+            this.client.resume(); // wznow dzialanie watku
+        }
     }
 
 
