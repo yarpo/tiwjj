@@ -24,6 +24,9 @@
         <message-bundle>tiwjj.ui.MyMessages</message-bundle>
     </application>
 
-
+    <validator>
+        <validator-id>tiwjj.EmailValidator</validator-id>
+        <validator-class>tiwjj.validate.EmailValidator</validator-class>
+    </validator>
 </faces-config>
 
