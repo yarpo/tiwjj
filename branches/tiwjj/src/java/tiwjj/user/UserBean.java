@@ -13,7 +13,7 @@ import java.util.Date;
 public class UserBean {
     
     private String name;
-    private Date birthday;
+    private String password;
     private String mail;
 
     /** Creates a new instance of UserBean */
@@ -34,20 +34,7 @@ public class UserBean {
         this.name = name;
     }
 
-    /**
-     * @return the birthday
-     */
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    /**
-     * @param birthday the birthday to set
-     */
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
+   
     /**
      * @return the mail
      */
@@ -60,6 +47,20 @@ public class UserBean {
      */
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

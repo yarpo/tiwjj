@@ -7,13 +7,31 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
     <navigation-rule>
-        <description>obsluga wyslania formularza</description>
-        <from-view-id>/greeting.jsp</from-view-id>
+        <description>Potwierdzenie formularza</description>
+        <from-view-id>/register.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>submit</from-outcome>
+            <to-view-id>/confirm.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>zapisanie formualrza</description>
+        <from-view-id>/confirm.jsp</from-view-id>
         <navigation-case>
             <from-outcome>submit</from-outcome>
             <to-view-id>/success.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+        <description>POwrot do edycji formularza</description>
+        <from-view-id>/confirm.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>reset</from-outcome>
+            <to-view-id>/register.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
     <managed-bean>
         <managed-bean-name>UserBean</managed-bean-name>
         <managed-bean-class>tiwjj.user.UserBean</managed-bean-class>
