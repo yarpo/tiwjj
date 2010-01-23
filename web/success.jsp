@@ -15,17 +15,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>Gratuluję</title>
     </head>
     <body>
-        <h1>GRatuluję</h1>
-
+        <h1>Gratuluję</h1>
+        <ul>
+            <li><a href="/tiwjj/faces/home.jsp">home</a></li>
+            <li><a href="/tiwjj/faces/applet.jsp">applet</a></li>
+            <li><a href="/tiwjj/faces/register.jsp">rejestracja</a></li>
+        </ul>
         <f:view>
             <h:form>
                 <p>Udało się zarejestrować</p>
                 <p>Twoje imię to : <h:outputText value="#{UserBean.name}"/></p>
-                <p>Urodziles się: <h:outputText value="#{UserBean.birthday}"/></p>
+                <p>E-mail: <h:outputText value="#{UserBean.mail}"/></p>
             </h:form>
         </f:view>
+                <p>
+                    <a href="/faces/greeting.jsp">POwrót na stronę główną</a>
+                </p>
     </body>
 </html>

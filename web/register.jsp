@@ -19,18 +19,20 @@
     </head>
     <body>
         <h1>Witaj na mojej stronie</h1>
-
+        <ul>
+            <li><a href="/tiwjj/faces/home.jsp">home</a></li>
+            <li><a href="/tiwjj/faces/applet.jsp">applet</a></li>
+            <li><a href="/tiwjj/faces/register.jsp">rejestracja</a></li>
+        </ul>
         <f:view>
             <h:form>
                 <p>Podaj swoje imię:
                     <h:inputText value="#{UserBean.name}" id="name" required="true"/>
                     <h:message for="name" style="color:red" />
                 </p>
-                <p>Podaj date urodzin swoich urodzin:
-                    <h:inputText value="#{UserBean.birthday}" id="birthday" required="true">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:inputText> (dd/mm/yyyy)
-                    <h:message for="birthday" style="color:red" />
+                <p>Podaj hasło:
+                    <h:inputSecret value="#{UserBean.password}" id="pass" required="true"/>
+                    <h:message for="pass" style="color:red" />
                 </p>
                 <p>Podaj email:
                     <h:inputText value="#{UserBean.mail}" id="email" required="true">
