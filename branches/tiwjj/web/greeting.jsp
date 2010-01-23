@@ -30,7 +30,13 @@
                     <h:inputText value="#{UserBean.birthday}" id="birthday" required="true">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:inputText> (dd/mm/yyyy)
-    <h:message for="birthday" style="color:red" />
+                    <h:message for="birthday" style="color:red" />
+                </p>
+                <p>Podaj email:
+                    <h:inputText value="#{UserBean.mail}" id="email" required="true">
+                        <f:validator validatorId="tiwjj.EmailValidator" />
+                    </h:inputText>
+                    <h:message for="email" style="color:red" />
                 </p>
                 <h:commandButton value="Submit" action="submit" />
             </h:form>

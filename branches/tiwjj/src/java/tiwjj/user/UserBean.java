@@ -14,6 +14,8 @@ public class UserBean {
     
     private String name;
     private Date birthday;
+    private String mail;
+
     /** Creates a new instance of UserBean */
     public UserBean() {
     }
@@ -44,6 +46,20 @@ public class UserBean {
      */
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    /**
+     * @return the mail
+     */
+    public String getMail() {
+        return mail;
+    }
+
+    /**
+     * @param mail the mail to set
+     */
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
 }
