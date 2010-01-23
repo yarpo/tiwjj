@@ -14,6 +14,16 @@
             <to-view-id>/confirm.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+        <description>Błąd przy próbie dodanie informacji do bazy danych</description>
+        <from-view-id>/confirm.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>fail</from-outcome>
+            <to-view-id>/fail.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
     <navigation-rule>
         <description>zapisanie formualrza</description>
         <from-view-id>/confirm.jsp</from-view-id>
@@ -24,7 +34,7 @@
     </navigation-rule>
 
     <navigation-rule>
-        <description>POwrot do edycji formularza</description>
+        <description>Powrot do edycji formularza</description>
         <from-view-id>/confirm.jsp</from-view-id>
         <navigation-case>
             <from-outcome>reset</from-outcome>

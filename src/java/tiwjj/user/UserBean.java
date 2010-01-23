@@ -61,6 +61,11 @@ public class UserBean {
     {
         UserSaver uSaver = new UserSaver();
         int result = uSaver.save(name, password, mail);
-        return "success";
+
+        if (UserSaver.Result.OK == result)
+        {
+            return "success";
+        }
+        return "fail";
     }
 }
