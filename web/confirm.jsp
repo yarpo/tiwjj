@@ -40,7 +40,7 @@
                 </h:inputHidden>
                 <h:message for="email" style="color:red" />
                 
-                <h:commandButton value="Potwierdź" action="submit" />
+                <h:commandButton value="Potwierdź" action="#{UserBean.saveData}" />
                 <h:commandButton value="Wróć" action="reset" />
             </h:form>
         </f:view>

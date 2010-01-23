@@ -1,11 +1,5 @@
 package tiwjj.user;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-import java.util.Date;
 /**
  *
  * @author asus
@@ -63,4 +57,10 @@ public class UserBean {
         this.password = password;
     }
 
+    public String saveData()
+    {
+        UserSaver uSaver = new UserSaver();
+        int result = uSaver.save(name, password, mail);
+        return "success";
+    }
 }

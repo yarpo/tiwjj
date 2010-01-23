@@ -15,7 +15,7 @@
         <title>Technologie Internetowe w Języku Java</title>
     </head>
     <body>
-        <h1>Aplet</h1>
+        <h1>Applet</h1>
          <ul>
             <li><a href="/tiwjj/faces/home.jsp">home</a></li>
             <li><a href="/tiwjj/faces/applet.jsp">applet</a></li>
