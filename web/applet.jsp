@@ -34,7 +34,7 @@
             <ul>
                 <li>Gra jest turowa</li>
                 <li>Można wykonać co najmniej jeden ruch</li>
-                <li>Jeśli twój ruch sprawi, że końcowy punkt znajdzie się na linii, albo w puncie, gdziejuz wczesniej ktos byl - ruszasz ponownie.</li>
+                <li>Jeśli twój ruch sprawi, że końcowy punkt znajdzie się na linii, albo w puncie, gdzie już wcześniej ktoś był - ruszasz ponownie</li>
                 <li>Należy strzelić bramkę przeciwnikowi</li>
             </ul>
         </div>
