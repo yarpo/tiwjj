@@ -27,7 +27,7 @@
         </div>
 
         <div id="content">
-            <p>Tu umiescic applet</p>
+            <p><applet ARCHIVE="applet/SePilkarzyki.jar" CODE="tiwjj/Main.class" WIDTH="270" HEIGHT="350"></applet></p>
         </div>
 
         <div id="footer">
