@@ -31,6 +31,13 @@ public class MySQLConnector {
         }
     }
 
+    /**
+     * Zabezpieczenie przed SQLinjection
+     *
+     * @param String q
+     *
+     * return String
+     */
     private String escape(String q)
     {
         String cleanSQL = q.replace("'", "\\'");
@@ -39,9 +46,15 @@ public class MySQLConnector {
         return cleanSQL;
     }
 
+    /**
+     * Wykonuje zapytanie do bd
+     *
+     * @param String q
+     *
+     * @return ResultSet
+     */
     private ResultSet query(String q)
     {
-        System.out.println("Zapytanie: " + q);
         ResultSet result = null;
         try
         {
@@ -55,6 +68,15 @@ public class MySQLConnector {
         return result;
     }
 
+    /**
+     * Dodaje nowego usera do bd
+     *
+     * @param name
+     * @param password
+     * @param mail
+     *
+     * @return boolean
+     */
     public boolean addUser(String name, String password, String mail)
     {
         int result = 0;
@@ -73,16 +95,16 @@ public class MySQLConnector {
         return (result > 0);
     }
 
+    /**
+     * Pobiera uzytkownika o zadanym loginie i hasle
+     *
+     * @param name
+     * @param password
+     *
+     * @return ResutlSet
+     */
     public ResultSet getUser(String name, String pass)
     {
-        System.out.println("SELECT name, password " +
-                "FROM " +
-                "   users " +
-                "WHERE " +
-                "   name = '" + this.escape(name) + "'" +
-                "AND " +
-                "   password = '" + this.escape(pass) +"'");
-
         ResultSet result =
             this.query(
                 "SELECT name, password " +
@@ -96,6 +118,13 @@ public class MySQLConnector {
         return result;
     }
 
+    /**
+     * Pobiera jednego usera o konretnym loginie
+     *
+     * @param name
+     *
+     * @return ResultSet
+     */
     public ResultSet getUserByName(String name)
     {
         ResultSet result =

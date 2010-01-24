@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package tiwjj.user;
 
 import java.sql.ResultSet;
@@ -11,16 +6,33 @@ import tiwjj.db.Settings;
 
 /**
  *
- * @author asus
+ * @author Patryk Jar
  */
 public class UserSaver {
 
+    /**
+     * Statyczna klasa ze stalymi - wyniki zwracane przez funkcje
+     */
     public static final class Result {
+        /**
+         * Wszystko poszlo dobrze
+         */
         public static final int OK = 1;
+
+        /**
+         * Cos poszlo nie tak [blad bazy danych, itp.]
+         */
         public static final int FAIL = -1;
+
+        /**
+         * Email zduplikowany - nie dodalo
+         */
         public static final int DUPLICATED = 0;
     }
 
+    /**
+     * Polaczenie z bd
+     */
     private MySQLConnector db = new MySQLConnector(Settings.host,
                                                    Settings.user,
                                                    Settings.pass);

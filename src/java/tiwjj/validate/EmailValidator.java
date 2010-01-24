@@ -15,10 +15,19 @@ import javax.faces.validator.ValidatorException;
 
 /**
  *
- * @author asus
+ * @author Patryk Jar
  */
 public class EmailValidator implements Validator {
 
+    /**
+     * Sprawdza poprawnosc adresu e-mail
+     *
+     * @param FacesContext context,
+     * @param UIComponent component,
+     * @param Object value
+     *
+     * @throw ValidatorException
+     */
     public void validate(FacesContext context, UIComponent component,
                                                         Object value)
                                                   throws ValidatorException {
