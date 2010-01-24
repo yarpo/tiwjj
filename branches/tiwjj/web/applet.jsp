@@ -1,7 +1,7 @@
-<%-- 
-    Document   : home
+<%--
+    Document   : applet
     Created on : 2010-01-23, 16:21:22
-    Author     : asus
+    Author     : Patryk Jar
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,14 +12,29 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Technologie Internetowe w Języku Java</title>
+        <title>Technologie Internetowe w Języku Java - applet</title>
     </head>
     <body>
-        <h1>Applet</h1>
-         <ul>
-            <li><a href="/tiwjj/faces/home.jsp">home</a></li>
-            <li><a href="/tiwjj/faces/applet.jsp">applet</a></li>
-            <li><a href="/tiwjj/faces/register.jsp">rejestracja</a></li>
-        </ul>
+
+        <div id="top">
+            <h1>Applet</h1>
+            <ul>
+                <li><a href="/tiwjj/faces/home.jsp">home</a></li>
+                <li><a href="/tiwjj/faces/applet.jsp">applet</a></li>
+                <li><a href="/tiwjj/faces/register.jsp">rejestracja</a></li>
+            </ul>
+            <br style="clear: both"/>
+        </div>
+
+        <div id="content">
+            <p>Tu umiescic applet</p>
+        </div>
+
+        <div id="footer">
+            <p>&copy; Copyright by yarpo 2010</p>
+
+        </div>
+
+
     </body>
 </html>

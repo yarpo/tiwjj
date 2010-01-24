@@ -9,6 +9,7 @@ public class UserBean {
     private String name;
     private String password;
     private String mail;
+    private String hashedPassword;
 
     /** Creates a new instance of UserBean */
     public UserBean() {
@@ -48,6 +49,26 @@ public class UserBean {
      */
     public String getPassword() {
         return password;
+    }
+
+    public void setHashedPassword(String p) {
+        hashedPassword = p;
+    }
+
+
+    /**
+     * Zwraca ciag gwiazdek o dlugosci takiej jak podane haslo
+     */
+    public String getHashedPassword() {
+        int n = password.length();
+        hashedPassword = "";
+
+        for(int i=0; i< n; i++)
+        {
+            hashedPassword += "*";
+        }
+
+        return hashedPassword;
     }
 
     /**
