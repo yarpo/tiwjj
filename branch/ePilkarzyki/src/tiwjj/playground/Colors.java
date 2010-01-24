@@ -53,13 +53,13 @@ public class Colors {
 
 
     /**
-     * Kolor bramek
-     */
-    public static final Color Goals = new Color(255, 255, 255);
-
-
-    /**
      * Tablica kolorow druzyn
      */
     public static final Color [] Teams = {new Color(0,0,0), new Color(255,255,255)};
+
+    
+     /**
+     * Kolor bramek
+     */
+    public static final Color Goals = new Color(0,0,0);
 }
