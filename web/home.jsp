@@ -11,13 +11,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <title>Technologie Internetowe w Języku Java</title>
     </head>
     <body>
 
         <div id="top">
-            <h1>Patryk Jar - 109174</h1>
+            <h1>ePilkarzyki - pilka jest okrągła, a bramki są dwie</h1>
             <ul>
                 <li><a href="/tiwjj/faces/home.jsp">home</a></li>
                 <li><a href="/tiwjj/faces/applet.jsp">applet</a></li>
@@ -27,7 +27,14 @@
         </div>
 
         <div id="content">
-            <p>Tu tresc</p>
+
+            <h1>Witaj na stronie</h1>
+
+            <p>Jest to strona stworzona z wykorzystaniem JSF.</p>
+
+            <p>W zakładce 'applet' znajdziesz zagnieżdżopny applet symulujący popularną grę "piłkarzyki" na kartce</p>
+
+            <p><b>Autor:</b> Patryk Jar - 109174</p>
         </div>
 
         <div id="footer">

@@ -5,12 +5,13 @@
 
 body {
 	font-family: Verdana, Arial, sans-serif;
+        background: rgb(230, 230, 230);
 }
 
 #top {
 	margin: 1em 10% 1em 0;
 	padding-left: 1em;
-	background: url(img/1.png) 0 0 repeat-x;
+	background: url(../img/1.png) 0 0 repeat-x;
 	border: 3px solid #fff;
 	border-left: 0;
     font-family: Arial,Helvetica,sans-serif;
@@ -54,11 +55,19 @@ body {
 	border-right: 0;
 }
 
+#content h1 {
+    padding: 0.5em;
+}
+
+#content p {
+    padding: 0.75em 2em;
+}
+
 #footer {
 	padding: 1em;
 	text-align: center;
 	margin: 1em 10% 0 10%;
-	background: url(img/1.png) 0 0 repeat-x;
+	background: url(../img/1.png) 0 0 repeat-x;
 	border: 3px solid #fff;
 	border-bottom: 0;
 }
