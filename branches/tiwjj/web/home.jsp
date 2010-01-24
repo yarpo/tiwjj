@@ -17,7 +17,7 @@
     <body>
 
         <div id="top">
-            <h1>ePilkarzyki - pilka jest okrągła, a bramki są dwie</h1>
+            <h1>ePilkarzyki - piłka jest okrągła, a bramki są dwie</h1>
             <ul>
                 <li><a href="/tiwjj/faces/home.jsp">home</a></li>
                 <li><a href="/tiwjj/faces/applet.jsp">applet</a></li>

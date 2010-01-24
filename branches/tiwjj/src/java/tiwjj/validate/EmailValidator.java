@@ -22,22 +22,14 @@ public class EmailValidator implements Validator {
     public void validate(FacesContext context, UIComponent component,
                                                         Object value)
                                                   throws ValidatorException {
-        //Get the component's contents and cast it to a String
         String enteredEmail = (String)value;
-
-        //Set the email pattern string
         Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-
-        //Match the given string with the pattern
         Matcher m = p.matcher(enteredEmail);
 
-        //Check whether match is found
-        boolean matchFound = m.matches();
-
-        if (!matchFound) {
+        if (!m.matches()) {
             FacesMessage message = new FacesMessage();
-            message.setDetail("Email not valid - The email must be in the format yourname@yourdomain.com");
-            message.setSummary("Email not valid - The email must be in the format yourname@yourdomain.com");
+            message.setDetail("Nieprawidłowy adres email.  Prawidłowy format: nick@serwer.pl");
+            message.setSummary("Nieprawidłowy adres email.  Prawidłowy format: nick@serwer.pl");
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(message);
         }
