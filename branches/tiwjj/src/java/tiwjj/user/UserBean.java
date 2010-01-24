@@ -1,13 +1,29 @@
 package tiwjj.user;
 /**
+ * Bean dla formularza rejestracyjnego
  *
- * @author asus
+ * @author Patryk Jar
  */
 public class UserBean {
-    
+
+    /**
+     * Login
+     */
     private String name;
+
+    /**
+     * haslo
+     */
     private String password;
+
+    /**
+     * adres email
+     */
     private String mail;
+
+    /**
+     * zahashowane haslo - same gwiazdki. DLugosc rowna password.length()
+     */
     private String hashedPassword;
 
     /** Creates a new instance of UserBean */
@@ -77,6 +93,9 @@ public class UserBean {
         this.password = password;
     }
 
+    /**
+     * Zapisuje dane
+     */
     public String saveData()
     {
         UserSaver uSaver = new UserSaver();
