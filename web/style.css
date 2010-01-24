@@ -1,64 +1,64 @@
+* {
+	margin: 0;
+	padding: 0;
+}
 
 body {
-   font-family: Verdana, Arial, sans-serif;
-   font-size: smaller;
-   padding: 50px;
-   color: #555;
-   width: 650px;
+	font-family: Verdana, Arial, sans-serif;
 }
 
-h1 {
-   letter-spacing: 6px;
-   font-size: 1.6em;
-   color: #be7429;
-   font-weight: bold;
+#top {
+	margin: 1em 10% 1em 0;
+	padding-left: 1em;
+	background: url(img/1.png) 0 0 repeat-x;
+	border: 3px solid #fff;
+	border-left: 0;
+    font-family: Arial,Helvetica,sans-serif;
 }
 
-h2 {
-   text-align: left;
-   letter-spacing: 6px;
-   font-size: 1.4em;
-   color: #be7429;
-   font-weight: normal;
-   width: 450px;
+#top h1 {
+	padding: 1em 0;
 }
 
-table {
-   width: 550px;
-   padding: 10px;
-   background-color: #c5e7e0;
-  font-family: sans-serif;
+#top ul {
+	float: left;
 }
 
-td {
-   padding: 10px;
+#top ul li {
+	float: left;
+	list-style-type: none;
 }
 
-a {
-  color: #be7429;
-  text-decoration: none;
+#top ul li a {
+	color: #fff;
+	background: #000;
+	display: block;
+	padding: 5px;
+	margin: 5px 5px -3px 5px;
+	text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
+#top ul li a:hover {
+	color: #000;
+	background: #fff;
+	margin-top: 0;
+	padding: 6px 5px 2px 5px;
+	border-top: 4px solid #000;
+	border-bottom: 3px solid #000;
 }
 
-.popupBox {
-  position: absolute;
-  top: 170px;
-  left: 140px;
+#content {
+	margin: 1em 0 1em 10%;
+	background: #6d6dd9;
+	border: 3px solid #fff;
+	border-right: 0;
 }
 
-.popupCell {
-   background-color: #fffafa;
-}
-
-.popupCell:hover {
-  background-color: #f5ebe9;
-}
-
-.popupItem {
-  color: #333;
-  text-decoration: none;
-  font-size: 1.2em;
+#footer {
+	padding: 1em;
+	text-align: center;
+	margin: 1em 10% 0 10%;
+	background: url(img/1.png) 0 0 repeat-x;
+	border: 3px solid #fff;
+	border-bottom: 0;
 }
