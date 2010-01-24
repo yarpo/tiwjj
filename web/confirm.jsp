@@ -30,9 +30,9 @@
         </div>
 
         <div id="content">
+            <h1>Podałeś takie dane:</h1>
             <f:view>
                 <h:form>
-                    <p>Podałeś takie dane:</p>
                     <ul>
                         <li>Login : <h:outputText value="#{UserBean.name}"/></li>
                         <li>Email : <h:outputText value="#{UserBean.mail}"/></li>

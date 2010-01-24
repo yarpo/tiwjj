@@ -32,7 +32,7 @@
 
             <p>Jest to strona stworzona z wykorzystaniem JSF.</p>
 
-            <p>W zakładce 'applet' znajdziesz zagnieżdżopny applet symulujący popularną grę "piłkarzyki" na kartce</p>
+            <p>W zakładce 'applet' znajdziesz zagnieżdżony applet symulujący popularną grę "piłkarzyki" na kartce</p>
 
             <p><b>Autor:</b> Patryk Jar - 109174</p>
         </div>

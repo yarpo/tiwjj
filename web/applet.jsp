@@ -27,7 +27,16 @@
         </div>
 
         <div id="content">
-            <p><applet ARCHIVE="applet/SePilkarzyki.jar" CODE="tiwjj/Main.class" WIDTH="270" HEIGHT="350"></applet></p>
+            <h1>Zagraj</h1>
+            <applet ARCHIVE="applet/SePilkarzyki.jar" CODE="tiwjj/Main.class" WIDTH="270" HEIGHT="350"></applet>
+
+            <p><b>Zasady:</b></p>
+            <ul>
+                <li>Gra jest turowa</li>
+                <li>Można wykonać co najmniej jeden ruch</li>
+                <li>Jeśli twój ruch sprawi, że końcowy punkt znajdzie się na linii, albo w puncie, gdziejuz wczesniej ktos byl - ruszasz ponownie.</li>
+                <li>Należy strzelić bramkę przeciwnikowi</li>
+            </ul>
         </div>
 
         <div id="footer">
