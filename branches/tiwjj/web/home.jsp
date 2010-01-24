@@ -32,9 +32,6 @@
 
         <div id="footer">
             <p>&copy; Copyright by yarpo 2010</p>
-
         </div>
-
-        
     </body>
 </html>
