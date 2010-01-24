@@ -20,7 +20,7 @@ public class Settings {
     public static final String  HOST = "localhost";
 
 
-    public static final String CODEBASE = "file:/C:/Users/yarpo/Documents/NetBeansProjects/ePilkarzyki/build/classes/";
+    public static final String CODEBASE = "file:/D:/netbeans/ePilkarzyki/build/classes/";
 
 
     /**
