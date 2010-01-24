@@ -22,6 +22,10 @@ public class Settings {
 
     public static final String CODEBASE = "file:/D:/netbeans/ePilkarzyki/build/classes/";
 
+    public static final String POLICY = "D:/netbeans/ePilkarzyki/policy";
+
+    public static final String NAME = "rmiServer";
+
 
     /**
      * Statyczna klasa zawierajaca dane do szyfrowanego polaczenia SSL
@@ -44,13 +48,13 @@ public class Settings {
         /**
          * Sciezka do pliku z kluczem publicznym
          */
-        public static final String  KEY_File   = ".keystore";
+        public static final String  KEY_File   = "D:/netbeans/ePilkarzyki/.keystore";
 
 
         /**
          * Sciezka do pliku z kluczem prywatnym
          */
-        public static final String  TRU_File   = ".truststore";
+        public static final String  TRU_File   = "D:/netbeans/ePilkarzyki/.truststore";
     }
 
 }

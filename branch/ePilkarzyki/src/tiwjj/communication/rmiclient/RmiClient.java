@@ -66,8 +66,8 @@ public class RmiClient implements Runnable, IClient  {
     public RmiClient(String host, int port)
     {
 
-        System.setProperty("java.security.policy", "policy");
-        System.setProperty("javax.net.ssl.trustStore", ".truststore");
+        System.setProperty("java.security.policy", Settings.POLICY);
+        System.setProperty("javax.net.ssl.trustStore", Settings.SSL.TRU_File);
 
 	if (System.getSecurityManager() == null) {
 	    System.setSecurityManager(new SecurityManager());
@@ -76,7 +76,7 @@ public class RmiClient implements Runnable, IClient  {
         try
         {
            this.registry = LocateRegistry.getRegistry(host, port);
-           this.rmiServer = (RMIInterface)(registry.lookup("rmiServer"));
+           this.rmiServer = (RMIInterface)(registry.lookup(Settings.NAME));
         }
         catch(Exception e)
         {

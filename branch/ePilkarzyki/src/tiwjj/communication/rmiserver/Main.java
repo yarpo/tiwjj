@@ -20,12 +20,12 @@ public class Main {
      */
     static public void main(String args[])
     {
-        System.setProperty("java.security.policy", "policy");
+        System.setProperty("java.security.policy", Settings.POLICY);
         System.setProperty("java.rmi.server.codebase", Settings.CODEBASE);
-        System.setProperty("java.rmi.server.hostname", "localhost");
+        System.setProperty("java.rmi.server.hostname", Settings.HOST);
 
-        System.setProperty("javax.net.ssl.keyStore", ".keyword");
-        System.setProperty("javax.net.ssl.keyStorePassword", "keyword");
+        System.setProperty("javax.net.ssl.keyStore", Settings.SSL.KEY_File);
+        System.setProperty("javax.net.ssl.keyStorePassword", Settings.SSL.KEYWORD);
 
 	if (null == System.getSecurityManager())
         {
@@ -45,7 +45,7 @@ public class Main {
 
 	    LocateRegistry.createRegistry(Settings.PORT);
 	    Registry registry = LocateRegistry.getRegistry(Settings.PORT);
-	    registry.rebind("rmiServer", stub);
+	    registry.rebind(Settings.NAME, stub);
             System.out.println("Host: " + InetAddress.getLocalHost()
                                                             .toString());
 	    System.out.println("port: " + Settings.PORT);
