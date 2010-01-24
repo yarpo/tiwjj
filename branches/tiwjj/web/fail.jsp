@@ -27,6 +27,7 @@
         </div>
 
         <div id="content">
+            <h1>Podczas rejestracji wystąpił błąd</h1>
             <p>Spróbuj ponownie</p>
         </div>
 

@@ -14,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <title>Technologie Internetowe w Języku Java - Udało się zarejesrtować</title>
     </head>
     <body>
@@ -32,7 +32,7 @@
         <div id="content">
             <f:view>
                 <h:form>
-                    <p>Udało się zarejestrować</p>
+                    <h1>Udało się zarejestrować</h1>
                     <p>Twoje imię to : <h:outputText value="#{UserBean.name}"/></p>
                     <p>E-mail: <h:outputText value="#{UserBean.mail}"/></p>
                 </h:form>

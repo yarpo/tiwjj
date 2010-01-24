@@ -31,6 +31,7 @@
         </div>
 
         <div id="content">
+            <h1>Proszę wypełnić formularz</h1>
             <f:view>
                 <h:form>
                     <p>Login:
