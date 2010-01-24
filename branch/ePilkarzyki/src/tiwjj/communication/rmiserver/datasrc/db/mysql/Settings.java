@@ -10,7 +10,7 @@ package tiwjj.communication.rmiserver.datasrc.db.mysql;
  * @author yarpo
  */
 public class Settings {
-    public final static String host = "jdbc:mysql://localhost/JunkDB";
+    public final static String host = "jdbc:mysql://localhost/junkdb";
     public final static String user = "root";
-    public final static String pass = "123";
+    public final static String pass = "";
 }
